@@ -1,0 +1,26 @@
+What it takes to go live.
+
+Here is the summary. The full document behind the link has the line by line
+pricing schedule, the API objects we mapped, and the two week build plan. It
+comes from me, the person who was on the call, not a proposal team who was not.
+
+NORTHWIND TITLE, INTEGRATION ESTIMATE
+Scope: Embedded payouts for agent commissions, ACH and RTP, with your platform
+as the ledger of record.
+Integration estimate: Three to four weeks. Two weeks of build, one week in
+sandbox, one week phased to production.
+Pricing model at your volume: Interchange plus, with payout pricing flat per
+transaction. Full schedule in the document.
+Still open: Whether commission splits settle same day or next day. That changes
+the rail, not the build.
+
+Open the full document: [link]
+
+Your sandbox is still live with the objects we built together. Nothing expires.
+
+If a number in there is wrong, tell me which one.
+
+Alex Navarro
+Solutions Engineering, Payload
+
+Payload, LLC, Cincinnati, Ohio

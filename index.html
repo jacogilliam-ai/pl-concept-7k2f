@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payload demo page, concept build | Jacob Gilliam</title>
+<meta name="description" content="A working /demo page, booking page and lifecycle for payload.com. Concept work by Jacob Gilliam.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1d4f66">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  /* --- sampled from payload.com, 15-16 Sept 2026 --- */
+  --nav:#1d4f66;
+  --brand-hero-a:#1b6181;
+  --brand-hero-b:#22789e;
+  --deep:#17455a;
+  --pale:#c7ebf7;
+  --pale-dim:#e2f4fb;
+  --blue:#11c0ee;
+  --green:#76f4b2;
+  --ink:#212529;
+  --ink-2:#4b5559;
+  --ink-3:#6c757d;
+  --paper:#fafdff;
+  --paper-2:#f2f9fb;
+  --line:#dee2e6;
+
+  /* --- derived. Sampled hero darkened ~6% so 13-16px pale text clears 4.5:1.
+         Sampled CTA gradient ended at #46a2b8, which put the label at 3.7:1. --- */
+  --hero-a:#17516d;
+  --hero-b:#1d6b8c;
+  --hero-c:#1b6485;
+  --cta-a:#76f4b2;
+  --cta-b:#4fc3bd;
+  --cta-ink:#0b2f3a;
+  --teal-ink:#0b7791;
+  --green-ink:#27886a;
+  --danger:#c0392b;
+  --danger-bg:#fdf0ee;
+  --amber:#e0ab55;
+  --amber-ink:#8a5a12;
+
+  /* --- type scale, ratio ~1.2. --t-0 is mono UI chrome only (chips, status badges) --- */
+  --t-0:10px; --t-1:12px; --t-2:14px; --t-3:16px; --t-4:19px;
+  --t-5:23px; --t-6:29px; --t-7:36px; --t-8:45px;
+  --lh-tight:1.12; --lh-snug:1.28; --lh-body:1.55;
+  --track-label:.12em;
+
+  /* --- space --- */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px;
+
+  --radius:5px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --dots:radial-gradient(rgba(199,235,247,.16) 1px,transparent 1px);
+  --dots-light:radial-gradient(rgba(27,97,129,.13) 1px,transparent 1px);
+}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Lato,-apple-system,Helvetica,Arial,sans-serif;
+  font-size:var(--t-3);line-height:var(--lh-body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding:var(--s-9) 44px}
+:where(a,button):focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+.lbl{font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
+  text-transform:uppercase;line-height:1.4;margin:0}
+.kicker{color:var(--teal-ink);margin-bottom:var(--s-4)}
+h1{font-size:var(--t-7);font-weight:900;line-height:var(--lh-tight);letter-spacing:-.024em;
+  margin:0 0 var(--s-4);color:var(--ink);max-width:22ch;text-wrap:balance}
+.lead{font-size:var(--t-4);line-height:1.5;color:var(--ink-2);margin:0 0 var(--s-8);max-width:60ch}
+.lead b{color:var(--ink);font-weight:700}
+.items{display:grid;gap:var(--s-4);margin:0 0 var(--s-8)}
+.item{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s-4);align-items:center;
+  padding:var(--s-5);background:#fff;border:1px solid #dbe9ee;border-radius:6px;
+  text-decoration:none;box-shadow:0 1px 3px rgba(27,97,129,.07);
+  transition:border-color .14s,box-shadow .14s,transform .14s}
+.item:hover{border-color:var(--teal-ink);box-shadow:0 8px 24px rgba(27,97,129,.13);transform:translateY(-1px)}
+.item .n{font-family:var(--mono);font-size:var(--t-2);color:var(--teal-ink)}
+.item h2{margin:0 0 3px;font-size:var(--t-5);font-weight:900;letter-spacing:-.018em;color:var(--ink);line-height:1.3}
+.item p{margin:0;font-size:var(--t-2);line-height:1.5;color:var(--ink-3)}
+.item .go{font-size:var(--t-2);font-weight:700;color:var(--teal-ink);white-space:nowrap}
+.note{padding-top:var(--s-5);border-top:1px solid #cfdfe5}
+.note p{margin:0 0 var(--s-3);font-size:var(--t-2);line-height:1.65;color:var(--ink-2);max-width:68ch}
+.note p:last-child{margin-bottom:0}
+.note b{color:var(--ink)}
+@media (max-width:660px){
+  :root{--t-7:27px;--t-5:19px;--t-4:17px}
+  .wrap{padding:var(--s-7) 22px}
+  .item{grid-template-columns:1fr;gap:var(--s-2)}
+  .item .go{display:none}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p class="lbl kicker">Concept build &middot; September 2026</p>
+  <h1>The demo page payload.com does not have.</h1>
+  <p class="lead">A teardown of payload.com found that every conversion action on the site is a modal with no URL, so there is nothing to advertise to, measure or link. <b>This is the page that fixes that</b>, plus the booking screen behind it and the seven emails that follow. Built by Jacob Gilliam. Three links, roughly ten minutes.</p>
+
+  <div class="items">
+    <a class="item" href="demo.html">
+      <span class="n">01</span>
+      <span><h2>The demo page</h2><p>Four screen form, qualification gate, and a reasoning layer you can toggle on.</p></span>
+      <span class="go">Open &rarr;</span>
+    </a>
+    <a class="item" href="thanks.html">
+      <span class="n">02</span>
+      <span><h2>The booking screen</h2><p>Where the calendar lives, and where the gate explains itself if it declines you.</p></span>
+      <span class="go">Open &rarr;</span>
+    </a>
+    <a class="item" href="lifecycle.html">
+      <span class="n">03</span>
+      <span><h2>Everything after the submit</h2><p>Four paths, seven hand coded emails, and the reasoning behind each decision.</p></span>
+      <span class="go">Open &rarr;</span>
+    </a>
+  </div>
+
+  <div class="note">
+    <p><b>Start with the demo page and click the button in the bottom right.</b> It turns on an annotation layer that explains what each element is doing and which teardown finding it answers. The lifecycle page is the one worth reading if you only read one.</p>
+    <p>Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Customer logos and the testimonial are Payload's own published assets, used to illustrate a layout. Sample recipient and availability data throughout.</p>
+  </div>
+</main>
+</body>
+</html>

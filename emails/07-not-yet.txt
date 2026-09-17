@@ -1,0 +1,33 @@
+You are earlier than a demo, Dana.
+
+Pre-launch and still deciding is the one case where thirty minutes with an
+engineer produces a conversation and no decisions, because the answers depend on
+things you have not picked yet. Two of them, specifically.
+
+WHAT COMES FIRST
+01 Which side of the close you start on. Earnest money, commission disbursements and vendor payables each carry different rules. Whichever you build first sets the licensing.
+02 How many parties split a payment. One party is a different build
+   to three, and it is the question every timeline estimate depends on.
+
+Answer those two and a demo is worth booking. Reply with where you land and I
+will put the thirty minutes in myself, no form.
+
+IN THE MEANTIME
+The page said sandbox credentials the same day whether or not you move forward,
+so they are on their way to this address.
+Checkout: https://docs.payload.com/v2/pay/checkout
+Payouts: https://docs.payload.com/v2/pay/sending-payouts
+
+WORTH READING WHILE YOU DECIDE
+- Earnest money, automated: How eXp Realty moved deposits onto one rail.
+  https://payload.com/articles/exp-realty--payload-a-unified-digital-payments-experience-for-real-estate
+- Good funds, guaranteed: What Payload Protect does about irrevocability.
+  https://payload.com/articles/payload-protect
+
+Alex Navarro
+Solutions Engineering, Payload
+
+This is the only email you get from me until you reply.
+
+Payload, LLC, Cincinnati, Ohio
+Stop these emails: [unsubscribe]

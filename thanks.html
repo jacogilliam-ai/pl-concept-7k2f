@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pick your time | Payload</title>
+<meta name="description" content="Your demo request is in. Pick the slot that works and it lands on the engineer's calendar.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1d4f66">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  /* --- sampled from payload.com, 15-16 Sept 2026 --- */
+  --nav:#1d4f66;
+  --brand-hero-a:#1b6181;
+  --brand-hero-b:#22789e;
+  --deep:#17455a;
+  --pale:#c7ebf7;
+  --pale-dim:#e2f4fb;
+  --blue:#11c0ee;
+  --green:#76f4b2;
+  --ink:#212529;
+  --ink-2:#4b5559;
+  --ink-3:#6c757d;
+  --paper:#fafdff;
+  --paper-2:#f2f9fb;
+  --line:#dee2e6;
+
+  /* --- derived. Sampled hero darkened ~6% so 13-16px pale text clears 4.5:1.
+         Sampled CTA gradient ended at #46a2b8, which put the label at 3.7:1. --- */
+  --hero-a:#17516d;
+  --hero-b:#1d6b8c;
+  --hero-c:#1b6485;
+  --cta-a:#76f4b2;
+  --cta-b:#4fc3bd;
+  --cta-ink:#0b2f3a;
+  --teal-ink:#0b7791;
+  --green-ink:#27886a;
+  --danger:#c0392b;
+  --danger-bg:#fdf0ee;
+  --amber:#e0ab55;
+  --amber-ink:#8a5a12;
+
+  /* --- type scale, ratio ~1.2. --t-0 is mono UI chrome only (chips, status badges) --- */
+  --t-0:10px; --t-1:12px; --t-2:14px; --t-3:16px; --t-4:19px;
+  --t-5:23px; --t-6:29px; --t-7:36px; --t-8:45px;
+  --lh-tight:1.12; --lh-snug:1.28; --lh-body:1.55;
+  --track-label:.12em;
+
+  /* --- space --- */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px;
+
+  --radius:5px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --dots:radial-gradient(rgba(199,235,247,.16) 1px,transparent 1px);
+  --dots-light:radial-gradient(rgba(27,97,129,.13) 1px,transparent 1px);
+}
+*{box-sizing:border-box}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Lato,-apple-system,Helvetica,Arial,sans-serif;
+  font-size:var(--t-3);line-height:var(--lh-body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:44px}
+:where(a,button):focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+
+.site-head{background:var(--nav)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:var(--s-4);gap:var(--s-4)}
+.logo{display:inline-flex;align-items:center;gap:2px;text-decoration:none;font-weight:900;
+  font-size:var(--t-5);color:var(--pale);letter-spacing:-.01em}
+.logo .brace{color:var(--green);font-weight:400;font-size:var(--t-6);line-height:1}
+.head-link{color:var(--pale);font-size:var(--t-2);text-decoration:none;
+  border-bottom:1px solid rgba(199,235,247,.4);padding-bottom:1px}
+
+.hero{background:linear-gradient(145deg,var(--hero-a) 0%,var(--hero-b) 58%,var(--hero-c) 100%);
+  position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:var(--dots);background-size:22px 22px;opacity:.5}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 452px;
+  column-gap:var(--s-7);padding-block:var(--s-6);align-items:start}
+.hero-copy{min-width:0;display:flex;flex-direction:column}
+.stamp{display:inline-flex;align-items:center;gap:var(--s-2);align-self:flex-start;margin:0 0 var(--s-5);
+  border:1px solid rgba(118,244,178,.45);border-radius:99px;padding:6px 14px 6px 8px;
+  font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
+  text-transform:uppercase;color:var(--green)}
+.stamp .tick{width:18px;height:18px;border-radius:50%;background:var(--green);
+  display:grid;place-items:center;flex:0 0 18px}
+.stamp .tick svg{width:10px;height:10px;stroke:var(--cta-ink);fill:none;stroke-width:3.4;
+  stroke-linecap:round;stroke-linejoin:round}
+h1{font-size:var(--t-8);font-weight:900;line-height:var(--lh-tight);letter-spacing:-.02em;
+  color:#fff;margin:0 0 var(--s-4);text-wrap:balance;max-width:14ch}
+h1 em{font-style:normal;color:var(--green)}
+.lead{font-size:var(--t-5);line-height:1.45;color:var(--pale-dim);margin:0 0 var(--s-6);max-width:34ch}
+.recap{margin:auto 0 0;padding-top:var(--s-5);border-top:1px solid rgba(199,235,247,.22);
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-5)}
+.recap dt{font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
+  text-transform:uppercase;color:var(--pale-dim);margin-bottom:var(--s-1)}
+.recap dd{margin:0;font-size:var(--t-2);color:#fff;font-weight:700;line-height:1.45}
+
+.card{background:#fff;border-radius:var(--radius);box-shadow:0 12px 44px rgba(12,48,66,.26);
+  padding:var(--s-6);min-height:430px}
+.card h2{font-size:var(--t-5);font-weight:900;letter-spacing:-.018em;margin:0 0 var(--s-1);color:var(--ink)}
+.card .sub{font-size:var(--t-2);color:var(--ink-3);margin:0 0 var(--s-5);line-height:1.5}
+.days{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-2);margin-bottom:var(--s-5)}
+.day{font-family:inherit;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:11px 6px;cursor:pointer;text-align:center;transition:border-color .12s,background .12s}
+.day:hover{border-color:var(--teal-ink);background:#f6fcfd}
+.day.on{border-color:var(--green-ink);background:#f1fbf6}
+.day .dn{display:block;font-size:var(--t-2);font-weight:900;color:var(--ink);line-height:1.3}
+.day .dd{display:block;font-size:var(--t-1);color:var(--ink-3);font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+.slots{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s-2)}
+.slots[hidden]{display:none}
+.slot{font-family:inherit;font-size:var(--t-3);font-weight:700;color:var(--teal-ink);
+  background:#fff;border:1px solid #cfe2e9;border-radius:var(--radius);padding:13px 8px;
+  cursor:pointer;transition:background .12s,border-color .12s,color .12s}
+.slot:hover{background:var(--teal-ink);border-color:var(--teal-ink);color:#fff}
+.tz{margin:var(--s-4) 0 0;font-size:var(--t-2);color:var(--ink-3);display:flex;
+  align-items:flex-start;gap:var(--s-2);line-height:1.5}
+.tz svg{width:14px;height:14px;flex:0 0 14px;margin-top:3px;stroke:var(--ink-3);fill:none;stroke-width:1.9}
+
+#confirmed[hidden]{display:none}
+.done-tick{width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(100deg,var(--cta-a),var(--cta-b));
+  display:grid;place-items:center;margin-bottom:var(--s-4)}
+.done-tick svg{width:21px;height:21px;stroke:var(--cta-ink);fill:none;stroke-width:3.4;
+  stroke-linecap:round;stroke-linejoin:round}
+.when{margin:0 0 var(--s-5);padding:var(--s-4);border-radius:var(--radius);
+  background:var(--paper-2);border-left:3px solid var(--green)}
+.when p{margin:0}
+.when .w-lbl{font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:var(--s-1)}
+.when .w-val{font-size:var(--t-4);font-weight:900;color:var(--ink);letter-spacing:-.015em;line-height:1.3}
+.when .w-eng{margin:var(--s-2) 0 0;font-size:var(--t-2);color:var(--ink-2);line-height:1.45}
+.when .w-eng strong{color:var(--ink)}
+.addcal{display:flex;flex-wrap:wrap;gap:var(--s-2);margin:0 0 var(--s-5)}
+.addcal a{font-size:var(--t-2);font-weight:700;color:var(--ink-2);text-decoration:none;
+  border:1px solid var(--line);border-radius:var(--radius);padding:9px 14px}
+.addcal a:hover{border-color:var(--teal-ink);color:var(--teal-ink)}
+.nextup{margin:0;padding-top:var(--s-4);border-top:1px solid #eef3f5;
+  font-size:var(--t-2);line-height:1.55;color:var(--ink-3)}
+.nextup strong{color:var(--ink-2)}
+
+.strip{background:var(--paper-2);border-block:1px solid var(--line)}
+.strip .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-7);padding-block:var(--s-7)}
+.strip .when-l{font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
+  text-transform:uppercase;color:var(--teal-ink);display:block;margin-bottom:var(--s-3)}
+.strip h2{font-size:var(--t-5);font-weight:900;letter-spacing:-.015em;line-height:var(--lh-snug);
+  margin:0 0 var(--s-2);color:var(--ink)}
+.strip p{margin:0;font-size:var(--t-3);line-height:var(--lh-body);color:var(--ink-2)}
+.strip a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:2px}
+
+.evlog{background:#0d2430;padding-block:var(--s-5) var(--s-6)}
+.evlog h2{color:#fff;font-size:var(--t-3);font-weight:900;margin:0 0 var(--s-1)}
+.evlog .hint{color:var(--pale-dim);font-size:var(--t-2);margin:0 0 var(--s-3);max-width:70ch;line-height:var(--lh-body)}
+.evlog pre{margin:0;background:#081a23;border:1px solid rgba(199,235,247,.14);border-radius:var(--radius);
+  padding:14px 16px;overflow-x:auto;color:#9fe6c8;font-family:var(--mono);font-size:var(--t-2);line-height:1.7}
+.evlog .t{color:#5d8b9e}
+
+.site-foot{background:var(--nav);padding-block:var(--s-5)}
+.site-foot p{margin:0;font-size:var(--t-2);color:var(--pale-dim);max-width:72ch;line-height:1.55}
+.site-foot a{color:var(--pale);font-size:var(--t-2);border-bottom:1px solid rgba(199,235,247,.35);text-decoration:none}
+
+@media (max-width:1040px){
+  .hero .wrap{grid-template-columns:1fr;row-gap:var(--s-6)}
+  .hero-copy{display:block}
+  .card{max-width:520px}
+  .recap{margin-top:var(--s-5)}
+  .strip .wrap{grid-template-columns:1fr;gap:var(--s-5)}
+}
+@media (max-width:660px){
+  :root{--t-8:33px;--t-7:27px;--t-6:23px;--t-5:19px;--t-4:17px}
+  .wrap{padding-inline:22px}
+  h1{max-width:none}
+  .card{padding:var(--s-5) 20px}
+  .recap{grid-template-columns:1fr;gap:var(--s-4)}
+  .logo{padding-block:8px}
+  .head-link,.site-foot a{display:inline-block;padding-block:12px}
+  .slot{padding-block:15px}
+  .addcal a{padding-block:12px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="demo.html" aria-label="Payload home"><span class="brace">{</span>payload<span class="brace">}</span></a>
+    <a class="head-link" href="#">Back to payload.com</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="stamp"><span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>Request received</p>
+      <h1 id="head">Now pick <em>your time</em>.</h1>
+      <p class="lead">No waiting on an email. Choose a slot and it lands on the engineer's calendar while you are still here.</p>
+      <dl class="recap">
+        <div><dt>Industry</dt><dd id="industry">Not provided</dd></div>
+        <div><dt>What you told us</dt><dd id="usecase">Not provided</dd></div>
+        <div><dt>Volume</dt><dd id="volume">Not provided</dd></div>
+        <div><dt>After the call</dt><dd>A written estimate in one business day</dd></div>
+      </dl>
+    </div>
+
+    <div class="card">
+      <div id="picker">
+        <h2>Choose a slot</h2>
+        <p class="sub">Real availability for the engineer your answers routed you to, capped at five business days out. Soonest first.</p>
+        <div class="days" id="days" role="group" aria-label="Choose a day"><button type="button" class="day on" data-day="thu" aria-pressed="true"><span class="dn">Thursday</span><span class="dd">18 Sept</span></button><button type="button" class="day" data-day="fri" aria-pressed="false"><span class="dn">Friday</span><span class="dd">19 Sept</span></button><button type="button" class="day" data-day="mon" aria-pressed="false"><span class="dn">Monday</span><span class="dd">22 Sept</span></button></div>
+        <div class="slots" data-for="thu"><button type="button" class="slot" data-slot="Thursday 18 Sept, 9:00am ET">9:00</button><button type="button" class="slot" data-slot="Thursday 18 Sept, 10:30am ET">10:30</button><button type="button" class="slot" data-slot="Thursday 18 Sept, 13:00pm ET">13:00</button><button type="button" class="slot" data-slot="Thursday 18 Sept, 15:30pm ET">15:30</button></div>
+        <div class="slots" data-for="fri" hidden><button type="button" class="slot" data-slot="Friday 19 Sept, 9:30am ET">9:30</button><button type="button" class="slot" data-slot="Friday 19 Sept, 11:00am ET">11:00</button><button type="button" class="slot" data-slot="Friday 19 Sept, 14:00pm ET">14:00</button></div>
+        <div class="slots" data-for="mon" hidden><button type="button" class="slot" data-slot="Monday 22 Sept, 9:00am ET">9:00</button><button type="button" class="slot" data-slot="Monday 22 Sept, 10:00am ET">10:00</button><button type="button" class="slot" data-slot="Monday 22 Sept, 11:30am ET">11:30</button><button type="button" class="slot" data-slot="Monday 22 Sept, 14:30pm ET">14:30</button><button type="button" class="slot" data-slot="Monday 22 Sept, 16:00pm ET">16:00</button></div>
+        <p class="tz">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 2" stroke-linecap="round"/></svg>
+          All times Eastern. Nothing is held until you pick, and one click moves it later. We do not offer dates weeks out, because meetings booked that far ahead are the ones people forget.
+        </p>
+      </div>
+
+      <div id="review" hidden>
+        <h2>We will come to you on this one.</h2>
+        <p class="sub">Your answers say pre-launch and still deciding, which is the one case where thirty minutes with a solutions engineer is the wrong next step.</p>
+        <div class="when">
+          <p class="w-lbl">What happens instead</p>
+          <p class="w-val">A written answer, not a meeting</p>
+        </div>
+        <p class="nextup" style="border:0;padding:0;margin:0 0 var(--s-5)">An engineer will reply by email with the two or three things worth deciding before a call is useful, plus sandbox credentials so you can try the thing while you decide. When you know which direction you are going, reply and we will book the thirty minutes then.</p>
+        <div class="addcal">
+          <a href="https://docs.payload.com/v2" target="_blank" rel="noopener">Open the docs</a>
+          <a href="mailto:contact@payload.com">Email us directly</a>
+        </div>
+        <p class="nextup"><strong>Why you are seeing this and not a calendar:</strong> a slot held by someone who is not ready is a slot a team mid build could not get. Gating it is the only way the thirty minutes stays worth thirty minutes.</p>
+      </div>
+
+      <div id="confirmed" hidden>
+        <div class="done-tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5 9.5 18 20 6.5"/></svg></div>
+        <h2>You are booked.</h2>
+        <p class="sub">A calendar invite is on its way, and the engineer has your request open already.</p>
+        <div class="when">
+          <p class="w-lbl">Your thirty minutes</p>
+          <p class="w-val" id="slotOut"></p>
+          <p class="w-eng">with <strong>Alex Navarro</strong>, solutions engineering</p>
+        </div>
+        <div class="addcal">
+          <a href="#">Add to Google</a>
+          <a href="#">Add to Outlook</a>
+          <a href="#">Download .ics</a>
+        </div>
+        <p class="nextup"><strong>Worth doing before then:</strong> reply to the confirmation email with a link to your API reference or a flow diagram. The engineer maps your objects onto ours before you meet, so the call starts at the hard part.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="wrap">
+    <div>
+      <span class="when-l">Start now</span>
+      <h2>The sandbox is already open</h2>
+      <p>You do not have to wait for the call. <a href="https://docs.payload.com/v2/pay/checkout" target="_blank" rel="noopener">Checkout</a> and <a href="https://docs.payload.com/v2/pay/sending-payouts" target="_blank" rel="noopener">payouts</a> both have quickstarts.</p>
+    </div>
+    <div>
+      <span class="when-l">Helpful before the call</span>
+      <h2>Send your API reference</h2>
+      <p>Reply to the confirmation email with a link or a flow diagram. It gets read before you meet, not during.</p>
+    </div>
+    <div>
+      <span class="when-l">Wrong time?</span>
+      <h2>Nothing to unsubscribe from</h2>
+      <p>If the timing slips, reply and we park it. Email <a href="mailto:contact@payload.com">contact@payload.com</a> and a person answers.</p>
+    </div>
+  </div>
+</section>
+
+<section class="evlog">
+  <div class="wrap">
+    <h2>dataLayer, live</h2>
+    <p class="hint">Booking happens here, on a real URL, so the lead and the meeting are two recorded events instead of zero. On payload.com today the contact modal never changes the URL and there is no success page, so neither one can be counted.</p>
+    <pre id="evOut" aria-live="polite"></pre>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Prototype built by Jacob Gilliam, 16 September 2026. Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Availability shown is sample data.</p>
+    <p style="margin-top:var(--s-3)"><a href="lifecycle.html">The emails that fire from here</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var params = new URLSearchParams(window.location.search);
+  var name = (params.get('n') || '').trim().slice(0, 40).replace(/[^\p{L}\p{N}'\- ]/gu, '');
+  var use  = (params.get('u') || '').trim().slice(0, 80);
+  var ind  = (params.get('i') || '').trim().slice(0, 60);
+  var vol  = (params.get('v') || '').trim().slice(0, 60);
+
+  if(name){
+    var h = document.getElementById('head');
+    h.textContent = '';
+    h.appendChild(document.createTextNode('Now pick '));
+    var em = document.createElement('em');
+    em.textContent = 'your time';
+    h.appendChild(em);
+    h.appendChild(document.createTextNode(', ' + name + '.'));
+    document.title = 'Pick your time, ' + name + ' | Payload';
+  }
+  if(use) document.getElementById('usecase').textContent = use;
+
+  /* routed to review rather than to a calendar */
+  var review = params.get('r') === '1';
+  if(review){
+    document.getElementById('picker').hidden = true;
+    document.getElementById('review').hidden = false;
+    var h = document.getElementById('head');
+    h.textContent = '';
+    h.appendChild(document.createTextNode('Thanks, '));
+    var em2 = document.createElement('em');
+    em2.textContent = name || 'we have it';
+    h.appendChild(em2);
+    h.appendChild(document.createTextNode('.'));
+    document.querySelector('.lead').textContent =
+      'A solutions engineer is reading this now. You will get a written answer rather than a calendar link, and the reasoning is on the right.';
+    document.title = 'Request received | Payload';
+  }
+  if(ind) document.getElementById('industry').textContent = ind;
+  if(vol) document.getElementById('volume').textContent = vol;
+
+  window.dataLayer = window.dataLayer || [];
+  var out = document.getElementById('evOut');
+  function push(evt, p){
+    var obj = Object.assign({event: evt}, p || {});
+    window.dataLayer.push(obj);
+    var line = document.createElement('div');
+    var stamp = document.createElement('span');
+    stamp.className = 't';
+    stamp.textContent = new Date().toLocaleTimeString('en-US', {hour12:false});
+    line.appendChild(stamp);
+    line.appendChild(document.createTextNode('  dataLayer.push(' + JSON.stringify(obj) + ')'));
+    out.appendChild(line);
+  }
+  push('page_view', {page_path:'/demo/schedule', page_title:'Pick your time'});
+  /* generate_lead already fired on the form. Firing it again here would double
+     count every lead in GA4, so this page only records what happens after. */
+  if(review){
+    push('lead_review_queue', {form_id:'demo_request', reason:'pre_launch_undecided',
+                               use_case: use || 'not_provided', industry: ind || 'not_provided'});
+  } else {
+    push('booking_view', {slots_shown: document.querySelectorAll('.slot').length});
+  }
+
+  var days = document.querySelectorAll('.day');
+  Array.prototype.forEach.call(days, function(d){
+    d.addEventListener('click', function(){
+      Array.prototype.forEach.call(days, function(x){
+        var on = x === d;
+        x.classList.toggle('on', on);
+        x.setAttribute('aria-pressed', String(on));
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('.slots'), function(s){
+        s.hidden = s.getAttribute('data-for') !== d.getAttribute('data-day');
+      });
+      push('booking_day_select', {day: d.getAttribute('data-day')});
+    });
+  });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.slot'), function(btn){
+    btn.addEventListener('click', function(){
+      var slot = btn.getAttribute('data-slot');
+      document.getElementById('slotOut').textContent = slot;
+      document.getElementById('picker').hidden = true;
+      document.getElementById('confirmed').hidden = false;
+      push('booking_complete', {form_id:'demo_request', slot: slot, use_case: use || 'not_provided',
+                                industry: ind || 'not_provided', volume: vol || 'not_provided', value: 1, currency:'USD'});
+      push('conversion', {send_to:'demo_meeting_booked'});
+    });
+  });
+})();
+</script>
+</body>
+</html>

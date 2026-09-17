@@ -1,0 +1,7 @@
+# QA renders and working artefacts. Regenerate them, never ship them.
+qa*.png
+r_*.png
+v_*.png
+_bg*.png
+_pl_bg.png
+.DS_Store

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>After the form | Payload demo lifecycle</title>
+<meta name="description" content="The five emails that fire after a Payload demo request, with triggers, timing and the events each one reports.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1d4f66">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap">
+<style>
+:root{
+  /* --- sampled from payload.com, 15-16 Sept 2026 --- */
+  --nav:#1d4f66;
+  --brand-hero-a:#1b6181;
+  --brand-hero-b:#22789e;
+  --deep:#17455a;
+  --pale:#c7ebf7;
+  --pale-dim:#e2f4fb;
+  --blue:#11c0ee;
+  --green:#76f4b2;
+  --ink:#212529;
+  --ink-2:#4b5559;
+  --ink-3:#6c757d;
+  --paper:#fafdff;
+  --paper-2:#f2f9fb;
+  --line:#dee2e6;
+
+  /* --- derived. Sampled hero darkened ~6% so 13-16px pale text clears 4.5:1.
+         Sampled CTA gradient ended at #46a2b8, which put the label at 3.7:1. --- */
+  --hero-a:#17516d;
+  --hero-b:#1d6b8c;
+  --hero-c:#1b6485;
+  --cta-a:#76f4b2;
+  --cta-b:#4fc3bd;
+  --cta-ink:#0b2f3a;
+  --teal-ink:#0b7791;
+  --green-ink:#27886a;
+  --danger:#c0392b;
+  --danger-bg:#fdf0ee;
+  --amber:#e0ab55;
+  --amber-ink:#8a5a12;
+
+  /* --- type scale, ratio ~1.2. --t-0 is mono UI chrome only (chips, status badges) --- */
+  --t-0:10px; --t-1:12px; --t-2:14px; --t-3:16px; --t-4:19px;
+  --t-5:23px; --t-6:29px; --t-7:36px; --t-8:45px;
+  --lh-tight:1.12; --lh-snug:1.28; --lh-body:1.55;
+  --track-label:.12em;
+
+  /* --- space --- */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px;
+  --s-6:32px; --s-7:48px; --s-8:64px; --s-9:96px;
+
+  --radius:5px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --dots:radial-gradient(rgba(199,235,247,.16) 1px,transparent 1px);
+  --dots-light:radial-gradient(rgba(27,97,129,.13) 1px,transparent 1px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Lato,-apple-system,Helvetica,Arial,sans-serif;
+  font-size:var(--t-3);line-height:var(--lh-body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:44px}
+:where(a,button):focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
+.lbl{font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
+  text-transform:uppercase;line-height:1.4;margin:0}
+code{font-family:var(--mono);font-size:var(--t-2)}
+
+.site-head{background:var(--nav)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:var(--s-4);gap:var(--s-4)}
+.logo{display:inline-flex;align-items:center;gap:2px;text-decoration:none;font-weight:900;
+  font-size:var(--t-5);color:var(--pale);letter-spacing:-.01em}
+.logo .brace{color:var(--green);font-weight:400;font-size:var(--t-6);line-height:1}
+.head-link{color:var(--pale);font-size:var(--t-2);text-decoration:none;
+  border-bottom:1px solid rgba(199,235,247,.4);padding-bottom:1px}
+
+.hero{background:linear-gradient(145deg,var(--hero-a) 0%,var(--hero-b) 58%,var(--hero-c) 100%);
+  position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:var(--dots);background-size:22px 22px;opacity:.5}
+.hero .wrap{position:relative;z-index:1;padding-block:var(--s-8)}
+h1{font-size:var(--t-8);font-weight:900;line-height:var(--lh-tight);letter-spacing:-.02em;
+  color:#fff;margin:0 0 var(--s-4);text-wrap:balance;max-width:18ch}
+h1 em{font-style:normal;color:var(--green)}
+.lead{font-size:var(--t-5);line-height:1.45;color:var(--pale-dim);margin:0;max-width:52ch}
+.hero-rail{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-5);
+  margin-top:var(--s-7);padding-top:var(--s-5);border-top:1px solid rgba(199,235,247,.22)}
+.hero-rail dt{font-size:var(--t-6);font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1}
+.hero-rail dd{margin:var(--s-2) 0 0;font-size:var(--t-1);font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;line-height:1.35;color:var(--pale-dim)}
+
+.sec{padding-block:var(--s-9);position:relative;overflow:hidden}
+.sec-light{background:var(--paper);border-top:1px solid var(--line)}
+.sec-light::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:var(--dots-light);background-size:22px 22px;opacity:.45}
+.sec-dark{background:linear-gradient(160deg,var(--hero-a),var(--deep))}
+.sec-dark::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:var(--dots);background-size:22px 22px;opacity:.45}
+.sec .wrap{position:relative;z-index:1}
+.sec-head{margin-bottom:var(--s-8);max-width:820px}
+.sec-head h2{font-size:var(--t-7);font-weight:900;letter-spacing:-.024em;
+  line-height:var(--lh-tight);margin:0;text-wrap:pretty}
+.sec-head h2 span{font-weight:400;letter-spacing:-.015em}
+.sec-light h2{color:var(--ink)}
+.sec-light h2 span{color:var(--ink-3)}
+.sec-dark h2{color:#fff}
+.sec-dark h2 span{color:var(--pale-dim)}
+
+/* routing */
+.signals{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s-5);margin-bottom:var(--s-7)}
+.signal{padding-top:var(--s-4);border-top:1px solid #cfdfe5}
+.signal .lbl{color:var(--teal-ink);margin-bottom:var(--s-2)}
+.signal h3{margin:0 0 var(--s-2);font-size:var(--t-4);font-weight:900;letter-spacing:-.015em;color:var(--ink)}
+.signal p{margin:0;font-size:var(--t-2);line-height:var(--lh-body);color:var(--ink-2)}
+.signal code{font-family:var(--mono);font-size:var(--t-1);background:#e8f2f6;padding:2px 6px;border-radius:3px}
+.vtable{width:100%;border-collapse:collapse;margin:0 0 var(--s-7)}
+.vtable th{text-align:left;font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
+  text-transform:uppercase;color:var(--teal-ink);padding:0 var(--s-5) var(--s-3) 0;
+  border-bottom:1px solid #cfdfe5}
+.vtable td{font-size:var(--t-2);line-height:1.6;color:var(--ink-2);padding:var(--s-4) var(--s-5) var(--s-4) 0;
+  border-bottom:1px solid #e3edf1;vertical-align:top}
+.vtable td b{color:var(--ink);font-weight:900;white-space:nowrap}
+.vtable code{font-family:var(--mono);font-size:var(--t-1);background:#e8f2f6;padding:2px 6px;border-radius:3px;color:var(--ink)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-5)}
+.split figure{margin:0}
+.split figcaption{margin:0 0 var(--s-3);font-family:var(--mono);font-size:var(--t-2);color:var(--teal-ink)}
+.split img{width:100%;height:auto;display:block;border:1px solid #dbe7ec;border-radius:var(--radius);
+  box-shadow:0 6px 24px rgba(27,97,129,.08)}
+.split-note{margin:var(--s-3) 0 0}
+.split-note a{font-size:var(--t-2);font-weight:700;color:var(--teal-ink);text-decoration:none;
+  border-bottom:1px solid rgba(11,119,145,.35);padding-bottom:1px}
+.split-note a:hover{border-bottom-color:var(--teal-ink)}
+@media (max-width:860px){
+  .signals,.split{grid-template-columns:1fr}
+  .vtable,.vtable tbody,.vtable tr,.vtable td{display:block;width:auto}
+  .vtable thead{display:none}
+  .vtable tr{padding:var(--s-4) 0;border-bottom:1px solid #e3edf1}
+  .vtable td{border:0;padding:0 0 var(--s-2)}
+}
+
+/* timing rules */
+.rules{width:100%;border-collapse:collapse;margin:0}
+.rules th{text-align:left;font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
+  text-transform:uppercase;color:var(--green);padding:0 var(--s-5) var(--s-3) 0;
+  border-bottom:1px solid rgba(199,235,247,.28);vertical-align:bottom}
+.rules td{font-size:var(--t-2);line-height:1.6;color:var(--pale-dim);
+  padding:var(--s-4) var(--s-5) var(--s-4) 0;border-bottom:1px solid rgba(199,235,247,.14);vertical-align:top}
+.rules td b{color:#fff;font-weight:900;white-space:nowrap}
+.rules td:first-child{width:20%}
+.rules td:nth-child(2){width:42%;color:#fff}
+.rules code{font-family:var(--mono);font-size:var(--t-1);background:rgba(199,235,247,.12);
+  padding:2px 6px;border-radius:3px;color:var(--pale)}
+.rules-note{margin:var(--s-5) 0 0;font-size:var(--t-2);line-height:var(--lh-body);
+  color:var(--pale-dim);max-width:70ch}
+@media (max-width:860px){
+  .rules,.rules tbody,.rules tr,.rules td{display:block;width:auto}
+  .rules thead{display:none}
+  .rules tr{padding:var(--s-4) 0;border-bottom:1px solid rgba(199,235,247,.14)}
+  .rules td{border:0;padding:0 0 var(--s-2)}
+  .rules td:first-child,.rules td:nth-child(2){width:auto}
+}
+
+/* reasoning */
+.whys{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-7)}
+.why{padding-top:var(--s-4);border-top:1px solid #cfdfe5}
+.why-n{display:block;font-family:var(--mono);font-size:var(--t-1);color:var(--teal-ink);margin-bottom:var(--s-2)}
+.why h3{margin:0 0 var(--s-2);font-size:var(--t-4);font-weight:900;letter-spacing:-.015em;
+  line-height:var(--lh-snug);color:var(--ink);text-wrap:balance}
+.why p{margin:0;font-size:var(--t-2);line-height:1.65;color:var(--ink-2);max-width:56ch}
+@media (max-width:900px){ .whys{grid-template-columns:1fr;gap:var(--s-5)} }
+
+/* flow nodes */
+.flow-panel{display:grid;grid-template-columns:420px minmax(0,1fr);gap:var(--s-7);align-items:start}
+.flow-panel[hidden]{display:none}
+@media (prefers-reduced-motion:no-preference){
+  .flow-panel:not([hidden]){animation:fadein .22s ease-out}
+  @keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+}
+.fp-flow{min-width:0;display:flex;flex-direction:column;align-items:stretch}
+.node{display:block;text-decoration:none;background:#fff;border:1px solid #dbe9ee;
+  border-radius:6px;padding:var(--s-4);box-shadow:0 1px 3px rgba(27,97,129,.07)}
+.node-head{display:flex;align-items:center;gap:8px;margin-bottom:var(--s-2)}
+.node-ico{width:20px;height:20px;flex:0 0 20px;border-radius:4px;display:grid;place-items:center;
+  background:#e8f2f6}
+.node-ico svg{width:12px;height:12px;stroke:var(--teal-ink);fill:none;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+.node-type{font-family:var(--mono);font-size:var(--t-1);color:var(--ink-3);letter-spacing:.02em}
+.node-day{margin-left:auto;font-family:var(--mono);font-size:var(--t-1);color:var(--teal-ink);
+  background:#eef7fa;border-radius:3px;padding:2px 7px;white-space:nowrap}
+.node-name{margin:0;font-size:var(--t-3);font-weight:900;color:var(--ink);line-height:1.35;letter-spacing:-.01em}
+.node-name code{font-family:var(--mono);font-size:var(--t-1);font-weight:400;background:#e8f2f6;
+  padding:2px 6px;border-radius:3px}
+.node-sub{margin:var(--s-3) 0 0;font-size:var(--t-2);line-height:1.45;color:var(--ink-3)}
+.node img{width:100%;height:118px;object-fit:cover;object-position:top center;display:block;
+  margin-top:var(--s-3);border:1px solid #e8f0f3;border-radius:4px}
+.node-open{display:inline-block;margin-top:var(--s-3);font-size:var(--t-2);font-weight:700;color:var(--teal-ink)}
+.node-trigger{border-left:3px solid var(--green-ink)}
+.node-wait{background:#f4fafc;box-shadow:none}
+.node-wait .node-name{font-weight:700;font-size:var(--t-2);color:var(--ink-2)}
+.node-exit{border-left:3px solid var(--amber);background:#fffdf8}
+.node-exit .node-name{font-weight:400;font-size:var(--t-2);color:var(--ink-2);line-height:1.55}
+.node-exit .node-name b{font-family:var(--mono);font-size:var(--t-1);font-weight:700;color:var(--ink)}
+a.node-email:hover{border-color:var(--teal-ink);box-shadow:0 6px 20px rgba(27,97,129,.13)}
+a.node-email:hover .node-open{text-decoration:underline}
+
+.conn{display:flex;flex-direction:column;align-items:center;gap:0}
+.conn-line{width:1px;height:12px;background:#cfdfe5}
+.conn-plus{width:18px;height:18px;border-radius:50%;border:1px solid #cfdfe5;background:#fff;
+  display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:var(--ink-3);line-height:1}
+
+.fp-side{padding-top:var(--s-2);position:sticky;top:var(--s-5)}
+.fp-blurb{margin:0 0 var(--s-5);font-size:var(--t-4);line-height:1.5;color:var(--ink-2);max-width:48ch}
+.fp-notes{margin:0}
+.fp-notes dt{font-family:var(--mono);font-size:var(--t-1);color:var(--teal-ink);
+  padding-top:var(--s-4);border-top:1px solid #cfdfe5}
+.fp-notes dd{margin:var(--s-2) 0 var(--s-4);font-size:var(--t-2);line-height:1.6;color:var(--ink-2);max-width:52ch}
+.fp-notes dd:last-child{margin-bottom:0}
+
+.flow-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-3);margin-bottom:var(--s-6)}
+.flow-tabs button{font-family:inherit;text-align:left;cursor:pointer;background:#fff;
+  border:1px solid #dbe9ee;border-radius:var(--radius);padding:var(--s-4);
+  transition:border-color .14s,box-shadow .14s,background .14s}
+.flow-tabs button:hover{border-color:var(--teal-ink)}
+.flow-tabs button[aria-selected="true"]{background:#123c4e;border-color:#123c4e;
+  box-shadow:0 6px 22px rgba(18,60,78,.18)}
+.pt-key{display:block;font-family:var(--mono);font-size:var(--t-1);color:var(--teal-ink);margin-bottom:var(--s-2)}
+.pt-cond{display:block;font-size:var(--t-3);font-weight:900;color:var(--ink);line-height:1.35;letter-spacing:-.01em}
+.flow-tabs button[aria-selected="true"] .pt-key{color:var(--green)}
+.flow-tabs button[aria-selected="true"] .pt-cond{color:#fff}
+
+.never{margin-top:var(--s-8);padding-top:var(--s-5);border-top:1px solid #cfdfe5}
+.never .lbl{color:var(--teal-ink);margin-bottom:var(--s-4)}
+.never ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3) var(--s-7)}
+.never li{position:relative;padding-left:22px;font-size:var(--t-2);line-height:1.6;color:var(--ink-2)}
+.never li::before{content:"";position:absolute;left:0;top:9px;width:11px;height:2px;background:#c0392b;opacity:.65}
+@media (max-width:1040px){
+  .flow-panel{grid-template-columns:1fr;gap:var(--s-6)}
+  .flow-tabs{grid-template-columns:1fr 1fr}
+  .fp-side{position:static}
+  .never ul{grid-template-columns:1fr}
+}
+
+/* the sequence, as one object */
+.mails{display:grid;gap:var(--s-9)}
+.mail{display:grid;grid-template-columns:minmax(0,1fr) 420px;
+  column-gap:var(--s-7);align-items:start}
+.mail-left{min-width:0;display:grid;gap:var(--s-4);align-content:start}
+.mail-meta{display:flex;gap:var(--s-4);align-items:flex-start}
+.step-n{font-size:var(--t-7);font-weight:900;line-height:1;letter-spacing:-.04em;
+  color:#bcd4dd;flex:0 0 auto;font-variant-numeric:tabular-nums}
+.mail-head{min-width:0}
+.subj{margin:0;font-size:var(--t-5);font-weight:900;letter-spacing:-.015em;
+  line-height:var(--lh-snug);color:var(--ink)}
+.pre{margin:var(--s-1) 0 0;font-size:var(--t-3);line-height:1.5;color:var(--ink-3)}
+.mail-facts{display:grid;grid-template-columns:repeat(3,auto);
+  gap:var(--s-5);justify-content:start;padding:var(--s-4) 0;
+  border-block:1px solid #cfdfe5}
+.mail-facts .lbl{color:var(--teal-ink);margin-bottom:var(--s-1)}
+.mail-facts .fv{margin:0;font-size:var(--t-2);color:var(--ink-2);font-weight:700}
+.mail-facts code{background:#e8f2f6;padding:2px 6px;border-radius:3px;color:var(--ink)}
+.mail-job{margin:0;font-size:var(--t-3);line-height:var(--lh-body);
+  color:var(--ink-2);max-width:56ch}
+.mail-links{margin:0;display:flex;gap:var(--s-5)}
+.mail-links a{font-size:var(--t-2);font-weight:700;color:var(--teal-ink);
+  text-decoration:none;border-bottom:1px solid rgba(11,119,145,.35);padding-bottom:1px}
+.mail-links a:hover{border-bottom-color:var(--teal-ink)}
+.frame{background:#fff;border:1px solid #dbe7ec;border-radius:var(--radius);
+  box-shadow:0 8px 30px rgba(27,97,129,.1);overflow:hidden;height:470px}
+.frame iframe{width:100%;height:100%;border:0;display:block}
+
+/* branch logic */
+.branches{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-5)}
+.branch{border:1px solid rgba(199,235,247,.22);border-radius:var(--radius);
+  padding:var(--s-5);background:rgba(8,32,45,.28)}
+.branch .lbl{color:var(--green);margin-bottom:var(--s-3)}
+.branch h3{margin:0 0 var(--s-2);font-size:var(--t-4);font-weight:900;color:#fff;
+  letter-spacing:-.015em;line-height:var(--lh-snug)}
+.branch p{margin:0;font-size:var(--t-2);line-height:var(--lh-body);color:var(--pale-dim)}
+.branch code{background:rgba(199,235,247,.12);padding:1px 5px;border-radius:3px;color:var(--pale)}
+
+/* what it lets you report */
+.report{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s-5) var(--s-7);margin-top:var(--s-6)}
+.report div{padding-top:var(--s-4);border-top:1px solid rgba(199,235,247,.22)}
+.report dt{font-size:var(--t-4);font-weight:900;color:#fff;letter-spacing:-.015em;line-height:var(--lh-snug)}
+.report dd{margin:var(--s-2) 0 0;font-size:var(--t-2);line-height:var(--lh-body);color:var(--pale-dim)}
+
+.site-foot{background:var(--nav);padding-block:var(--s-6)}
+.site-foot .wrap{display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-5);align-items:center;justify-content:space-between}
+.site-foot p{margin:0;font-size:var(--t-2);color:var(--pale-dim);max-width:72ch;line-height:1.55}
+.site-foot a{color:var(--pale);font-size:var(--t-2);text-decoration:none;border-bottom:1px solid rgba(199,235,247,.35)}
+
+@media (max-width:1040px){
+  .mail{grid-template-columns:1fr}
+  .frame{height:470px}
+  .branches{grid-template-columns:1fr}
+  .report{grid-template-columns:1fr}
+  .sec{padding-block:var(--s-8)}
+  .mails{gap:var(--s-8)}
+}
+@media (max-width:660px){
+  :root{--t-8:33px;--t-7:27px;--t-6:23px;--t-5:19px;--t-4:17px}
+  .wrap{padding-inline:22px}
+  h1{max-width:none}
+  .hero-rail{grid-template-columns:1fr 1fr;gap:var(--s-5) var(--s-4)}
+  .mail-facts{grid-template-columns:1fr;gap:var(--s-3)}
+  .logo{padding-block:8px}
+  .head-link,.site-foot a{display:inline-block;padding-block:12px}
+  .mail-links{gap:var(--s-6)}
+  .mail-links a{display:inline-block;padding-block:12px}
+  .split-note a{display:inline-block;padding-block:12px}
+  .frame{height:420px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="demo.html" aria-label="Payload home"><span class="brace">{</span>payload<span class="brace">}</span></a>
+    <a class="head-link" href="demo.html">Back to the demo page</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <h1>The form is the easy half. <em>This is the other half.</em></h1>
+    <p class="lead">Booking happens on the page, in one click, because every email you make somebody open is a place to lose them. Email is the safety net underneath that, not the path through it. Seven of them, and every one ends.</p>
+    <dl class="hero-rail">
+      <div><dt>7</dt><dd>Emails, hand coded</dd></div>
+      <div><dt>1 click</dt><dd>Submit to booked</dd></div>
+      <div><dt>0</dt><dd>Emails after a no</dd></div>
+      <div><dt>4</dt><dd>Paths, all of them end</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec sec-light" id="cadence">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The flow, node by node. <span>Four paths, including the one where the form decides not to show a calendar at all. Pick a path, read it top to bottom, and click any email card to open the real thing.</span></h2>
+    </div>
+
+      <div class="flow-tabs" role="tablist" aria-label="Choose a path">
+        <button type="button" role="tab" id="ptab0" aria-controls="ppanel0" aria-selected="true"><span class="pt-key">Path A</span><span class="pt-cond">Booked a slot, showed up</span></button>
+        <button type="button" role="tab" id="ptab1" aria-controls="ppanel1" aria-selected="false" tabindex="-1"><span class="pt-key">Path B</span><span class="pt-cond">Booked a slot, did not show</span></button>
+        <button type="button" role="tab" id="ptab2" aria-controls="ppanel2" aria-selected="false" tabindex="-1"><span class="pt-key">Path C</span><span class="pt-cond">Never picked a time</span></button>
+        <button type="button" role="tab" id="ptab3" aria-controls="ppanel3" aria-selected="false" tabindex="-1"><span class="pt-key">Path D</span><span class="pt-cond">Never shown a calendar</span></button>
+      </div>
+
+      <div class="flow-panel" id="ppanel0" role="tabpanel" aria-labelledby="ptab0">
+        <div class="fp-flow">
+        <div class="node node-trigger">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg></span><span class="node-type">Trigger</span></div>
+          <p class="node-name"><code>booking_complete</code> fires on the booking page</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <a class="node node-email" href="emails/01-request-received.html" target="_blank" rel="noopener">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 01</span><span class="node-day">Day 0</span></div>
+          <p class="node-name">Confirmation</p>
+          <img src="emails/img/thumb-01.png" alt="Preview of email 01, Confirmation" loading="lazy">
+          <p class="node-sub">Confirmed: Thursday 10:30 with Payload</p>
+          <span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-wait">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div>
+          <p class="node-name">Until 24 hours before the call</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <a class="node node-email" href="emails/03-day-before.html" target="_blank" rel="noopener">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 03</span><span class="node-day">Call minus 1</span></div>
+          <p class="node-name">Reminder</p>
+          <img src="emails/img/thumb-03.png" alt="Preview of email 03, Reminder" loading="lazy">
+          <p class="node-sub">Tomorrow at 10:30: what we will cover</p>
+          <span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-wait">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div>
+          <p class="node-name">One business day after the call</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <a class="node node-email" href="emails/04-written-estimate.html" target="_blank" rel="noopener">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 04</span><span class="node-day">Call plus 1</span></div>
+          <p class="node-name">Estimate</p>
+          <img src="emails/img/thumb-04.png" alt="Preview of email 04, Estimate" loading="lazy">
+          <p class="node-sub">Your integration estimate</p>
+          <span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-wait">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div>
+          <p class="node-name">Fourteen days with no reply</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <a class="node node-email" href="emails/05-closing-the-file.html" target="_blank" rel="noopener">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 05</span><span class="node-day">Call plus 15</span></div>
+          <p class="node-name">Close the file</p>
+          <img src="emails/img/thumb-05.png" alt="Preview of email 05, Close the file" loading="lazy">
+          <p class="node-sub">Closing this out, unless you say otherwise</p>
+          <span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-exit">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M15 4h3.5a1.5 1.5 0 0 1 1.5 1.5v13A1.5 1.5 0 0 1 18.5 20H15"/><path d="M10 8l-4 4 4 4M6 12h9"/></svg></span><span class="node-type">Exit</span></div>
+          <p class="node-name">Closes as <b>closed_lost</b>. Nothing else is ever sent.</p>
+        </div>
+        </div>
+        <div class="fp-side">
+          <p class="fp-blurb">The path most people take. Four emails across sixteen days, and only one of them asks for anything.</p>
+          <dl class="fp-notes">
+            <dt>Who lands here</dt><dd>Anyone who picks a slot on the booking page and joins the call.</dd>
+            <dt>The only ask</dt><dd>Email 01 asks for an API reference or flow diagram. Nothing else in the path requests anything.</dd>
+            <dt>Why fourteen days</dt><dd>Long enough that silence means something, short enough that the estimate is still fresh.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="flow-panel" id="ppanel1" role="tabpanel" aria-labelledby="ptab1" hidden>
+        <div class="fp-flow">
+        <div class="node node-trigger">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg></span><span class="node-type">Trigger</span></div>
+          <p class="node-name"><code>booking_complete</code> fires, then the call is marked <code>call_no_show</code></p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <a class="node node-email" href="emails/01-request-received.html" target="_blank" rel="noopener">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 01</span><span class="node-day">Day 0</span></div>
+          <p class="node-name">Confirmation</p>
+          <img src="emails/img/thumb-01.png" alt="Preview of email 01, Confirmation" loading="lazy">
+          <p class="node-sub">Confirmed: Thursday 10:30 with Payload</p>
+          <span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-wait">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div>
+          <p class="node-name">Until 24 hours before the call</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <a class="node node-email" href="emails/03-day-before.html" target="_blank" rel="noopener">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 03</span><span class="node-day">Call minus 1</span></div>
+          <p class="node-name">Reminder</p>
+          <img src="emails/img/thumb-03.png" alt="Preview of email 03, Reminder" loading="lazy">
+          <p class="node-sub">Tomorrow at 10:30: what we will cover</p>
+          <span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-wait">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div>
+          <p class="node-name">Within the hour of the missed call</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <a class="node node-email" href="emails/06-no-show.html" target="_blank" rel="noopener">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 06</span><span class="node-day">Call day</span></div>
+          <p class="node-name">Missed you</p>
+          <img src="emails/img/thumb-06.png" alt="Preview of email 06, Missed you" loading="lazy">
+          <p class="node-sub">Missed you at 10:30</p>
+          <span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-exit">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M15 4h3.5a1.5 1.5 0 0 1 1.5 1.5v13A1.5 1.5 0 0 1 18.5 20H15"/><path d="M10 8l-4 4 4 4M6 12h9"/></svg></span><span class="node-type">Exit</span></div>
+          <p class="node-name">Three days with no rebook closes it as <b>no_show_lapsed</b>.</p>
+        </div>
+        </div>
+        <div class="fp-side">
+          <p class="fp-blurb">The one most funnels forget. The recovery email fires inside the hour, because a same day rebook is the only kind that converts.</p>
+          <dl class="fp-notes">
+            <dt>Who lands here</dt><dd>They booked, the calendar held the slot, and the call was marked a no show.</dd>
+            <dt>Why within the hour</dt><dd>Waiting until the next morning turns a missed call into a lost one.</dd>
+            <dt>What never sends</dt><dd>The estimate. There is nothing to estimate, and sending one would prove nobody was paying attention.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="flow-panel" id="ppanel2" role="tabpanel" aria-labelledby="ptab2" hidden>
+        <div class="fp-flow">
+        <div class="node node-trigger">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg></span><span class="node-type">Trigger</span></div>
+          <p class="node-name"><code>generate_lead</code> fires and <code>booking_complete</code> never does</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-wait">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div>
+          <p class="node-name">Twenty four hours after the form</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <a class="node node-email" href="emails/02-nothing-booked.html" target="_blank" rel="noopener">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 02</span><span class="node-day">Day 1</span></div>
+          <p class="node-name">One nudge</p>
+          <img src="emails/img/thumb-02.png" alt="Preview of email 02, One nudge" loading="lazy">
+          <p class="node-sub">Still want the thirty minutes?</p>
+          <span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-exit">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M15 4h3.5a1.5 1.5 0 0 1 1.5 1.5v13A1.5 1.5 0 0 1 18.5 20H15"/><path d="M10 8l-4 4 4 4M6 12h9"/></svg></span><span class="node-type">Exit</span></div>
+          <p class="node-name">Closes as <b>no_booking</b> and moves to a quarterly list a person reviews. Not a third email.</p>
+        </div>
+        </div>
+        <div class="fp-side">
+          <p class="fp-blurb">One email, on purpose. Someone who reached the calendar and closed it does not need a second ask.</p>
+          <dl class="fp-notes">
+            <dt>Who lands here</dt><dd>They completed the form, reached the calendar, and left without picking.</dd>
+            <dt>Why only one email</dt><dd>Email 02 says out loud that it is the only reminder. Breaking that promise is worse than losing the lead.</dd>
+            <dt>Where the record goes</dt><dd>A quarterly list a person reviews by hand. A human decision, not a third automated send.</dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="flow-panel" id="ppanel3" role="tabpanel" aria-labelledby="ptab3" hidden>
+        <div class="fp-flow">
+        <div class="node node-trigger">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg></span><span class="node-type">Trigger</span></div>
+          <p class="node-name"><code>lead_routed</code> returns <code>review</code>, so no calendar is ever shown</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-wait">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div>
+          <p class="node-name">Within one business day, once an engineer has read it</p>
+        </div>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <a class="node node-email" href="emails/07-not-yet.html" target="_blank" rel="noopener">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 07</span><span class="node-day">Day 1</span></div>
+          <p class="node-name">Not yet, and why</p>
+          <img src="emails/img/thumb-07.png" alt="Preview of email 07, the review route reply" loading="lazy">
+          <p class="node-sub">No call yet, and what I would decide first</p>
+          <span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span>
+        </a>
+        <div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div>
+        <div class="node node-exit">
+          <div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M15 4h3.5a1.5 1.5 0 0 1 1.5 1.5v13A1.5 1.5 0 0 1 18.5 20H15"/><path d="M10 8l-4 4 4 4M6 12h9"/></svg></span><span class="node-type">Exit</span></div>
+          <p class="node-name">Closes as <b>too_early</b>. Any reply re enters at the booking page, not at the form.</p>
+        </div>
+        </div>
+        <div class="fp-side">
+          <p class="fp-blurb">The path that never sees a calendar. One email, and it has to carry everything a call would have, or the gate is just a rejection with extra steps.</p>
+          <dl class="fp-notes">
+            <dt>Who lands here</dt><dd>Pre-launch and still deciding, together. Either one alone still gets the calendar.</dd>
+            <dt>What the email has to do</dt><dd>Name the two decisions that come before a demo is useful, hand over sandbox credentials anyway, and offer to book manually once they answer. A gate that gives nothing back is just a no.</dd>
+            <dt>And it is not one email</dt><dd>The first decision is a different question per industry. Title companies get asked which side of the close they start on, legal gets asked whether trust funds touch their balance, platforms get asked who holds the funds. Five versions, same shell, because a generic "what to decide" email is worse than no email.</dd>
+            <dt>Why only one</dt><dd>They did not ask for a sequence and they are not ready for one. The email says it is the only one until they reply, and that is kept.</dd>
+          </dl>
+        </div>
+      </div>
+
+    <div class="never">
+      <p class="lbl">What never happens</p>
+      <ul>
+        <li>No re entry. Once a record closes, this flow cannot pick it up again.</li>
+        <li>No win back campaign, no reactivation series, no "just checking in" six weeks later.</li>
+        <li>No email after someone says no. One word ends it, on every path.</li>
+        <li>No third automated email to anyone, ever. Two is the ceiling on path C, one on path D.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-light">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The seven emails, full size. <span>Every one is triggered by something the person did or did not do, never by a calendar alone. Previews render with a sample recipient and sender instead of merge tokens, so they read the way they would land in an inbox.</span></h2>
+    </div>
+    <div class="mails">
+
+      <article class="mail">
+        <div class="mail-left">
+          <div class="mail-meta">
+          <span class="step-n">01</span>
+          <div class="mail-head">
+            <p class="subj">Confirmed: Thursday 10:30 with Payload</p>
+            <p class="pre">Nothing to do until Thursday. One thing that would help if you have it.</p>
+          </div>
+        </div>
+        <div class="mail-facts">
+          <div><p class="lbl">Trigger</p><p class="fv"><code>booking_complete</code></p></div>
+          <div><p class="lbl">Timing</p><p class="fv">Immediately</p></div>
+          <div><p class="lbl">Fires</p><p class="fv"><code>email_sent &middot; demo_confirmation</code></p></div>
+        </div>
+        <p class="mail-job">Confirms a meeting that already exists rather than asking for one. The only job left is getting the API reference out of them while intent is at its peak.</p>
+          <p class="mail-links">
+          <a href="emails/01-request-received.html" target="_blank" rel="noopener">Open full size</a>
+          <a href="emails/01-request-received.txt" target="_blank" rel="noopener">Plain text version</a>
+        </p>
+        </div>
+        <div class="frame">
+          <iframe src="emails/01-request-received.html" title="Confirmed: Thursday 10:30 with Payload" loading="lazy"></iframe>
+        </div>
+      </article>
+
+      <article class="mail">
+        <div class="mail-left">
+          <div class="mail-meta">
+          <span class="step-n">02</span>
+          <div class="mail-head">
+            <p class="subj">Still want the thirty minutes?</p>
+            <p class="pre">One email. Then I leave you alone, genuinely.</p>
+          </div>
+        </div>
+        <div class="mail-facts">
+          <div><p class="lbl">Trigger</p><p class="fv"><code>generate_lead, no booking_complete</code></p></div>
+          <div><p class="lbl">Timing</p><p class="fv">+24 hours</p></div>
+          <div><p class="lbl">Fires</p><p class="fv"><code>email_sent &middot; booking_nudge</code></p></div>
+        </div>
+        <p class="mail-job">Catches the person who reached the calendar and closed it. Step one of the form captured the use case before any typing, so this email knows what they wanted even though they never booked.</p>
+          <p class="mail-links">
+          <a href="emails/02-nothing-booked.html" target="_blank" rel="noopener">Open full size</a>
+          <a href="emails/02-nothing-booked.txt" target="_blank" rel="noopener">Plain text version</a>
+        </p>
+        </div>
+        <div class="frame">
+          <iframe src="emails/02-nothing-booked.html" title="You got as far as the calendar" loading="lazy"></iframe>
+        </div>
+      </article>
+
+      <article class="mail">
+        <div class="mail-left">
+          <div class="mail-meta">
+          <span class="step-n">03</span>
+          <div class="mail-head">
+            <p class="subj">Tomorrow at 10:30: what we will cover</p>
+            <p class="pre">Three parts, thirty minutes. Reply tonight if you have a flow diagram.</p>
+          </div>
+        </div>
+        <div class="mail-facts">
+          <div><p class="lbl">Trigger</p><p class="fv"><code>Booking exists, call tomorrow</code></p></div>
+          <div><p class="lbl">Timing</p><p class="fv">T minus 24 hours</p></div>
+          <div><p class="lbl">Fires</p><p class="fv"><code>email_sent &middot; call_reminder</code></p></div>
+        </div>
+        <p class="mail-job">Cut the no-show rate and make the call better at the same time. The agenda is the same three steps the demo page sells.</p>
+          <p class="mail-links">
+          <a href="emails/03-day-before.html" target="_blank" rel="noopener">Open full size</a>
+          <a href="emails/03-day-before.txt" target="_blank" rel="noopener">Plain text version</a>
+        </p>
+        </div>
+        <div class="frame">
+          <iframe src="emails/03-day-before.html" title="Tomorrow at 10:30: what we will cover" loading="lazy"></iframe>
+        </div>
+      </article>
+
+      <article class="mail">
+        <div class="mail-left">
+          <div class="mail-meta">
+          <span class="step-n">04</span>
+          <div class="mail-head">
+            <p class="subj">Your integration estimate</p>
+            <p class="pre">Scope, timeline and pricing model. One document, from the person on the call.</p>
+          </div>
+        </div>
+        <div class="mail-facts">
+          <div><p class="lbl">Trigger</p><p class="fv"><code>Call marked complete</code></p></div>
+          <div><p class="lbl">Timing</p><p class="fv">+1 business day</p></div>
+          <div><p class="lbl">Fires</p><p class="fv"><code>email_sent &middot; estimate_delivered</code></p></div>
+        </div>
+        <p class="mail-job">This is the promise the whole page rests on. If this email does not ship on time, the demo page is writing cheques the company does not cash.</p>
+          <p class="mail-links">
+          <a href="emails/04-written-estimate.html" target="_blank" rel="noopener">Open full size</a>
+          <a href="emails/04-written-estimate.txt" target="_blank" rel="noopener">Plain text version</a>
+        </p>
+        </div>
+        <div class="frame">
+          <iframe src="emails/04-written-estimate.html" title="Your integration estimate" loading="lazy"></iframe>
+        </div>
+      </article>
+
+      <article class="mail">
+        <div class="mail-left">
+          <div class="mail-meta">
+          <span class="step-n">05</span>
+          <div class="mail-head">
+            <p class="subj">Closing this out, unless you say otherwise</p>
+            <p class="pre">Three honest options, and one of them is no.</p>
+          </div>
+        </div>
+        <div class="mail-facts">
+          <div><p class="lbl">Trigger</p><p class="fv"><code>No activity 14 days after estimate</code></p></div>
+          <div><p class="lbl">Timing</p><p class="fv">+14 days</p></div>
+          <div><p class="lbl">Fires</p><p class="fv"><code>email_sent &middot; final_check</code></p></div>
+        </div>
+        <p class="mail-job">Force a decision instead of letting the deal rot in the pipeline. Naming 'you went another way' as an option is what makes people answer.</p>
+          <p class="mail-links">
+          <a href="emails/05-closing-the-file.html" target="_blank" rel="noopener">Open full size</a>
+          <a href="emails/05-closing-the-file.txt" target="_blank" rel="noopener">Plain text version</a>
+        </p>
+        </div>
+        <div class="frame">
+          <iframe src="emails/05-closing-the-file.html" title="Closing this out, unless you say otherwise" loading="lazy"></iframe>
+        </div>
+      </article>
+      <article class="mail">
+        <div class="mail-left">
+          <div class="mail-meta">
+            <span class="step-n">06</span>
+            <div class="mail-head">
+              <p class="subj">Missed you at 10:30</p>
+              <p class="pre">No harm done. Here is the calendar again, and I kept your notes.</p>
+            </div>
+          </div>
+          <div class="mail-facts">
+            <div><p class="lbl">Trigger</p><p class="fv"><code>call_no_show</code></p></div>
+            <div><p class="lbl">Timing</p><p class="fv">Within the hour</p></div>
+            <div><p class="lbl">Fires</p><p class="fv"><code>email_sent &middot; no_show_recovery</code></p></div>
+          </div>
+          <p class="mail-job">Path B only. The tone does all the work: no guilt, no suggestion they wasted anyone's time, and an explicit one word way to say no. A clean no is worth more than a guilty rebook that also does not happen.</p>
+          <p class="mail-links">
+            <a href="emails/06-no-show.html" target="_blank" rel="noopener">Open full size</a>
+            <a href="emails/06-no-show.txt" target="_blank" rel="noopener">Plain text version</a>
+          </p>
+        </div>
+        <div class="frame">
+          <iframe src="emails/06-no-show.html" title="Missed you at 10:30" loading="lazy"></iframe>
+        </div>
+      </article>
+      <article class="mail">
+        <div class="mail-left">
+          <div class="mail-meta">
+            <span class="step-n">07</span>
+            <div class="mail-head">
+              <p class="subj">No call yet, and what I would decide first</p>
+              <p class="pre">The two questions that come before a demo, and your sandbox either way.</p>
+            </div>
+          </div>
+          <div class="mail-facts">
+            <div><p class="lbl">Trigger</p><p class="fv"><code>lead_review_queue</code></p></div>
+            <div><p class="lbl">Timing</p><p class="fv">Within 1 business day</p></div>
+            <div><p class="lbl">Fires</p><p class="fv"><code>email_sent &middot; too_early_reply</code></p></div>
+          </div>
+          <p class="mail-job">Path D only, and the hardest one to write. The form just declined to show them a calendar, so this email has to be worth more than the meeting they did not get. It names the two decisions that come first, hands over sandbox credentials anyway, and offers to book manually once they answer.</p>
+          <p class="mail-links">
+            <a href="emails/07-not-yet.html" target="_blank" rel="noopener">Open full size</a>
+            <a href="emails/07-not-yet.txt" target="_blank" rel="noopener">Plain text version</a>
+          </p>
+        </div>
+        <div class="frame">
+          <iframe src="emails/07-not-yet.html" title="No call yet, and what I would decide first" loading="lazy"></iframe>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-light" id="routing">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Same template, routed. <span>The form asks two questions and both are a single click. They come straight off payload.com/solutions, so the answers map onto pages and content that already exist.</span></h2>
+    </div>
+
+    <div class="signals">
+      <div class="signal">
+        <p class="lbl">Step one, one click</p>
+        <h3>What does your company do</h3>
+        <p>The five options are Payload's own solutions nav: real estate, legal payments, insurance, professional services, software platform. Decides the tailored paragraph and the reading. Fires <code>form_step_complete</code> before a character is typed, so an abandon later still reports the industry.</p>
+      </div>
+      <div class="signal">
+        <p class="lbl">Step two, one click</p>
+        <h3>What are you building</h3>
+        <p>Inbound, outbound, multi party, or still deciding. Decides which engineer takes the call and what the agenda leads with. Asking beats inferring from the email domain, which guesses wrong on every <code>gmail.com</code> and every holding company.</p>
+      </div>
+    </div>
+
+    <table class="vtable">
+      <thead><tr><th scope="col">Answer in step one</th><th scope="col">What it covers</th><th scope="col">What changes in the email</th></tr></thead>
+      <tbody>
+        <tr><td><b>Real estate</b></td><td>Brokerage, title, mortgage, property mgmt</td><td>Earnest money and commission splits. Reading is the eXp Realty story and Payload Protect.</td></tr>
+        <tr><td><b>Legal payments</b></td><td>IOLTA, invoicing, co-counsel</td><td>Trust accounting decides the rail first. Reading is the legal payments page and Payload Protect.</td></tr>
+        <tr><td><b>Insurance</b></td><td>Premiums, commissions, claims</td><td>Premiums in and claims out on one integration. Reading is the insurance page and the Fifth Third announcement.</td></tr>
+        <tr><td><b>Professional services</b></td><td>CPA, consulting, engineering</td><td>Collections speed over cost. Reading is the professional services page and the sandbox quickstarts.</td></tr>
+        <tr><td><b>Software platform</b></td><td>Embedding payments in your product</td><td>Who holds the funds and month end reconciliation. Reading is the quickstarts and the Fifth Third announcement.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="split">
+      <figure>
+        <figcaption>real estate</figcaption>
+        <img src="emails/img/route-title.png" alt="The reading block in the reminder email for a title company: earnest money and Payload Protect" loading="lazy">
+        <p class="split-note"><a href="emails/03-day-before.html" target="_blank" rel="noopener">Open the full email</a></p>
+      </figure>
+      <figure>
+        <figcaption>software platform</figcaption>
+        <img src="emails/img/route-platform.png" alt="The same block for a software platform: sandbox quickstarts and the Fifth Third announcement" loading="lazy">
+        <p class="split-note"><a href="emails/variants/03-day-before--saas.html" target="_blank" rel="noopener">Open the full email</a></p>
+      </figure>
+    </div>
+    <p class="rules-note" style="color:var(--ink-3);margin-top:var(--s-5)">Same email, same code path. Emails 03 and 07 branch, so the generator writes four variants of each. Emails 01, 02, 04, 05 and 06 are byte identical across every industry, so it writes none. Eight variant files rather than thirty five.</p>
+  </div>
+</section>
+
+<section class="sec sec-dark" id="timing">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Path A compresses when the call is soon. <span>A sequence built for a meeting nine days out is wrong for a meeting tomorrow. Only the booked path has this problem, so only the booked path has this rule.</span></h2>
+    </div>
+    <table class="rules">
+      <thead><tr><th scope="col">When the meeting sits</th><th scope="col">What sends</th><th scope="col">Why</th></tr></thead>
+      <tbody>
+        <tr><td><b>Three days out or more</b></td>
+            <td>All four. Confirmation now, reminder at <code>T-24h</code>, estimate, close.</td>
+            <td>Long enough for the booking to fall out of memory, so the reminder earns its place.</td></tr>
+        <tr><td><b>Under three days</b></td>
+            <td>Confirmation now, carrying the agenda. Reminder only if <code>T-24h</code> is still more than six hours away.</td>
+            <td>Two emails inside 48 hours about the same meeting reads as nagging, not service.</td></tr>
+        <tr><td><b>Under 24 hours</b></td>
+            <td>Confirmation only. It is the reminder.</td>
+            <td>Sending a "tomorrow" email about a meeting three hours from now is how automation announces itself.</td></tr>
+      </tbody>
+    </table>
+    <p class="rules-note">Booking is also capped at five business days out, soonest first. No show rate climbs with lead time, so the cheapest way to improve attendance is to stop offering dates three weeks away.</p>
+  </div>
+</section>
+
+<section class="sec sec-light">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Why it is built this way. <span>Six decisions, and the reasoning behind each one. This is the part worth arguing about, because the copy can change and the structure cannot.</span></h2>
+    </div>
+    <div class="whys">
+      <div class="why">
+        <span class="why-n">01</span>
+        <h3>Booking happens on the page, not in an email</h3>
+        <p>Every email you make somebody open is a place to lose them, and intent is highest in the seconds right after they submit. Moving the calendar onto the thank you page acts on that peak instead of posting a letter to it. Email then becomes the safety net underneath, which is a job it is good at.</p>
+      </div>
+      <div class="why">
+        <span class="why-n">02</span>
+        <h3>The qualifier costs one click and comes first</h3>
+        <p>Typing is the expensive part of a form, so the first screen asks for none. One click is close to the lowest activation energy a page can ask for, and once someone has answered anything, finishing feels less like a decision and more like following through. It also means an abandon at screen four still tells us who they were.</p>
+      </div>
+      <div class="why">
+        <span class="why-n">03</span>
+        <h3>The exit is named out loud</h3>
+        <p>Email 05 offers three answers and says the third one, no, happens by default. People reply when refusing is easy and costs them nothing. A message that only has room for yes usually gets silence, and silence is the one answer you cannot act on.</p>
+      </div>
+      <div class="why">
+        <span class="why-n">04</span>
+        <h3>Proof lands after the commitment, not before</h3>
+        <p>The Fifth Third quote sits in the confirmation email rather than on the landing page. The wobbliest moment is just after someone commits, not just before, so that is where reassurance is worth the space.</p>
+      </div>
+      <div class="why">
+        <span class="why-n">05</span>
+        <h3>The calendar refuses dates that are too far out</h3>
+        <p>The longer the gap between booking and the call, the more chances there are to forget it, double book it, or stop caring. So the picker caps at five business days and shows the soonest first. Saying that on the page turns a constraint into a reason to trust the person on the other end.</p>
+      </div>
+      <div class="why">
+        <span class="why-n">06</span>
+        <h3>Every promise the page makes is one the flow can keep</h3>
+        <p>The page says there is no drip, so there is no reactivation program, no win back, and two automated emails is the ceiling. A promise that is quietly broken later is worse than never making it, and the only way to keep this one is to build nothing that could break it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Prototype built by Jacob Gilliam, 16 September 2026. Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Emails are hand coded HTML with plain text alternates, built from one shell in <code>build-emails.py</code>. Merge fields use ESP agnostic syntax.</p>
+    <a href="demo.html">See the demo page</a>
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  "use strict";
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.flow-tabs [role="tab"]'));
+  function select(tab){
+    tabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  /* hidden panels hold lazy images that cannot load, so a first switch would flash
+     empty. Warm them once the page has settled, off the critical path. */
+  function warm(){
+    Array.prototype.forEach.call(document.querySelectorAll('.flow-panel[hidden] img'), function(img){
+      var pre = new Image();
+      pre.src = img.getAttribute('src');
+    });
+  }
+  if('requestIdleCallback' in window) requestIdleCallback(warm, {timeout:3000});
+  else setTimeout(warm, 1200);
+
+  tabs.forEach(function(tab, i){
+    tab.addEventListener('click', function(){ select(tab); });
+    tab.addEventListener('keydown', function(e){
+      if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      select(next); next.focus();
+    });
+  });
+})();
+</script>
+</body>
+</html>

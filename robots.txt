@@ -1,0 +1,3 @@
+# Concept work, shared by link only. Not for indexing.
+User-agent: *
+Disallow: /

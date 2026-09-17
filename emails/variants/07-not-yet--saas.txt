@@ -1,0 +1,33 @@
+You are earlier than a demo, Dana.
+
+Pre-launch and still deciding is the one case where thirty minutes with an
+engineer produces a conversation and no decisions, because the answers depend on
+things you have not picked yet. Two of them, specifically.
+
+WHAT COMES FIRST
+01 Who holds the funds. You, us, or a bank. That one choice sets the licensing, the reconciliation and roughly half the build.
+02 How many parties split a payment. One party is a different build
+   to three, and it is the question every timeline estimate depends on.
+
+Answer those two and a demo is worth booking. Reply with where you land and I
+will put the thirty minutes in myself, no form.
+
+IN THE MEANTIME
+The page said sandbox credentials the same day whether or not you move forward,
+so they are on their way to this address.
+Checkout: https://docs.payload.com/v2/pay/checkout
+Payouts: https://docs.payload.com/v2/pay/sending-payouts
+
+WORTH READING WHILE YOU DECIDE
+- Build it before we talk: Checkout and payouts quickstarts, open now.
+  https://docs.payload.com/v2
+- A bank backed these rails: Why Fifth Third invested in August 2026.
+  https://payload.com/articles/payload-fifth-third-investment
+
+Alex Navarro
+Solutions Engineering, Payload
+
+This is the only email you get from me until you reply.
+
+Payload, LLC, Cincinnati, Ohio
+Stop these emails: [unsubscribe]

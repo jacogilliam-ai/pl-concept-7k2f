@@ -1,0 +1,34 @@
+Here is the shape of tomorrow.
+
+TOMORROW 18 SEPTEMBER, 10:30AM ET
+30 minutes with Alex Navarro
+
+01 Minutes 0 to 5. Your flows on screen. Inbound, outbound, multi party.
+02 Minutes 5 to 25. I build the closest thing to your model in the sandbox,
+   live. It stays yours afterwards.
+03 Minutes 25 to 30. What it takes to go live, and what I still need from you.
+
+Useful to have open: a flow diagram or API reference, rough monthly volume, and
+whoever owns reconciliation today. None of it is required, and replying with any
+of it tonight means I read it before we meet.
+
+Wrong time after all? Reschedule in one click: [link]
+
+With legal, the first question is always trust accounting. IOLTA rules decide the rail before anything else does, so that is where we will start.
+
+OPTIONAL READING
+- Trust accounting that reconciles: IOLTA, invoicing and co-counsel payments.
+  https://payload.com/legal-payments
+- Good funds, guaranteed: What Payload Protect does about irrevocability.
+  https://payload.com/articles/payload-protect
+
+"Payload has built something rare in the payments space: a platform that is both
+technically sophisticated and deeply aligned with real business needs."
+Bridgit Chayt, Head of Commercial Payments, Fifth Third
+
+Alex Navarro
+Solutions Engineering, Payload
+
+Bring your engineer.
+
+Payload, LLC, Cincinnati, Ohio
