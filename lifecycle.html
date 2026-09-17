@@ -908,6 +908,13 @@ a.node-email:hover .node-open{text-decoration:underline}
   if('requestIdleCallback' in window) requestIdleCallback(warm, {timeout:3000});
   else setTimeout(warm, 1200);
 
+  /* arriving from the booking page with ?path=b opens that tab */
+  var want = (new URLSearchParams(location.search).get('path') || '').toLowerCase();
+  if(want){
+    var idx = {a:0, b:1, c:2, d:3}[want];
+    if(idx !== undefined && tabs[idx]) select(tabs[idx]);
+  }
+
   tabs.forEach(function(tab, i){
     tab.addEventListener('click', function(){ select(tab); });
     tab.addEventListener('keydown', function(e){

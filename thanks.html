@@ -158,6 +158,27 @@ h1 em{font-style:normal;color:var(--green)}
   font-size:var(--t-2);line-height:1.55;color:var(--ink-3)}
 .nextup strong{color:var(--ink-2)}
 
+/* Where this submission lands. Scaffolding voice, same family as the concept bar, so it
+   never reads as something a real prospect would be shown. */
+.pathband{background:#0d2430;border-block:1px solid rgba(199,235,247,.16)}
+.pathband .wrap{display:grid;grid-template-columns:auto 1fr auto;gap:var(--s-4) var(--s-5);
+  align-items:center;padding-block:var(--s-4)}
+.pb-key{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);
+  font-size:var(--t-2);color:var(--green);white-space:nowrap}
+.pb-key .dot{width:9px;height:9px;border-radius:50%;background:var(--green);flex:0 0 9px;
+  box-shadow:0 0 0 3px rgba(118,244,178,.22)}
+.pb-body{min-width:0}
+.pb-body p{margin:0;font-size:var(--t-2);line-height:1.5;color:var(--pale-dim)}
+.pb-body b{color:#fff;font-weight:700}
+.pb-lbl{display:block;font-family:var(--mono);font-size:var(--t-1);color:var(--pale-dim);
+  opacity:.75;margin-bottom:3px}
+.pathband a{color:var(--pale);font-size:var(--t-2);text-decoration:none;white-space:nowrap;
+  border-bottom:1px solid rgba(199,235,247,.32);padding-bottom:1px}
+.pathband a:hover{border-bottom-color:var(--pale)}
+@media (max-width:760px){
+  .pathband .wrap{grid-template-columns:1fr;gap:var(--s-3)}
+  .pathband a{display:inline-block;padding-block:11px}
+}
 .strip{background:var(--paper-2);border-block:1px solid var(--line)}
 .strip .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-7);padding-block:var(--s-7)}
 .strip .when-l{font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
@@ -282,6 +303,17 @@ h1 em{font-style:normal;color:var(--green)}
   </div>
 </section>
 
+<section class="pathband" id="pathband">
+  <div class="wrap">
+    <span class="pb-key"><span class="dot" aria-hidden="true"></span><span id="pbKey">Path C</span></span>
+    <div class="pb-body">
+      <span class="pb-lbl">where this submission lands in the flow</span>
+      <p id="pbText"></p>
+    </div>
+    <a id="pbLink" href="lifecycle.html#cadence">See the path &rarr;</a>
+  </div>
+</section>
+
 <section class="strip">
   <div class="wrap">
     <div>
@@ -381,6 +413,22 @@ h1 em{font-style:normal;color:var(--green)}
     push('booking_view', {slots_shown: document.querySelectorAll('.slot').length});
   }
 
+
+  /* The band reads the same signals the flow does, and updates the moment they book, so the
+     branch is visible at the point a real person would be entering it. */
+  var PATHS = {
+    A: ['Path A', '<b>Booked a slot, showed up.</b> Confirmation now, reminder at T minus 24 hours, the written estimate one business day after the call, and a close at day fourteen if nothing comes back. Miss the call and this becomes path B.', 'a'],
+    C: ['Path C', '<b>Nothing picked yet.</b> Close this page without choosing a time and one nudge goes out at plus 24 hours. That is the only one. No booking after it closes the record and a person picks it up quarterly.', 'c'],
+    D: ['Path D', '<b>Never shown a calendar.</b> The form read pre-launch and still deciding, so it routed to a written answer instead of a slot. One email inside a business day, tailored to your industry, then it stops until you reply.', 'd']
+  };
+  function setPath(k){
+    var v = PATHS[k];
+    document.getElementById('pbKey').textContent = v[0];
+    document.getElementById('pbText').innerHTML = v[1];
+    document.getElementById('pbLink').href = 'lifecycle.html?path=' + v[2] + '#cadence';
+  }
+  setPath(review ? 'D' : 'C');
+
   var days = document.querySelectorAll('.day');
   Array.prototype.forEach.call(days, function(d){
     d.addEventListener('click', function(){
@@ -405,6 +453,7 @@ h1 em{font-style:normal;color:var(--green)}
       push('booking_complete', {form_id:'demo_request', slot: slot, use_case: use || 'not_provided',
                                 industry: ind || 'not_provided', volume: vol || 'not_provided', value: 1, currency:'USD'});
       push('conversion', {send_to:'demo_meeting_booked'});
+      setPath('A');
     });
   });
 })();
