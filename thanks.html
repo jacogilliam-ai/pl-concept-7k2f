@@ -66,6 +66,21 @@ body{margin:0;background:var(--paper);color:var(--ink);
 .wrap{max-width:1180px;margin:0 auto;padding-inline:44px}
 :where(a,button):focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:3px}
 
+/* concept bar. Sits above the Payload chrome so it reads as scaffolding, not page content. */
+.conceptbar{background:#0d2430;border-bottom:1px solid rgba(199,235,247,.16)}
+.conceptbar .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:var(--s-4);padding-block:9px;flex-wrap:wrap}
+.conceptbar a{color:var(--pale);font-size:var(--t-2);text-decoration:none;
+  border-bottom:1px solid rgba(199,235,247,.32);padding-bottom:1px;white-space:nowrap}
+.conceptbar a:hover{border-bottom-color:var(--pale)}
+.conceptbar .cb-what{margin:0;font-family:var(--mono);font-size:var(--t-1);
+  color:var(--pale-dim);letter-spacing:.02em}
+.conceptbar .cb-nav{display:flex;align-items:center;gap:var(--s-5)}
+@media (max-width:660px){
+  .conceptbar .wrap{padding-block:11px}
+  .conceptbar a{display:inline-block;padding-block:12px}
+  .conceptbar .cb-nav{gap:var(--s-4)}
+}
 .site-head{background:var(--nav)}
 .site-head .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:var(--s-4);gap:var(--s-4)}
 .logo{display:inline-flex;align-items:center;gap:2px;text-decoration:none;font-weight:900;
@@ -184,6 +199,17 @@ h1 em{font-style:normal;color:var(--green)}
 </style>
 </head>
 <body>
+
+<div class="conceptbar">
+  <div class="wrap">
+    <p class="cb-what">Concept build by Jacob Gilliam &middot; 2 of 3 &middot; the booking screen</p>
+    <nav class="cb-nav" aria-label="Concept build pages">
+        <a href="demo.html">&larr; The demo page</a>
+        <a href="index.html">All three pages</a>
+        <a href="lifecycle.html">After the submit &rarr;</a>
+    </nav>
+  </div>
+</div>
 
 <header class="site-head">
   <div class="wrap">

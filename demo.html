@@ -75,6 +75,22 @@ img{max-width:100%}
 .lbl{font-size:var(--t-1);font-weight:700;letter-spacing:var(--track-label);
   text-transform:uppercase;line-height:1.4;margin:0}
 
+/* concept bar. Sits above the Payload chrome so it reads as scaffolding, not page content. */
+.conceptbar{background:#0d2430;border-bottom:1px solid rgba(199,235,247,.16)}
+.conceptbar .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:var(--s-4);padding-block:9px;flex-wrap:wrap}
+.conceptbar a{color:var(--pale);font-size:var(--t-2);text-decoration:none;
+  border-bottom:1px solid rgba(199,235,247,.32);padding-bottom:1px;white-space:nowrap}
+.conceptbar a:hover{border-bottom-color:var(--pale)}
+.conceptbar .cb-what{margin:0;font-family:var(--mono);font-size:var(--t-1);
+  color:var(--pale-dim);letter-spacing:.02em}
+.conceptbar .cb-nav{display:flex;align-items:center;gap:var(--s-5)}
+@media (max-width:660px){
+  .conceptbar .wrap{padding-block:11px}
+  .conceptbar a{display:inline-block;padding-block:12px}
+  .conceptbar .cb-nav{gap:var(--s-4)}
+}
+
 /* ---------- header ---------- */
 .site-head{background:var(--nav)}
 .site-head .wrap{display:flex;align-items:center;justify-content:space-between;
@@ -347,11 +363,25 @@ body.anno .anno-toggle .pip{background:var(--green);box-shadow:0 0 0 3px rgba(11
 [data-note]{position:relative}
 body.anno [data-note]{outline:1.5px dashed rgba(17,192,238,.85);outline-offset:5px;border-radius:2px}
 body.anno .hero [data-note],body.anno .sec-dark [data-note]{outline-color:rgba(118,244,178,.9)}
-[data-note]::before{content:attr(data-note);display:none;position:absolute;top:-11px;left:-11px;
-  z-index:20;width:21px;height:21px;border-radius:50%;background:var(--blue);color:#fff;
-  font-size:var(--t-1);font-weight:900;align-items:center;justify-content:center;line-height:1;
-  box-shadow:0 1px 5px rgba(0,0,0,.3)}
-body.anno [data-note]::before{display:flex}
+.anno-pin{display:none;position:absolute;top:-11px;left:-11px;z-index:20;
+  width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;
+  font-size:var(--t-1);font-weight:900;align-items:center;justify-content:center;
+  line-height:1;text-decoration:none;box-shadow:0 1px 5px rgba(0,0,0,.3);
+  transition:transform .12s,background .12s}
+body.anno .anno-pin{display:flex}
+.anno-pin:hover{background:#0b2f3a;transform:scale(1.12)}
+/* The badges stay badge sized. The tap area does not: a transparent 44px square is
+   centred on each one so a thumb can hit it without the dot becoming a button. */
+.anno-pin::after,.note a.n::after{content:"";position:absolute;top:50%;left:50%;
+  width:44px;height:44px;transform:translate(-50%,-50%)}
+.note a.n{position:relative}
+[data-note],.note{scroll-margin-top:24px}
+.note .n{text-decoration:none;transition:background .12s,transform .12s}
+a.n:hover{background:#0b2f3a;transform:scale(1.08)}
+.note:target{background:rgba(17,192,238,.07);border-radius:4px}
+[data-note]:target{outline-color:var(--blue)!important}
+.note-sep{grid-column:1/-1;margin:var(--s-5) 0 var(--s-2);padding-top:var(--s-4);
+  border-top:1px solid rgba(199,235,247,.18);color:var(--pale-dim)}
 
 .notes{display:none;background:#12303f;padding:var(--s-8) 0}
 body.anno .notes{display:block}
@@ -392,11 +422,16 @@ body.anno .evlog{display:block}
   .sec{padding-block:var(--s-8)}
 }
 @media (max-width:660px){
+  /* one line on a phone: the icons are decoration, the words are the point */
+  .chips{gap:0;flex-wrap:nowrap;white-space:nowrap}
+  .chips li{font-size:var(--t-1);letter-spacing:0;gap:0}
+  .chips li:not(:last-child)::after{content:"\00b7";margin:0 6px;color:var(--pale-dim);opacity:.75}
+  .chips svg{display:none}
   :root{--t-8:33px;--t-7:27px;--t-6:23px;--t-5:19px;--t-4:17px}
   /* 44px minimum on everything you can tap */
   .logo{padding-block:8px}
   .anno-toggle{padding-block:15px}
-  .wrap{padding-inline:22px}
+  .wrap{padding-inline:20px}
   h1{max-width:none}
   .row{grid-template-columns:1fr;gap:0}
   .card{padding:var(--s-5) 20px}
@@ -412,10 +447,27 @@ body.anno .evlog{display:block}
     text-decoration:underline;text-underline-offset:3px}
   .anno-toggle{right:12px;bottom:12px}
 }
+
+@media (max-width:344px){
+  /* below this the three labels genuinely do not fit on one line, so let them wrap
+     rather than clipping a word in half */
+  .chips{flex-wrap:wrap;white-space:normal;gap:6px 0}
+  .chips li:not(:last-child)::after{margin:0 8px}
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#demoForm">Skip to the demo form</a>
+
+<div class="conceptbar">
+  <div class="wrap">
+    <p class="cb-what">Concept build by Jacob Gilliam &middot; 1 of 3 &middot; the demo page</p>
+    <nav class="cb-nav" aria-label="Concept build pages">
+        <a href="index.html">All three pages</a>
+        <a href="thanks.html">The booking screen &rarr;</a>
+    </nav>
+  </div>
+</div>
 
 <header class="site-head">
   <div class="wrap">
@@ -437,7 +489,7 @@ body.anno .evlog{display:block}
       <span><strong>Sandbox credentials and SDK access the same day, whether or not you move forward.</strong> You pick your time on the next screen, not in an email three hours from now, and you are not added to a drip.</span>
     </p>
 
-      <ul class="chips" data-note="14">
+      <ul class="chips" data-note="13">
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 20 6v6c0 4.8-3.3 8.3-8 9.2C7.3 20.3 4 16.8 4 12V6z"/><path d="m8.8 12.2 2.2 2.2 4.2-4.4"/></svg>PCI DSS Level 1</li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 20 6v6c0 4.8-3.3 8.3-8 9.2C7.3 20.3 4 16.8 4 12V6z"/><path d="m8.8 12.2 2.2 2.2 4.2-4.4"/></svg>SOC 2 Type 2</li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20h18M5.5 20V10.5m4.5 9.5V10.5m4 9.5V10.5m4.5 9.5V10.5M12 3.2l8.5 4.6h-17z"/></svg>Backed by Fifth Third</li>
@@ -678,79 +730,85 @@ body.anno .evlog{display:block}
     <p class="intro">This page is a working prototype, not a mockup. Every element maps to a finding from the 15 September teardown of payload.com. Codes reference that document.</p>
     <div class="notelist">
 
-      <div class="note"><span class="n">1</span><div>
+      <div class="note" data-key="1"><span class="n">1</span><div>
         <h3>The page has a URL</h3>
         <p>On payload.com, Talk to Our Team, Get Started and Contact Us all open a modal and leave the browser at <code>payload.com/</code>. Nothing to advertise to, count, or paste into a sales email. This page is a real route.</p>
         <span class="fix">FIXES CVR-01</span>
       </div></div>
 
-      <div class="note"><span class="n">2</span><div>
+      <div class="note" data-key="2"><span class="n">2</span><div>
         <h3>A way out that is not a dead link</h3>
         <p>Nav and footer Contact links on the live site are <code>href="#"</code>. Command-click does nothing, right-click copies <code>payload.com/#</code>, screen readers announce a link to nowhere. Both links here resolve.</p>
         <span class="fix">FIXES CVR-06</span>
       </div></div>
 
-      <div class="note"><span class="n">3</span><div>
+      <div class="note" data-key="3"><span class="n">3</span><div>
         <h3>Validation that says what is wrong</h3>
         <p>The live form's handler requires email while the markup does not, so missing it produces no request, no error and no explanation. Here every rule is enforced in the markup, errors render under the field, and <code>aria-invalid</code> plus <code>aria-describedby</code> carry the message to assistive tech. Every input declares <code>autocomplete</code>, which none of the live form's five fields do.</p>
         <span class="fix">FIXES CVR-02, CVR-07, A11Y-01</span>
       </div></div>
 
-      <div class="note"><span class="n">4</span><div>
+      <div class="note" data-key="4"><span class="n">4</span><div>
         <h3>Five fields, and nothing else asked</h3>
         <p>The live modal asks for a message and a phone number and promises nothing back. This asks for the five things that actually route a lead, and the optional volume question was cut, because an optional field still reads as one more thing to answer. What the thirty minutes buys is stated once, further down, instead of twice.</p>
         <span class="fix">ADDITION</span>
       </div></div>
 
-      <div class="note"><span class="n">5</span><div>
+      <div class="note" data-key="5"><span class="n">5</span><div>
         <h3>The volume numbers, stated on the right time basis</h3>
         <p>None of these appear anywhere on payload.com's homepage. Sourced deliberately: <code>$500M</code> a month is from the August 2026 Fifth Third announcement, which is also where the roughly $6B annualised figure comes from. The <code>$8B+</code> on payload.com's real-estate page is cumulative volume, not annual, so the two are not interchangeable and neither is "$7B a year."</p>
         <span class="fix">FIXES CNT-01</span>
       </div></div>
 
-      <div class="note"><span class="n">6</span><div>
+      <div class="note" data-key="6"><span class="n">6</span><div>
         <h3>Saying what happens after they click</h3>
         <p>Named response time plus an explicit promise not to drip them. Form anxiety is the cheapest conversion loss on any B2B demo page and it costs one sentence to remove.</p>
         <span class="fix">ADDITION</span>
       </div></div>
 
-      <div class="note"><span class="n">7</span><div>
+      <div class="note" data-key="7"><span class="n">7</span><div>
         <h3>The logo wall, above the fold</h3>
         <p>On the live homepage the customer logo bar sits 35px below the fold at every viewport height measured, so most visitors never see the one piece of social proof on the page. Here it is inside the hero, on the same dark ground as the form, measured visible at 1512&times;860. Every mark shown appears on payload.com's own homepage or real-estate page.</p>
         <span class="fix">FIXES CNT-02</span>
       </div></div>
 
-      <div class="note"><span class="n">8</span><div>
+      <div class="note" data-key="8"><span class="n">8</span><div>
         <h3>A quote with a real name on it</h3>
         <p>Every testimonial on payload.com runs with a company name at most and no person attached, which is close to worthless as proof because a reader assumes marketing wrote it. This one is a named executive at the bank that just invested, lifted verbatim from Payload's own announcement. The customer quotes already on the site would work just as hard with one email to get a name, a title and a headshot on each.</p>
         <span class="fix">FIXES CNT-03</span>
       </div></div>
 
-      <div class="note"><span class="n">9</span><div>
+      <div class="note" data-key="9"><span class="n">9</span><div>
         <h3>Events at every step of the funnel</h3>
         <p>GA4 on the live site records pageviews and scroll depth only. Opening the contact modal pushes nothing. This page fires <code>form_start</code>, <code>form_error</code>, <code>cta_click</code> and <code>generate_lead</code>, and the thank-you page fires the conversion. Watch the log below while you use the form.</p>
         <span class="fix">FIXES TRK-04</span>
       </div></div>
 
-      <div class="note"><span class="n">10</span><div>
+      <div class="note" data-key="10"><span class="n">10</span><div>
         <h3>Contrast, since the audit raised it</h3>
         <p>Both primary CTAs on payload.com fail at 1.97:1 and 2.14:1. It would be awkward to ship a fix that also fails, so the hero gradient is about 6% darker than the sampled value and the button gradient stops at a lighter teal instead of <code>#46a2b8</code>, which had the label at 3.7:1. Smallest ratio across both pages is now 4.7:1 against a 4.5:1 requirement, checked on every text node in a browser rather than by eye.</p>
         <span class="fix">FIXES A11Y-02</span>
       </div></div>
 
-      <div class="note"><span class="n">12</span><div>
+      <div class="note" data-key="15"><span class="n">15</span><div>
+        <h3>One optional field, and it says what it is for</h3>
+        <p>Moov asks for "Additional Information" and marks it required, which turns a helpful box into a toll gate. This one is optional and the hint under it says exactly what the engineer already has, so nobody writes a paragraph restating their industry. Fires <code>has_note</code> so the team can see whether people who write something convert differently.</p>
+        <span class="fix">ADDITION</span>
+      </div></div>
+
+      <div class="note" data-key="12"><span class="n">12</span><div>
         <h3>Not every submit reaches a calendar</h3>
         <p>Finix, Moov and CargoWise all collect details and promise a reply rather than exposing a calendar, and the reason is sound: a payments company cannot serve every industry, an open calendar gets taken by tyre kickers, and enterprise buyers need a human before a slot. So this gates instead of choosing. Answers that clear the bar get the calendar at peak intent. <b>Pre-launch and still deciding</b> gets a written answer and sandbox credentials instead, and the page says why. Fires <code>lead_routed</code> either way, so the split is measurable.</p>
         <span class="fix">ADDITION</span>
       </div></div>
 
-      <div class="note"><span class="n">13</span><div>
+      <div class="note" data-key="13"><span class="n">13</span><div>
         <h3>The compliance marks are a placeholder</h3>
         <p>PCI DSS and SOC 2 marks are credential artifacts controlled by the assessor and the AICPA, and Fifth Third has its own brand guidelines. Rendering them as type rather than inventing badge graphics is deliberate. Swap in the real assets from whoever owns compliance before this ships.</p>
         <span class="fix todo">NEEDS REAL ASSETS</span>
       </div></div>
 
-      <div class="note"><span class="n">11</span><div>
+      <div class="note" data-key="11"><span class="n">11</span><div>
         <h3>A thank-you page with its own address</h3>
         <p>Without one there is no conversion URL for Google Ads or LinkedIn to optimise against and no unambiguous success signal. Submitting sends you to <code>/thanks</code>, which is a real page.</p>
         <span class="fix">FIXES CVR-01</span>
@@ -999,6 +1057,72 @@ body.anno .evlog{display:block}
   });
 
   /* ---------- annotation mode ---------- */
+
+  /* ---------- annotation numbering ----------
+     Badges are numbered by document order, not by the order the notes were written, and the
+     notes list is reordered to match. Every badge links down to its note and every note
+     number links back up to its badge. Notes with no badge on the page are page level and
+     sit after the numbered ones. */
+  (function(){
+    var pins = Array.prototype.slice.call(document.querySelectorAll('[data-note]'));
+    var list = document.querySelector('.notelist');
+    if(!list) return;
+    var notes = Array.prototype.slice.call(list.querySelectorAll('.note'));
+    var byKey = {};
+    notes.forEach(function(nd){ byKey[nd.getAttribute('data-key')] = nd; });
+
+    var ordered = [], used = {};
+    pins.forEach(function(el, i){
+      var n = i + 1, key = el.getAttribute('data-note');
+      el.id = 'pin-' + n;
+      var a = document.createElement('a');
+      a.className = 'anno-pin';
+      a.href = '#note-' + n;
+      a.textContent = n;
+      a.setAttribute('aria-label', 'Jump to note ' + n);
+      el.insertBefore(a, el.firstChild);      var nd = byKey[key];
+      if(nd){
+        used[key] = true;
+        nd.id = 'note-' + n;
+        var num = nd.querySelector('.n');
+        var link = document.createElement('a');
+        link.className = 'n';
+        link.href = '#pin-' + n;
+        link.textContent = n;
+        link.setAttribute('aria-label', 'Back to the element for note ' + n);
+        /* Some pins sit inside a form screen that is hidden until you get there. Jumping to
+           one would scroll to nothing, so reveal its screen first. */
+        var step = el.closest('.fstep');
+        if(step){
+          var idx = SCREENS.map(function(sc){ return sc.el; }).indexOf(step.id);
+          if(idx > -1){
+            link.addEventListener('click', function(){ go(idx); });
+            a.title = 'On screen ' + (idx + 1) + ' of the form';
+          }
+        }
+        num.parentNode.replaceChild(link, num);
+        ordered.push(nd);
+      }
+    });
+
+    var extras = notes.filter(function(nd){ return !used[nd.getAttribute('data-key')]; });
+    extras.forEach(function(nd, i){
+      nd.id = 'note-x' + (i + 1);
+      var num = nd.querySelector('.n');
+      num.textContent = '\u00b7';
+      num.title = 'Page level, no single element to point at';
+    });
+
+    ordered.forEach(function(nd){ list.appendChild(nd); });
+    if(extras.length){
+      var sep = document.createElement('p');
+      sep.className = 'lbl note-sep';
+      sep.textContent = 'Page level, not tied to one element';
+      list.appendChild(sep);
+      extras.forEach(function(nd){ list.appendChild(nd); });
+    }
+  })();
+
   var annoBtn = document.getElementById('annoBtn'), annoLabel = document.getElementById('annoLabel');
   function setAnno(on){
     document.body.classList.toggle('anno', on);
