@@ -23,7 +23,7 @@
   --green:#76f4b2;
   --ink:#212529;
   --ink-2:#4b5559;
-  --ink-3:#6c757d;
+  --ink-3:#697079;
   --paper:#fafdff;
   --paper-2:#f2f9fb;
   --line:#dee2e6;
@@ -88,7 +88,9 @@ img{max-width:100%}
 @media (max-width:660px){
   .conceptbar .wrap{padding-block:11px}
   .conceptbar a{display:inline-block;padding-block:12px}
-  .conceptbar .cb-nav{gap:var(--s-4)}
+  /* links keep nowrap individually, so the nav itself has to be allowed to wrap
+     or a third link pushes the bar past 320px. */
+  .conceptbar .cb-nav{gap:2px var(--s-4);flex-wrap:wrap}
 }
 
 /* ---------- header ---------- */
@@ -461,9 +463,9 @@ body.anno .evlog{display:block}
 
 <div class="conceptbar">
   <div class="wrap">
-    <p class="cb-what">Concept build by Jacob Gilliam &middot; 1 of 3 &middot; the demo page</p>
+    <p class="cb-what">Concept build by Jacob Gilliam &middot; 1 of 4 &middot; the demo page</p>
     <nav class="cb-nav" aria-label="Concept build pages">
-        <a href="index.html">All three pages</a>
+        <a href="index.html">All four pages</a>
         <a href="thanks.html">The booking screen &rarr;</a>
     </nav>
   </div>

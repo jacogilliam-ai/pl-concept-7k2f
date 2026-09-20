@@ -23,7 +23,7 @@
   --green:#76f4b2;
   --ink:#212529;
   --ink-2:#4b5559;
-  --ink-3:#6c757d;
+  --ink-3:#697079;
   --paper:#fafdff;
   --paper-2:#f2f9fb;
   --line:#dee2e6;
@@ -83,7 +83,9 @@ code{font-family:var(--mono);font-size:var(--t-2)}
 @media (max-width:660px){
   .conceptbar .wrap{padding-block:11px}
   .conceptbar a{display:inline-block;padding-block:12px}
-  .conceptbar .cb-nav{gap:var(--s-4)}
+  /* links keep nowrap individually, so the nav itself has to be allowed to wrap
+     or a third link pushes the bar past 320px. */
+  .conceptbar .cb-nav{gap:2px var(--s-4);flex-wrap:wrap}
 }
 .site-head{background:var(--nav)}
 .site-head .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:var(--s-4);gap:var(--s-4)}
@@ -225,7 +227,7 @@ a.node-email:hover .node-open{text-decoration:underline}
 .conn{display:flex;flex-direction:column;align-items:center;gap:0}
 .conn-line{width:1px;height:12px;background:#cfdfe5}
 .conn-plus{width:18px;height:18px;border-radius:50%;border:1px solid #cfdfe5;background:#fff;
-  display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:var(--ink-3);line-height:1}
+  display:grid;place-items:center;font-family:var(--mono);font-size:var(--t-1);color:var(--ink-3);line-height:1}
 
 .fp-side{padding-top:var(--s-2);position:sticky;top:var(--s-5)}
 .fp-blurb{margin:0 0 var(--s-5);font-size:var(--t-4);line-height:1.5;color:var(--ink-2);max-width:48ch}
@@ -335,10 +337,11 @@ a.node-email:hover .node-open{text-decoration:underline}
 
 <div class="conceptbar">
   <div class="wrap">
-    <p class="cb-what">Concept build by Jacob Gilliam &middot; 3 of 3 &middot; after the submit</p>
+    <p class="cb-what">Concept build by Jacob Gilliam &middot; 3 of 4 &middot; after the submit</p>
     <nav class="cb-nav" aria-label="Concept build pages">
         <a href="thanks.html">&larr; The booking screen</a>
-        <a href="index.html">All three pages</a>
+        <a href="index.html">All four pages</a>
+        <a href="revenue.html">The revenue model &rarr;</a>
     </nav>
   </div>
 </div>
@@ -356,7 +359,7 @@ a.node-email:hover .node-open{text-decoration:underline}
     <h1>The form is the easy half. <em>This is the other half.</em></h1>
     <p class="lead">Booking happens on the page, in one click, because every email you make somebody open is a place to lose them. Email is the safety net underneath that, not the path through it. Seven of them, and every one ends.</p>
     <dl class="hero-rail">
-      <div><dt>7</dt><dd>Emails, hand coded</dd></div>
+      <div><dt>7</dt><dd>Emails, one generator</dd></div>
       <div><dt>1 click</dt><dd>Submit to booked</dd></div>
       <div><dt>0</dt><dd>Emails after a no</dd></div>
       <div><dt>4</dt><dd>Paths, all of them end</dd></div>
@@ -595,7 +598,7 @@ a.node-email:hover .node-open{text-decoration:underline}
       <article class="mail">
         <div class="mail-left">
           <div class="mail-meta">
-          <span class="step-n">01</span>
+          <span class="step-n" aria-hidden="true">01</span>
           <div class="mail-head">
             <p class="subj">Confirmed: Thursday 10:30 with Payload</p>
             <p class="pre">Nothing to do until Thursday. One thing that would help if you have it.</p>
@@ -620,7 +623,7 @@ a.node-email:hover .node-open{text-decoration:underline}
       <article class="mail">
         <div class="mail-left">
           <div class="mail-meta">
-          <span class="step-n">02</span>
+          <span class="step-n" aria-hidden="true">02</span>
           <div class="mail-head">
             <p class="subj">Still want the thirty minutes?</p>
             <p class="pre">One email. Then I leave you alone, genuinely.</p>
@@ -645,7 +648,7 @@ a.node-email:hover .node-open{text-decoration:underline}
       <article class="mail">
         <div class="mail-left">
           <div class="mail-meta">
-          <span class="step-n">03</span>
+          <span class="step-n" aria-hidden="true">03</span>
           <div class="mail-head">
             <p class="subj">Tomorrow at 10:30: what we will cover</p>
             <p class="pre">Three parts, thirty minutes. Reply tonight if you have a flow diagram.</p>
@@ -670,7 +673,7 @@ a.node-email:hover .node-open{text-decoration:underline}
       <article class="mail">
         <div class="mail-left">
           <div class="mail-meta">
-          <span class="step-n">04</span>
+          <span class="step-n" aria-hidden="true">04</span>
           <div class="mail-head">
             <p class="subj">Your integration estimate</p>
             <p class="pre">Scope, timeline and pricing model. One document, from the person on the call.</p>
@@ -695,7 +698,7 @@ a.node-email:hover .node-open{text-decoration:underline}
       <article class="mail">
         <div class="mail-left">
           <div class="mail-meta">
-          <span class="step-n">05</span>
+          <span class="step-n" aria-hidden="true">05</span>
           <div class="mail-head">
             <p class="subj">Closing this out, unless you say otherwise</p>
             <p class="pre">Three honest options, and one of them is no.</p>
@@ -719,7 +722,7 @@ a.node-email:hover .node-open{text-decoration:underline}
       <article class="mail">
         <div class="mail-left">
           <div class="mail-meta">
-            <span class="step-n">06</span>
+            <span class="step-n" aria-hidden="true">06</span>
             <div class="mail-head">
               <p class="subj">Missed you at 10:30</p>
               <p class="pre">No harm done. Here is the calendar again, and I kept your notes.</p>
@@ -743,7 +746,7 @@ a.node-email:hover .node-open{text-decoration:underline}
       <article class="mail">
         <div class="mail-left">
           <div class="mail-meta">
-            <span class="step-n">07</span>
+            <span class="step-n" aria-hidden="true">07</span>
             <div class="mail-head">
               <p class="subj">No call yet, and what I would decide first</p>
               <p class="pre">The two questions that come before a demo, and your sandbox either way.</p>
@@ -879,7 +882,7 @@ a.node-email:hover .node-open{text-decoration:underline}
 
 <footer class="site-foot">
   <div class="wrap">
-    <p>Prototype built by Jacob Gilliam, 16 September 2026. Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Emails are hand coded HTML with plain text alternates, built from one shell in <code>build-emails.py</code>. Merge fields use ESP agnostic syntax.</p>
+    <p>Prototype built by Jacob Gilliam, 16 September 2026. Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Emails are table based HTML with plain text alternates, written as code rather than assembled in a drag and drop editor, and generated from one shell in <code>build-emails.py</code>. Merge fields use ESP agnostic syntax.</p>
     <a href="demo.html">See the demo page</a>
   </div>
 </footer>

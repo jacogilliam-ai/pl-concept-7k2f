@@ -23,7 +23,7 @@
   --green:#76f4b2;
   --ink:#212529;
   --ink-2:#4b5559;
-  --ink-3:#6c757d;
+  --ink-3:#697079;
   --paper:#fafdff;
   --paper-2:#f2f9fb;
   --line:#dee2e6;
@@ -79,7 +79,9 @@ body{margin:0;background:var(--paper);color:var(--ink);
 @media (max-width:660px){
   .conceptbar .wrap{padding-block:11px}
   .conceptbar a{display:inline-block;padding-block:12px}
-  .conceptbar .cb-nav{gap:var(--s-4)}
+  /* links keep nowrap individually, so the nav itself has to be allowed to wrap
+     or a third link pushes the bar past 320px. */
+  .conceptbar .cb-nav{gap:2px var(--s-4);flex-wrap:wrap}
 }
 .site-head{background:var(--nav)}
 .site-head .wrap{display:flex;align-items:center;justify-content:space-between;padding-block:var(--s-4);gap:var(--s-4)}
@@ -223,10 +225,10 @@ h1 em{font-style:normal;color:var(--green)}
 
 <div class="conceptbar">
   <div class="wrap">
-    <p class="cb-what">Concept build by Jacob Gilliam &middot; 2 of 3 &middot; the booking screen</p>
+    <p class="cb-what">Concept build by Jacob Gilliam &middot; 2 of 4 &middot; the booking screen</p>
     <nav class="cb-nav" aria-label="Concept build pages">
         <a href="demo.html">&larr; The demo page</a>
-        <a href="index.html">All three pages</a>
+        <a href="index.html">All four pages</a>
         <a href="lifecycle.html">After the submit &rarr;</a>
     </nav>
   </div>
