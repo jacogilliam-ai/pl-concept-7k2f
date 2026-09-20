@@ -1,16 +1,15 @@
-Did this arrive?
+Did this land in spam?
 
-You asked for the revenue model four days ago and the link has not been opened.
-Nine times out of ten that is not disinterest, it is a mail gateway holding a
-message from a payments domain it has not seen before.
+You asked for the revenue model four days ago and the link has not been opened,
+so here it is again in case the first one never reached you.
 
 Open your model: https://payload.com/models/payments-revenue-model.xlsx
 
-If it is not in your inbox, it is worth a look in quarantine or spam. Marking it
-as safe also means anything else you ask us for actually arrives.
+Quarantine is the usual place for a first message from a payments domain.
+Marking us as safe means anything else you ask us for actually arrives, which
+matters more than this spreadsheet does.
 
-This is the only follow up. Nothing else is scheduled and nobody is going to
-call you about a spreadsheet.
+This is the only follow up.
 
 Alex Navarro
 Solutions Engineering, Payload

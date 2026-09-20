@@ -26,7 +26,8 @@ should be your move and not mine.
 Alex Navarro
 Solutions Engineering, Payload
 
-This is the last automated email. Anything after this is because you asked.
+This is the last email this sequence sends. Anything after it is something
+you asked for.
 
 Payload, LLC, Cincinnati, Ohio
 Stop these emails: [unsubscribe]

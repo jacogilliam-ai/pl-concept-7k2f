@@ -734,31 +734,29 @@ EMAILS.append(dict(
     slug="09-sheet-never-opened", tag=route("model &rarr; undelivered"),
     sentbecause="sent because you asked for the spreadsheet at payload.com/revenue",
     subject="Your model did not open. Probably our fault.",
-    preheader="Most likely your gateway held it. Here it is again.",
-    body=(h1("Did this arrive?")
-        + p("You asked for the revenue model four days ago and the link has not been opened. "
-            "Nine times out of ten that is not disinterest, it is a mail gateway holding a "
-            "message from a payments domain it has not seen before.")
+    preheader="Here it is again, in case the first one never reached you.",
+    body=(h1("Did this land in spam?")
+        + p("You asked for the revenue model four days ago and the link has not been opened, so "
+            "here it is again in case the first one never reached you.")
         + button("Open your model", SHEET_URL)
-        + p("If it is not in your inbox, it is worth a look in quarantine or spam. Marking it "
-            "as safe also means anything else you ask us for actually arrives.", size=15)
-        + p("This is the only follow up. Nothing else is scheduled and nobody is going to call "
-            "you about a spreadsheet.", size=15)
+        + p("Quarantine is the usual place for a first message from a payments domain. Marking us "
+            "as safe means anything else you ask us for actually arrives, which matters more than "
+            "this spreadsheet does.", size=15)
+        + p("This is the only follow up.", size=15)
         + signature("If the link is broken on your end, replying to this reaches a person.")),
     footlink=OPTOUT,
-    text="""Did this arrive?
+    text="""Did this land in spam?
 
-You asked for the revenue model four days ago and the link has not been opened.
-Nine times out of ten that is not disinterest, it is a mail gateway holding a
-message from a payments domain it has not seen before.
+You asked for the revenue model four days ago and the link has not been opened,
+so here it is again in case the first one never reached you.
 
 Open your model: __SHEET_URL__
 
-If it is not in your inbox, it is worth a look in quarantine or spam. Marking it
-as safe also means anything else you ask us for actually arrives.
+Quarantine is the usual place for a first message from a payments domain.
+Marking us as safe means anything else you ask us for actually arrives, which
+matters more than this spreadsheet does.
 
-This is the only follow up. Nothing else is scheduled and nobody is going to
-call you about a spreadsheet.
+This is the only follow up.
 
 """ + f"""{S['eng']}
 {S['eng_role']}
@@ -792,7 +790,7 @@ EMAILS.append(dict(
         + p("No call to book from this email. If you want the engineering answer for your "
             "stack specifically, that is a conversation and there is a page for it, but it "
             "should be your move and not mine.", size=15)
-        + signature("This is the last automated email. Anything after this is because you asked.")),
+        + signature("This is the last email this sequence sends. Anything after it is something you asked for.")),
     footlink=OPTOUT,
     text="""What that model leaves out.
 
@@ -819,7 +817,8 @@ should be your move and not mine.
 """ + f"""{S['eng']}
 {S['eng_role']}
 
-This is the last automated email. Anything after this is because you asked.
+This is the last email this sequence sends. Anything after it is something
+you asked for.
 
 Payload, LLC, Cincinnati, Ohio
 Stop these emails: [unsubscribe]

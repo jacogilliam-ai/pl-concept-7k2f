@@ -614,8 +614,15 @@ a.node-email:hover .node-open{text-decoration:underline}
                    autocomplete="off" placeholder="Field service, childcare, freight...">
           </div>
 
+          <div class="field consent">
+            <label class="check">
+              <input type="checkbox" id="g-optin" name="optin">
+              <span>Also email me when Payload publishes something for <b id="ck-vert">my industry</b>. Roughly twice a month, and never anything else.</span>
+            </label>
+          </div>
+
           <button type="submit">Send me the spreadsheet</button>
-          <p class="fine">One question, because a construction platform and a title company do not have the same cost problem and should not get the same follow up. No newsletter. You can ask for the sheet and never hear from us again.</p>
+          <p class="fine">The sheet arrives either way. That box is the only thing here that needs one, because asking for a spreadsheet is not permission to send you articles. It stays unticked because a box somebody did not tick is not consent.</p>
         </form>
 
         <div class="sent" id="sent" hidden>
@@ -623,6 +630,8 @@ a.node-email:hover .node-open{text-decoration:underline}
           <h3>The sheet sends now. Everything after it is decided by the answer above.</h3>
           <p>This is a concept build, so nothing is actually sent. The email carries the sheet and nothing else, because the thing somebody asked for should not arrive wrapped in a pitch. One button, and it is the sheet. No logo wall, no booking link, and the sheet is a link on the domain rather than an attachment, since an unexpected spreadsheet from your payments provider is the exact shape of a phishing attempt. <a href="emails/08-revenue-model.html" target="_blank" rel="noopener"><b>Open the real email &nearr;</b></a></p>
           <p>The vertical routes what follows: <b id="s-vert">your answer</b> maps to the articles Payload has already published for it, and to nothing else. A platform that serves law firms is not sent real estate material.</p>
+          <p id="s-nooptin">You did not tick the box, so the sheet and one follow up if it does not open is the entire relationship. That is not a downgraded experience, it is the one you chose.</p>
+          <p id="s-optin" hidden>You ticked the box, so a second record is written with its own timestamp and source. Under CASL the thing you have to produce later is when and how consent was given, not that it exists, and a consent buried inside a download record cannot answer that.</p>
           <p>Reaching the demo page is a decision the reader makes, not a step the sequence forces. <code>form_step_complete</code> fires here with the vertical attached, which is the same signal the demo form captures on its first screen, so one person is one record across both. <a href="nurture.html"><b>See the whole flow &rarr;</b></a></p>
         </div>
       </div>
@@ -742,11 +751,20 @@ a.node-email:hover .node-open{text-decoration:underline}
 
   var gf = document.getElementById('getform');
   if(gf){
+    function paintConsent(){
+      var v = document.getElementById('g-vert').value,
+          o = document.getElementById('g-other').value.trim();
+      var name = (v === 'Something else' ? (o || 'my industry') : (v || 'my industry'));
+      document.getElementById('ck-vert').textContent = name.toLowerCase() === 'my industry'
+        ? 'my industry' : name.toLowerCase();
+    }
     document.getElementById('g-vert').addEventListener('change', function(){
       var wrap = document.getElementById('other-wrap');
       wrap.hidden = (this.value !== 'Something else');
       if(!wrap.hidden) document.getElementById('g-other').focus();
+      paintConsent();
     });
+    document.getElementById('g-other').addEventListener('input', paintConsent);
     gf.addEventListener('submit', function(e){
       e.preventDefault();
       var email = document.getElementById('g-email'),
@@ -772,6 +790,20 @@ a.node-email:hover .node-open{text-decoration:underline}
         vertical: label,
         vertical_is_other: vert.value === 'Something else'
       });
+      /* consent is its own event with its own timestamp, because under CASL the thing you
+         have to be able to produce later is when and how it was given, not that it exists. */
+      var optin = document.getElementById('g-optin').checked;
+      if(optin){
+        window.dataLayer.push({
+          event: 'consent_granted',
+          consent_type: 'content_updates',
+          vertical: label,
+          source: 'revenue_model_takeaway',
+          captured_at: new Date().toISOString()
+        });
+      }
+      document.getElementById('s-optin').hidden = !optin;
+      document.getElementById('s-nooptin').hidden = optin;
       gf.hidden = true;
       var sent = document.getElementById('sent');
       sent.hidden = false;
