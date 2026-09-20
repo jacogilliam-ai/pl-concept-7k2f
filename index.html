@@ -89,6 +89,30 @@ h1{font-size:var(--t-7);font-weight:900;line-height:var(--lh-tight);letter-spaci
 .item p{margin:0;font-size:var(--t-2);line-height:1.5;color:var(--ink-3)}
 .item .meta{margin-top:6px;font-family:var(--mono);font-size:var(--t-1);color:var(--teal-ink);letter-spacing:.02em}
 .item .go{font-size:var(--t-2);font-weight:700;color:var(--teal-ink);white-space:nowrap}
+/* suppression. Governs both flows, so it lives on the only page that sees both. */
+.supp{margin:var(--s-8) 0 0;padding-top:var(--s-6);border-top:1px solid #cfdfe5}
+.supp h2{font-size:var(--t-5);font-weight:900;color:var(--ink);margin:0 0 var(--s-2);
+  letter-spacing:-.016em;max-width:26ch}
+.supp .sub{font-size:var(--t-2);color:var(--ink-3);margin:0 0 var(--s-5);max-width:62ch;line-height:1.6}
+.supp table{width:100%;border-collapse:collapse;font-size:var(--t-2)}
+.supp th{text-align:left;font-family:var(--mono);font-size:var(--t-1);font-weight:400;
+  color:var(--teal-ink);padding:0 var(--s-4) var(--s-2) 0;border-bottom:1px solid #cfdfe5;
+  text-transform:lowercase;letter-spacing:.02em}
+.supp td{padding:var(--s-3) var(--s-4) var(--s-3) 0;border-bottom:1px solid #e6eef1;
+  vertical-align:top;line-height:1.55;color:var(--ink-2)}
+.supp td:first-child{width:34%;font-weight:700;color:var(--ink)}
+.supp tr:last-child td{border-bottom:none}
+.supp .when{margin:var(--s-5) 0 0;padding:var(--s-4);background:#f4fafc;
+  border-left:3px solid var(--teal-ink);border-radius:0 4px 4px 0;
+  font-size:var(--t-2);line-height:1.6;color:var(--ink-2)}
+.supp .when b{color:var(--ink)}
+@media (max-width:620px){
+  .supp table,.supp tbody,.supp tr,.supp td{display:block;width:100%}
+  .supp thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .supp tr{border-bottom:1px solid #e6eef1;padding:var(--s-3) 0}
+  .supp td{border-bottom:none;padding:0 0 4px}
+  .supp td:first-child{width:auto}
+}
 .note{padding-top:var(--s-5);border-top:1px solid #cfdfe5}
 .note p{margin:0 0 var(--s-3);font-size:var(--t-2);line-height:1.65;color:var(--ink-2);max-width:68ch}
 .note p:last-child{margin-bottom:0}
@@ -146,6 +170,31 @@ h1{font-size:var(--t-7);font-weight:900;line-height:var(--lh-tight);letter-spaci
       <span><h2>After the model</h2><p>What happens to somebody who downloads a spreadsheet, which is not the same as a lead.</p><p class="meta">4 paths &middot; 3 emails &middot; 1 sends unprompted</p></span>
       <span class="go">Open &rarr;</span>
     </a>
+  </div>
+
+
+  <div class="supp" id="stops">
+    <h2>What stops a send</h2>
+    <p class="sub">Both flows run over the same contact record, so the rules that cancel a send are shared. This is the half of lifecycle work that never appears in a flow diagram and is the reason a sales team will tolerate one running.</p>
+    <table>
+      <thead><tr><th>signal</th><th>what happens</th></tr></thead>
+      <tbody>
+        <tr><td>They reply to anything</td>
+            <td>Every queued send in both flows cancels. A person answered, so the software has nothing useful left to say.</td></tr>
+        <tr><td>Somebody at Payload emails them</td>
+            <td>Suppressed for 14 days from that send, renewed by each new one. Marketing does not talk over a live human conversation, and a rep should never have to ask the CRM for permission to email a prospect.</td></tr>
+        <tr><td>An open opportunity on the record</td>
+            <td>Suppressed entirely until it closes. Sales owns the relationship at that point and a nurture email reads as the left hand not knowing.</td></tr>
+        <tr><td>They are in both flows at once</td>
+            <td>The demo flow wins and the model flow exits silently. Somebody who just booked a call does not need an email asking whether their spreadsheet arrived.</td></tr>
+        <tr><td>A meeting is already booked</td>
+            <td>Nothing that asks them to book can send. Path C's reminder is the obvious one, and it is the single most common automation embarrassment there is.</td></tr>
+        <tr><td>Unsubscribe or a hard bounce</td>
+            <td>Suppressed permanently, both flows, immediately. The bounce also joins the deliverability report grouped by recipient domain.</td></tr>
+      </tbody>
+    </table>
+    <p class="when"><b>Suppression is checked when the email sends, not when the person enrols.</b> Enrolment is a snapshot and sending is the moment that matters, so a contact who was clean on Monday and got a call on Wednesday is still caught on Thursday. Getting this backwards is why a prospect who spoke to a human on Tuesday still receives "still want the thirty minutes?" on Friday.</p>
+    <p class="when"><b>Where it would actually live.</b> Payload's sending domain already authorises HubSpot alongside SendGrid, Zendesk and Google Workspace, so the contact record is the natural place for these as properties, with the transactional sends staying on their own rail. Nothing here needs a new tool. It needs the send step to read five properties before it fires: last reply, last human email, open opportunity, upcoming meeting, and email status.</p>
   </div>
 
   <div class="note">
