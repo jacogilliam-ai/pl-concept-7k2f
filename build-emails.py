@@ -250,7 +250,7 @@ __BODY__
           __FOOTLINK__
         </td>
       </tr></table>
-      <p style="margin:16px 0 0;font-family:__MONO__;font-size:11px;line-height:1.7;color:__INK3__;letter-spacing:0.2px;">sent because you requested a demo at payload.com/demo</p>
+      <p style="margin:16px 0 0;font-family:__MONO__;font-size:11px;line-height:1.7;color:__INK3__;letter-spacing:0.2px;">__SENTBECAUSE__</p>
     </td></tr>
 
   </table>
@@ -645,6 +645,72 @@ Stop these emails: [unsubscribe]
 
 os.makedirs("emails", exist_ok=True)
 DASH = re.compile(r"[–—]")
+# 08 ---- the spreadsheet. A receipt, not a campaign.
+#         The revenue page promises "the spreadsheet and nothing else, because the thing
+#         they asked for should not arrive wrapped in a pitch". This email has to honour
+#         that or the page is lying. Same principle that fixed email 01: a delivery is a
+#         receipt, and proof belongs in whatever comes later, not stapled to the thing
+#         somebody actually asked for. No button, because there is nothing to do. The one
+#         invitation is to tell us the cost line is wrong, which is the most useful reply
+#         this email could possibly get.
+EMAILS.append(dict(
+    slug="08-revenue-model", tag=route("model &rarr; sent"),
+    sentbecause="sent because you asked for the spreadsheet at payload.com/revenue",
+    subject="Your payments revenue model",
+    preheader="The spreadsheet, and the cost assumptions behind it.",
+    body=(h1("Here is the sheet.")
+        + p("Attached as an .xlsx, with the figures you entered already filled in. It opens on "
+            "__VERTLABEL__ defaults so the first tab is already close to your book.")
+        + readylist([
+            "Tab one is the model. Change any white cell and the totals follow.",
+            "Tab two is the cost assumptions, written out line by line.",
+            "Tab three runs all three fee structures side by side on the same volume.",
+            "Tab four is the same book at 2x and 5x."])
+        + sectionrule("the number most likely to be wrong")
+        + p("The all in card cost. We defaulted it, you probably have a real one, and it is the "
+            "line a CFO will go at first. If yours is different, change it in tab two and every "
+            "other tab follows. If you tell me what it actually is I will say whether it looks "
+            "like a rate worth renegotiating, whoever you end up using.")
+        + p(textlink("Tell me what your real card cost is",
+                     "mailto:contact@payload.com?subject=My%20actual%20card%20cost"), bottom=26)
+        + p("That is the whole email. You asked for a spreadsheet and this is a spreadsheet. "
+            "If you would rather not hear from us again, the link at the bottom works immediately "
+            "and keeps the sheet.", size=15)
+        + signature("No call booked, nothing scheduled, nobody assigned to chase this.")),
+    footlink=OPTOUT,
+    text="""Here is the sheet.
+
+Attached as an .xlsx, with the figures you entered already filled in. It opens
+on __VERTLABEL__ defaults so the first tab is already close to your book.
+
+- Tab one is the model. Change any white cell and the totals follow.
+- Tab two is the cost assumptions, written out line by line.
+- Tab three runs all three fee structures side by side on the same volume.
+- Tab four is the same book at 2x and 5x.
+
+--- THE NUMBER MOST LIKELY TO BE WRONG ---
+
+The all in card cost. We defaulted it, you probably have a real one, and it is
+the line a CFO will go at first. If yours is different, change it in tab two and
+every other tab follows. If you tell me what it actually is I will say whether
+it looks like a rate worth renegotiating, whoever you end up using.
+
+Tell me what your real card cost is: contact@payload.com
+
+That is the whole email. You asked for a spreadsheet and this is a spreadsheet.
+If you would rather not hear from us again, the link below works immediately and
+keeps the sheet.
+
+""" + f"""{S['eng']}
+{S['eng_role']}
+
+No call booked, nothing scheduled, nobody assigned to chase this.
+
+Payload, LLC, Cincinnati, Ohio
+Stop these emails: [unsubscribe]
+"""))
+
+
 def render(e, vert):
     doc = SHELL
     doc = doc.replace("__GRAD__", grad_rule())
@@ -657,12 +723,17 @@ def render(e, vert):
     for t, k in [("__PAPER__","paper"),("__NAVY__","navy"),("__MINT__","mint"),("__CARD__","card"),("__INK3__","ink3")]:
         doc = doc.replace(t, C[k])
     doc = doc.replace("__MONO__", MONO)
+    doc = doc.replace("__SENTBECAUSE__", e.get("sentbecause",
+                      "sent because you requested a demo at payload.com/demo"))
     v = VERTICALS[vert]
     doc = doc.replace("__RESOURCES__", resources("", v["reading"]))
     doc = doc.replace("__VERTLINE__", p(v["line"]))
+    doc = doc.replace("__VERTLABEL__", v["label"].lower())
     doc = doc.replace("__DECISION__", steps([v["first_q"],
         ("How many parties split a payment.", "One party is a different build to three, and it is the question every timeline estimate depends on.")]))
     assert "__" not in doc, "unreplaced token in " + e["slug"]
+    for k in S:
+        assert "{{%s}}" % k not in doc, "merge token {{%s}} in %s" % (k, e["slug"])
     assert not DASH.search(doc), "dash in " + e["slug"]
     return doc
 
@@ -673,8 +744,12 @@ def render_text(e, vert):
            "   to three, and it is the question every timeline estimate depends on."
            % (v["first_q"][0], v["first_q"][1]))
     txt = (e["text"].replace("__RESOURCES__", reading).replace("__VERTLINE__", v["line"])
+                    .replace("__VERTLABEL__", v["label"].lower())
                     .replace("__DECISION__", dec))
     assert "__" not in txt and not DASH.search(txt), "bad text in " + e["slug"]
+    for k in S:
+        assert "{%s}" % k not in txt, "unrendered sample key {%s} in %s" % (k, e["slug"])
+        assert "{{%s}}" % k not in txt, "merge token {{%s}} in %s" % (k, e["slug"])
     return txt
 
 import shutil

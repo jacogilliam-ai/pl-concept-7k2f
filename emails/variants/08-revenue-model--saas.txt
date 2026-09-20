@@ -1,0 +1,30 @@
+Here is the sheet.
+
+Attached as an .xlsx, with the figures you entered already filled in. It opens
+on software platform defaults so the first tab is already close to your book.
+
+- Tab one is the model. Change any white cell and the totals follow.
+- Tab two is the cost assumptions, written out line by line.
+- Tab three runs all three fee structures side by side on the same volume.
+- Tab four is the same book at 2x and 5x.
+
+--- THE NUMBER MOST LIKELY TO BE WRONG ---
+
+The all in card cost. We defaulted it, you probably have a real one, and it is
+the line a CFO will go at first. If yours is different, change it in tab two and
+every other tab follows. If you tell me what it actually is I will say whether
+it looks like a rate worth renegotiating, whoever you end up using.
+
+Tell me what your real card cost is: contact@payload.com
+
+That is the whole email. You asked for a spreadsheet and this is a spreadsheet.
+If you would rather not hear from us again, the link below works immediately and
+keeps the sheet.
+
+Alex Navarro
+Solutions Engineering, Payload
+
+No call booked, nothing scheduled, nobody assigned to chase this.
+
+Payload, LLC, Cincinnati, Ohio
+Stop these emails: [unsubscribe]

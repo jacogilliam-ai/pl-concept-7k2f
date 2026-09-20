@@ -425,7 +425,7 @@ a.node-email:hover .node-open{text-decoration:underline}
 .getform h3{font-size:var(--t-4);line-height:var(--lh-snug);margin:var(--s-2) 0 var(--s-5);color:var(--ink)}
 .field{margin-bottom:var(--s-4)}
 .field > label{display:block;font-size:var(--t-2);font-weight:700;margin-bottom:6px;color:var(--ink)}
-.field input[type=email],.field select{width:100%;border:1px solid var(--line);border-radius:4px;
+.field input[type=email],.field input[type=text],.field select{width:100%;border:1px solid var(--line);border-radius:4px;
   padding:11px 12px;font:400 var(--t-3)/1.3 inherit;color:var(--ink);background:var(--paper)}
 .field input:focus,.field select:focus{outline:none;border-color:var(--blue);
   box-shadow:0 0 0 2px rgba(17,192,238,.18)}
@@ -607,6 +607,12 @@ a.node-email:hover .node-open{text-decoration:underline}
             </select>
           </div>
 
+          <div class="field" id="other-wrap" hidden>
+            <label for="g-other">What does it serve?</label>
+            <input id="g-other" type="text" name="vertical_other" maxlength="60"
+                   autocomplete="off" placeholder="Field service, childcare, freight...">
+          </div>
+
           <button type="submit">Send me the spreadsheet</button>
           <p class="fine">One question, because a construction platform and a title company do not have the same cost problem and should not get the same follow up. No newsletter. You can ask for the sheet and never hear from us again.</p>
         </form>
@@ -614,7 +620,7 @@ a.node-email:hover .node-open{text-decoration:underline}
         <div class="sent" id="sent" hidden>
           <p class="lbl">What would happen next</p>
           <h3>The sheet sends now. Everything after it is decided by the answer above.</h3>
-          <p>This is a concept build, so nothing is actually sent. In production the email carries the spreadsheet as an attachment and nothing else, because the thing they asked for should not arrive wrapped in a pitch.</p>
+          <p>This is a concept build, so nothing is actually sent. The email carries the spreadsheet and nothing else, because the thing somebody asked for should not arrive wrapped in a pitch. No button, no logo wall, no booking link. <a href="emails/08-revenue-model.html" target="_blank" rel="noopener"><b>Open the real email &nearr;</b></a></p>
           <p>The vertical routes what follows: <b id="s-vert">your answer</b> maps to the articles Payload has already published for it, and to nothing else. A platform that serves law firms is not sent real estate material.</p>
           <p>Reaching the demo page is a decision the reader makes, not a step the sequence forces. <code>form_step_complete</code> fires here with the vertical attached, which is the same signal the demo form captures on its first screen, so one person is one record across both.</p>
         </div>
@@ -735,13 +741,26 @@ a.node-email:hover .node-open{text-decoration:underline}
 
   var gf = document.getElementById('getform');
   if(gf){
+    document.getElementById('g-vert').addEventListener('change', function(){
+      var wrap = document.getElementById('other-wrap');
+      wrap.hidden = (this.value !== 'Something else');
+      if(!wrap.hidden) document.getElementById('g-other').focus();
+    });
     gf.addEventListener('submit', function(e){
       e.preventDefault();
       var email = document.getElementById('g-email'),
           vert  = document.getElementById('g-vert');
       if(!email.value || email.value.indexOf('@') < 1){ email.focus(); return; }
       if(!vert.value){ vert.focus(); return; }
-      document.getElementById('s-vert').textContent = vert.value;
+      var other = document.getElementById('g-other');
+      /* a picker with an "other" bucket collects a segment nobody can route on.
+         Ask, and the answer becomes the next vertical worth writing for. */
+      var label = vert.value;
+      if(vert.value === 'Something else'){
+        if(!other.value.trim()){ other.focus(); return; }
+        label = other.value.trim();
+      }
+      document.getElementById('s-vert').textContent = label;
       /* same event and the same vertical key the demo form fires on its first screen,
          so the two builds report one person rather than two anonymous sessions. */
       window.dataLayer = window.dataLayer || [];
@@ -749,7 +768,8 @@ a.node-email:hover .node-open{text-decoration:underline}
         event: 'form_step_complete',
         form_name: 'revenue_model_takeaway',
         step: 1,
-        vertical: vert.value
+        vertical: label,
+        vertical_is_other: vert.value === 'Something else'
       });
       gf.hidden = true;
       var sent = document.getElementById('sent');
