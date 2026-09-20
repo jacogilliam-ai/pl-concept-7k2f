@@ -72,7 +72,13 @@ h1{font-size:var(--t-7);font-weight:900;line-height:var(--lh-tight);letter-spaci
   margin:0 0 var(--s-4);color:var(--ink);max-width:22ch;text-wrap:balance}
 .lead{font-size:var(--t-4);line-height:1.5;color:var(--ink-2);margin:0 0 var(--s-8);max-width:60ch}
 .lead b{color:var(--ink);font-weight:700}
-.items{display:grid;gap:var(--s-4);margin:0 0 var(--s-8)}
+.items{display:grid;gap:var(--s-4);margin:0 0 var(--s-6)}
+.items:last-of-type{margin-bottom:var(--s-8)}
+.grp{display:flex;align-items:baseline;gap:var(--s-4);margin:var(--s-7) 0 var(--s-4);
+  padding-bottom:var(--s-3);border-bottom:1px solid #cfdfe5;flex-wrap:wrap}
+.grp:first-of-type{margin-top:0}
+.grp h2{font-size:var(--t-4);font-weight:900;color:var(--ink);margin:0;letter-spacing:-.012em}
+.grp p{font-size:var(--t-2);color:var(--ink-3);margin:0}
 .item{display:grid;grid-template-columns:34px 1fr auto;gap:var(--s-4);align-items:center;
   padding:var(--s-5);background:#fff;border:1px solid #dbe9ee;border-radius:6px;
   text-decoration:none;box-shadow:0 1px 3px rgba(27,97,129,.07);
@@ -99,7 +105,12 @@ h1{font-size:var(--t-7);font-weight:900;line-height:var(--lh-tight);letter-spaci
 <main class="wrap">
   <p class="lbl kicker">Concept build &middot; September 2026</p>
   <h1>The demo page payload.com does not have.</h1>
-  <p class="lead">A teardown of payload.com found that every conversion action on the site is a modal with no URL, so there is nothing to advertise to, measure or link. <b>This is the page that fixes that</b>, plus the booking screen behind it and the seven emails that follow. Built by Jacob Gilliam. Five links, roughly twenty minutes.</p>
+  <p class="lead">A teardown of payload.com found that every conversion action on the site is a modal with no URL, so there is nothing to advertise to, measure or link. <b>This is the page that fixes that</b>, the booking screen behind it, and the emails that follow. Then the same problem one step earlier, for the reader who is months away from buying anything. Built by Jacob Gilliam. Five links, roughly twenty minutes.</p>
+
+  <div class="grp">
+    <h2>Someone ready to talk</h2>
+    <p>Acquisition. A stranger with intent becomes a booked meeting.</p>
+  </div>
 
   <div class="items">
     <a class="item" href="demo.html">
@@ -117,6 +128,14 @@ h1{font-size:var(--t-7);font-weight:900;line-height:var(--lh-tight);letter-spaci
       <span><h2>Everything after the submit</h2><p>Four paths, seven emails written as code, and the reasoning behind each decision.</p><p class="meta">4 paths &middot; 7 emails &middot; 15 files, all openable</p></span>
       <span class="go">Open &rarr;</span>
     </a>
+  </div>
+
+  <div class="grp">
+    <h2>Someone who is not ready yet</h2>
+    <p>The other ninety percent of the traffic. A reader becomes a known person in a vertical.</p>
+  </div>
+
+  <div class="items">
     <a class="item" href="revenue.html">
       <span class="n">04</span>
       <span><h2>The revenue model</h2><p>What embedding payments earns a platform, and the one asset that survives the room where it gets approved.</p><p class="meta">9 inputs &middot; 3 fee structures &middot; 0 figures supplied</p></span>
@@ -130,8 +149,8 @@ h1{font-size:var(--t-7);font-weight:900;line-height:var(--lh-tight);letter-spaci
   </div>
 
   <div class="note">
-    <p><b>Start with the demo page and click the button in the bottom right.</b> It turns on an annotation layer that explains what each element is doing and which teardown finding it answers. The lifecycle page is the one worth reading if you only read one.</p>
-    <p>Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Customer logos and the testimonial are Payload's own published assets, used to illustrate a layout. Sample recipient and availability data throughout.</p>
+    <p><b>Start with the demo page and click the button in the bottom right.</b> It turns on an annotation layer that explains what each element is doing and which teardown finding it answers. If you only read one page, read 03 or 05. Those are the two that are actually about email.</p>
+    <p>Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Customer logos are Payload's own published assets and the quote is Bridgit Chayt's, from Payload's August 2026 Fifth Third announcement. Both illustrate a layout and imply no endorsement. Sample recipient and availability data throughout.</p>
   </div>
 </main>
 </body>

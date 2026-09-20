@@ -433,6 +433,19 @@ a.node-email:hover .node-open{text-decoration:underline}
   background:linear-gradient(100deg,var(--cta-a),var(--cta-b));color:var(--cta-ink);
   font:900 var(--t-3)/1 inherit;padding:15px;letter-spacing:.01em}
 .getform button[type=submit]:hover{filter:brightness(1.04)}
+/* Express consent. Unticked is the whole point: a pre ticked box is not consent under
+   CASL, and Payload has published Canadian customers.
+   Selectors are two classes deep on purpose. `.field > label` and `.take p` are both
+   one class plus one element, so anything shallower loses to them silently. */
+.consent{border-top:1px solid var(--line);padding-top:var(--s-4);margin-top:var(--s-5)}
+.consent .check{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;
+  cursor:pointer;font-size:var(--t-2);line-height:1.5;color:var(--ink-2);
+  font-weight:400;margin-bottom:0}
+.consent .check input{margin:2px 0 0;width:17px;height:17px;accent-color:var(--teal-ink);cursor:pointer}
+.consent .check b{color:var(--ink);font-weight:700}
+.consent .check:hover b{color:var(--teal-ink)}
+.consent .scope{margin:10px 0 0 27px;font-size:var(--t-1);line-height:1.55;
+  color:var(--ink-3);max-width:none}
 .getform .fine{font-size:var(--t-1);color:var(--ink-3);margin:var(--s-3) 0 0;line-height:1.5}
 .sent{background:var(--paper-2);border:1px solid var(--line);border-left:3px solid var(--green-ink);
   border-radius:var(--radius);padding:var(--s-6)}
@@ -617,12 +630,13 @@ a.node-email:hover .node-open{text-decoration:underline}
           <div class="field consent">
             <label class="check">
               <input type="checkbox" id="g-optin" name="optin">
-              <span>Also email me when Payload publishes something for <b id="ck-vert">my industry</b>. Roughly twice a month, and never anything else.</span>
+              <span>Also email me when Payload publishes something for <b id="ck-vert">my industry</b>. Roughly twice a month.</span>
             </label>
+            <p class="scope">Two or three times a year something goes to the whole list instead, and it is only ever a change to what Payload can actually do, like a new payment rail. Never an event invite, never a survey, never a case study about somebody else.</p>
           </div>
 
           <button type="submit">Send me the spreadsheet</button>
-          <p class="fine">The sheet arrives either way. That box is the only thing here that needs one, because asking for a spreadsheet is not permission to send you articles. It stays unticked because a box somebody did not tick is not consent.</p>
+          <p class="fine">The sheet arrives either way. That box is the only thing here that needs one, because asking for a spreadsheet is not permission to send you articles. It stays unticked because a box somebody did not tick is not consent, and the scope sits next to the box rather than in a policy nobody opens, because the scope is the part people are agreeing to.</p>
         </form>
 
         <div class="sent" id="sent" hidden>
@@ -631,7 +645,8 @@ a.node-email:hover .node-open{text-decoration:underline}
           <p>This is a concept build, so nothing is actually sent. The email carries the sheet and nothing else, because the thing somebody asked for should not arrive wrapped in a pitch. One button, and it is the sheet. No logo wall, no booking link, and the sheet is a link on the domain rather than an attachment, since an unexpected spreadsheet from your payments provider is the exact shape of a phishing attempt. <a href="emails/08-revenue-model.html" target="_blank" rel="noopener"><b>Open the real email &nearr;</b></a></p>
           <p>The vertical routes what follows: <b id="s-vert">your answer</b> maps to the articles Payload has already published for it, and to nothing else. A platform that serves law firms is not sent real estate material.</p>
           <p id="s-nooptin">You did not tick the box, so the sheet and one follow up if it does not open is the entire relationship. That is not a downgraded experience, it is the one you chose.</p>
-          <p id="s-optin" hidden>You ticked the box, so a second record is written with its own timestamp and source. Under CASL the thing you have to produce later is when and how consent was given, not that it exists, and a consent buried inside a download record cannot answer that.</p>
+          <p id="s-optin" hidden>You ticked the box, so a second record is written with its own timestamp, source, and the exact wording you agreed to. Under CASL what you have to produce later is when and how consent was given, and against what scope. A consent buried inside a download record cannot answer any of that, and a scope that only exists in a privacy policy cannot either.</p>
+          <p id="s-scope" hidden>It also means the promise is now a constraint on the sender. Articles for your vertical, plus a handful of things a year that change what the product does. The moment somebody sends a webinar invite against this record, the consent stops covering it, and that is a decision made at the box rather than at the send.</p>
           <p>Reaching the demo page is a decision the reader makes, not a step the sequence forces. <code>form_step_complete</code> fires here with the vertical attached, which is the same signal the demo form captures on its first screen, so one person is one record across both. <a href="nurture.html"><b>See the whole flow &rarr;</b></a></p>
         </div>
       </div>
@@ -797,12 +812,14 @@ a.node-email:hover .node-open{text-decoration:underline}
         window.dataLayer.push({
           event: 'consent_granted',
           consent_type: 'content_updates',
+          consent_scope: 'vertical_articles_plus_product_changes',
           vertical: label,
           source: 'revenue_model_takeaway',
           captured_at: new Date().toISOString()
         });
       }
       document.getElementById('s-optin').hidden = !optin;
+      document.getElementById('s-scope').hidden = !optin;
       document.getElementById('s-nooptin').hidden = optin;
       gf.hidden = true;
       var sent = document.getElementById('sent');
