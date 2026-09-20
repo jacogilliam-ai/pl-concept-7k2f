@@ -122,6 +122,12 @@ h1 em{font-style:normal;color:var(--green)}
 .sec-head h2{font-size:var(--t-7);font-weight:900;letter-spacing:-.024em;
   line-height:var(--lh-tight);margin:0;text-wrap:pretty}
 .sec-head h2 span{font-weight:400;letter-spacing:-.015em}
+/* a bare link inside a section heading falls back to browser blue, which reads as
+   unstyled against everything around it. */
+.sec-head h2 span a{color:var(--teal-ink);text-decoration:none;
+  border-bottom:2px solid rgba(11,119,145,.28);padding-bottom:1px}
+.sec-head h2 span a:hover{border-bottom-color:var(--teal-ink)}
+
 .sec-light h2{color:var(--ink)}
 .sec-light h2 span{color:var(--ink-3)}
 .sec-dark h2{color:#fff}
