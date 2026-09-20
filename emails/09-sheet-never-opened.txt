@@ -1,0 +1,21 @@
+Did this arrive?
+
+You asked for the revenue model four days ago and the link has not been opened.
+Nine times out of ten that is not disinterest, it is a mail gateway holding a
+message from a payments domain it has not seen before.
+
+Open your model: https://payload.com/models/payments-revenue-model.xlsx
+
+If it is not in your inbox, it is worth a look in quarantine or spam. Marking it
+as safe also means anything else you ask us for actually arrives.
+
+This is the only follow up. Nothing else is scheduled and nobody is going to
+call you about a spreadsheet.
+
+Alex Navarro
+Solutions Engineering, Payload
+
+If the link is broken on your end, replying to this reaches a person.
+
+Payload, LLC, Cincinnati, Ohio
+Stop these emails: [unsubscribe]

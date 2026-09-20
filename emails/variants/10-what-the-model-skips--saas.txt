@@ -1,0 +1,32 @@
+What that model leaves out.
+
+It tells you what payments earn. It says nothing about what they cost to build,
+and that is the question the room asks second.
+
+01 Engineering time. Onboarding, the money movement, reconciliation and the
+   dashboard your support team needs. Built alone that is quarters, not sprints.
+02 Who holds the funds. This one decides your licensing, your liability and your
+   audit surface, and it is very expensive to change later.
+03 Reconciliation. Not the payment. The thousand a day after it, matched against
+   invoices your platform already has.
+
+Platform teams ask the same two things first: who holds the funds, and what reconciliation looks like at month end. We will start there rather than at the API surface.
+
+--- WORTH READING WHILE YOU DECIDE ---
+
+- Build it before we talk: Checkout and payouts quickstarts, open now.
+  https://docs.payload.com/v2
+- A bank backed these rails: Why Fifth Third invested in August 2026.
+  https://payload.com/articles/payload-fifth-third-investment
+
+No call to book from this email. If you want the engineering answer for your
+stack specifically, that is a conversation and there is a page for it, but it
+should be your move and not mine.
+
+Alex Navarro
+Solutions Engineering, Payload
+
+This is the last automated email. Anything after this is because you asked.
+
+Payload, LLC, Cincinnati, Ohio
+Stop these emails: [unsubscribe]

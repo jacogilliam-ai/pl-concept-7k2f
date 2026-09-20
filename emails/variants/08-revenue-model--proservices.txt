@@ -1,7 +1,14 @@
 Here is the sheet.
 
-Attached as an .xlsx, with the figures you entered already filled in. It opens
-on professional services defaults so the first tab is already close to your book.
+Your figures are already in it, and it opens on professional services defaults so the
+first tab is close to your book before you change anything.
+
+Open your model: https://payload.com/models/payments-revenue-model.xlsx
+
+That is a link, not an attachment. We do not send spreadsheets as attachments,
+and a payments company has a specific reason not to: an unexpected .xlsx from
+your payments provider is exactly the shape a phishing attempt takes. We would
+rather not train you to open those from us.
 
 - Tab one is the model. Change any white cell and the totals follow.
 - Tab two is the cost assumptions, written out line by line.
@@ -24,7 +31,8 @@ keeps the sheet.
 Alex Navarro
 Solutions Engineering, Payload
 
-No call booked, nothing scheduled, nobody assigned to chase this.
+Nobody is assigned to chase this. One email sends if the sheet never opens,
+and after that nothing moves unless you do.
 
 Payload, LLC, Cincinnati, Ohio
 Stop these emails: [unsubscribe]

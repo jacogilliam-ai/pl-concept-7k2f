@@ -19,6 +19,7 @@ SAMPLE = dict(first="Dana", company="Northwind Title", slot="Thursday 18 Septemb
               eng="Alex Navarro", eng_initials="AN", eng_role="Solutions Engineering, Payload",
               est_date="18 September")
 
+SHEET_URL = "https://payload.com/models/payments-revenue-model.xlsx"
 MONO = "'SF Mono','SFMono-Regular',Menlo,Consolas,'Liberation Mono','Courier New',monospace"
 
 def grad_rule():
@@ -659,8 +660,14 @@ EMAILS.append(dict(
     subject="Your payments revenue model",
     preheader="The spreadsheet, and the cost assumptions behind it.",
     body=(h1("Here is the sheet.")
-        + p("Attached as an .xlsx, with the figures you entered already filled in. It opens on "
-            "__VERTLABEL__ defaults so the first tab is already close to your book.")
+        + p("Your figures are already in it, and it opens on __VERTLABEL__ defaults so the first "
+            "tab is close to your book before you change anything.")
+        + button("Open your model", SHEET_URL)
+        + p("That is a link, not an attachment. We do not send spreadsheets as attachments, and "
+            "a payments company has a specific reason not to: an unexpected .xlsx from your "
+            "payments provider is exactly the shape a phishing attempt takes. We would rather "
+            "not train you to open those from us. The link is on our domain and you can hover it "
+            "before you click.", size=15)
         + readylist([
             "Tab one is the model. Change any white cell and the totals follow.",
             "Tab two is the cost assumptions, written out line by line.",
@@ -676,12 +683,20 @@ EMAILS.append(dict(
         + p("That is the whole email. You asked for a spreadsheet and this is a spreadsheet. "
             "If you would rather not hear from us again, the link at the bottom works immediately "
             "and keeps the sheet.", size=15)
-        + signature("No call booked, nothing scheduled, nobody assigned to chase this.")),
+        + signature("Nobody is assigned to chase this. One email sends if the sheet never "
+                     "opens, and after that nothing moves unless you do.")),
     footlink=OPTOUT,
     text="""Here is the sheet.
 
-Attached as an .xlsx, with the figures you entered already filled in. It opens
-on __VERTLABEL__ defaults so the first tab is already close to your book.
+Your figures are already in it, and it opens on __VERTLABEL__ defaults so the
+first tab is close to your book before you change anything.
+
+Open your model: __SHEET_URL__
+
+That is a link, not an attachment. We do not send spreadsheets as attachments,
+and a payments company has a specific reason not to: an unexpected .xlsx from
+your payments provider is exactly the shape a phishing attempt takes. We would
+rather not train you to open those from us.
 
 - Tab one is the model. Change any white cell and the totals follow.
 - Tab two is the cost assumptions, written out line by line.
@@ -704,7 +719,107 @@ keeps the sheet.
 """ + f"""{S['eng']}
 {S['eng_role']}
 
-No call booked, nothing scheduled, nobody assigned to chase this.
+Nobody is assigned to chase this. One email sends if the sheet never opens,
+and after that nothing moves unless you do.
+
+Payload, LLC, Cincinnati, Ohio
+Stop these emails: [unsubscribe]
+"""))
+
+
+# 09 ---- the sheet never opened. A delivery check, not a nudge. This is the one email
+#         08 promises can send without a signal, so it has to actually be about delivery.
+#         Short on purpose: 02 is the other short one and they do different jobs.
+EMAILS.append(dict(
+    slug="09-sheet-never-opened", tag=route("model &rarr; undelivered"),
+    sentbecause="sent because you asked for the spreadsheet at payload.com/revenue",
+    subject="Your model did not open. Probably our fault.",
+    preheader="Most likely your gateway held it. Here it is again.",
+    body=(h1("Did this arrive?")
+        + p("You asked for the revenue model four days ago and the link has not been opened. "
+            "Nine times out of ten that is not disinterest, it is a mail gateway holding a "
+            "message from a payments domain it has not seen before.")
+        + button("Open your model", SHEET_URL)
+        + p("If it is not in your inbox, it is worth a look in quarantine or spam. Marking it "
+            "as safe also means anything else you ask us for actually arrives.", size=15)
+        + p("This is the only follow up. Nothing else is scheduled and nobody is going to call "
+            "you about a spreadsheet.", size=15)
+        + signature("If the link is broken on your end, replying to this reaches a person.")),
+    footlink=OPTOUT,
+    text="""Did this arrive?
+
+You asked for the revenue model four days ago and the link has not been opened.
+Nine times out of ten that is not disinterest, it is a mail gateway holding a
+message from a payments domain it has not seen before.
+
+Open your model: __SHEET_URL__
+
+If it is not in your inbox, it is worth a look in quarantine or spam. Marking it
+as safe also means anything else you ask us for actually arrives.
+
+This is the only follow up. Nothing else is scheduled and nobody is going to
+call you about a spreadsheet.
+
+""" + f"""{S['eng']}
+{S['eng_role']}
+
+If the link is broken on your end, replying to this reaches a person.
+
+Payload, LLC, Cincinnati, Ohio
+Stop these emails: [unsubscribe]
+"""))
+
+# 10 ---- they opened it. The objection after the number is always the same: fine, what
+#         does it cost us to build. Answers that, then stops. Reading is their own
+#         published work, routed by vertical, so nothing new has to be written for it.
+EMAILS.append(dict(
+    slug="10-what-the-model-skips", tag=route("model &rarr; opened"),
+    sentbecause="sent because you opened the revenue model at payload.com/revenue",
+    subject="The number is the easy part",
+    preheader="What the model does not cost in: your engineers.",
+    body=(h1("What that model leaves out.")
+        + p("It tells you what payments earn. It says nothing about what they cost to build, "
+            "and that is the question the room asks second.")
+        + steps([("Engineering time.", "Onboarding, the money movement, reconciliation and the "
+                  "dashboard your support team needs. Built alone that is quarters, not sprints."),
+                 ("Who holds the funds.", "This one decides your licensing, your liability and "
+                  "your audit surface, and it is very expensive to change later."),
+                 ("Reconciliation.", "Not the payment. The thousand a day after it, matched "
+                  "against invoices your platform already has.")])
+        + p("__VERTLINE__", size=16)
+        + sectionrule("worth reading while you decide")
+        + "__RESOURCES__"
+        + p("No call to book from this email. If you want the engineering answer for your "
+            "stack specifically, that is a conversation and there is a page for it, but it "
+            "should be your move and not mine.", size=15)
+        + signature("This is the last automated email. Anything after this is because you asked.")),
+    footlink=OPTOUT,
+    text="""What that model leaves out.
+
+It tells you what payments earn. It says nothing about what they cost to build,
+and that is the question the room asks second.
+
+01 Engineering time. Onboarding, the money movement, reconciliation and the
+   dashboard your support team needs. Built alone that is quarters, not sprints.
+02 Who holds the funds. This one decides your licensing, your liability and your
+   audit surface, and it is very expensive to change later.
+03 Reconciliation. Not the payment. The thousand a day after it, matched against
+   invoices your platform already has.
+
+__VERTLINE__
+
+--- WORTH READING WHILE YOU DECIDE ---
+
+__RESOURCES__
+
+No call to book from this email. If you want the engineering answer for your
+stack specifically, that is a conversation and there is a page for it, but it
+should be your move and not mine.
+
+""" + f"""{S['eng']}
+{S['eng_role']}
+
+This is the last automated email. Anything after this is because you asked.
 
 Payload, LLC, Cincinnati, Ohio
 Stop these emails: [unsubscribe]
@@ -729,6 +844,7 @@ def render(e, vert):
     doc = doc.replace("__RESOURCES__", resources("", v["reading"]))
     doc = doc.replace("__VERTLINE__", p(v["line"]))
     doc = doc.replace("__VERTLABEL__", v["label"].lower())
+    doc = doc.replace("__SHEET_URL__", SHEET_URL)
     doc = doc.replace("__DECISION__", steps([v["first_q"],
         ("How many parties split a payment.", "One party is a different build to three, and it is the question every timeline estimate depends on.")]))
     assert "__" not in doc, "unreplaced token in " + e["slug"]
@@ -745,6 +861,7 @@ def render_text(e, vert):
            % (v["first_q"][0], v["first_q"][1]))
     txt = (e["text"].replace("__RESOURCES__", reading).replace("__VERTLINE__", v["line"])
                     .replace("__VERTLABEL__", v["label"].lower())
+                    .replace("__SHEET_URL__", SHEET_URL)
                     .replace("__DECISION__", dec))
     assert "__" not in txt and not DASH.search(txt), "bad text in " + e["slug"]
     for k in S:
