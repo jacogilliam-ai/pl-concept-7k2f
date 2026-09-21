@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>After the model | Payload</title>
-<meta name="description" content="What happens after someone downloads the payments revenue model. Four paths, three emails, one of them sends without a signal.">
+<title>Payments for construction management platforms | Payload</title>
+<meta name="description" content="Embedded payments for construction management platforms. Draws, retainage, change orders and subcontractor payouts, settled without leaving your product.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1d4f66">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -122,12 +122,6 @@ h1 em{font-style:normal;color:var(--green)}
 .sec-head h2{font-size:var(--t-7);font-weight:900;letter-spacing:-.024em;
   line-height:var(--lh-tight);margin:0;text-wrap:pretty}
 .sec-head h2 span{font-weight:400;letter-spacing:-.015em}
-/* a bare link inside a section heading falls back to browser blue, which reads as
-   unstyled against everything around it. */
-.sec-head h2 span a{color:var(--teal-ink);text-decoration:none;
-  border-bottom:2px solid rgba(11,119,145,.28);padding-bottom:1px}
-.sec-head h2 span a:hover{border-bottom-color:var(--teal-ink)}
-
 .sec-light h2{color:var(--ink)}
 .sec-light h2 span{color:var(--ink-3)}
 .sec-dark h2{color:#fff}
@@ -225,10 +219,6 @@ h1 em{font-style:normal;color:var(--green)}
 .node-wait{background:#f4fafc;box-shadow:none}
 .node-wait .node-name{font-weight:700;font-size:var(--t-2);color:var(--ink-2)}
 .node-exit{border-left:3px solid var(--amber);background:#fffdf8}
-/* a handoff to a person. Distinct from the green trigger and the amber exit because it is
-   the one node in either flow where software stops and a human is expected to act. */
-.node-route{border-left:3px solid var(--teal-ink);background:#f4fbfd}
-.node-route .node-day{background:#e4f2f7;color:var(--teal-ink)}
 .node-exit .node-name{font-weight:400;font-size:var(--t-2);color:var(--ink-2);line-height:1.55}
 .node-exit .node-name b{font-family:var(--mono);font-size:var(--t-1);font-weight:700;color:var(--ink)}
 a.node-email:hover{border-color:var(--teal-ink);box-shadow:0 6px 20px rgba(27,97,129,.13)}
@@ -237,7 +227,7 @@ a.node-email:hover .node-open{text-decoration:underline}
 .conn{display:flex;flex-direction:column;align-items:center;gap:0}
 .conn-line{width:1px;height:12px;background:#cfdfe5}
 .conn-plus{width:18px;height:18px;border-radius:50%;border:1px solid #cfdfe5;background:#fff;
-  display:grid;place-items:center;font-family:var(--mono);font-size:var(--t-1);color:var(--ink-3);line-height:1}
+  display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:var(--ink-3);line-height:1}
 
 .fp-side{padding-top:var(--s-2);position:sticky;top:var(--s-5)}
 .fp-blurb{margin:0 0 var(--s-5);font-size:var(--t-4);line-height:1.5;color:var(--ink-2);max-width:48ch}
@@ -341,14 +331,70 @@ a.node-email:hover .node-open{text-decoration:underline}
   .split-note a{display:inline-block;padding-block:12px}
   .frame{height:420px}
 }
-</style><body>
+</style>
+<style>
+/* ---- vertical landing page ---- */
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-5) var(--s-6);margin-top:var(--s-7)}
+.gi h3{font-size:var(--t-4);margin:0 0 var(--s-2);color:var(--ink);line-height:var(--lh-snug)}
+.gi p{margin:0;font-size:var(--t-2);color:var(--ink-3);line-height:1.55}
+.gi .gk{font-family:var(--mono);font-size:var(--t-1);color:var(--teal-ink);display:block;margin-bottom:6px}
+
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-8);align-items:start;margin-top:var(--s-7)}
+.split2 h3{font-size:var(--t-5);margin:0 0 var(--s-4);line-height:var(--lh-snug);letter-spacing:-.012em}
+.split2 p{margin:0 0 var(--s-4);color:var(--ink-2)}
+.split2 p:last-child{margin-bottom:0}
+
+.railbox{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:var(--s-6)}
+.railbox .lbl{color:var(--teal-ink);margin-bottom:var(--s-4)}
+.rails{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.rails li{font-family:var(--mono);font-size:var(--t-2);background:#fff;border:1px solid #cfdfe5;
+  border-radius:3px;padding:5px 10px;color:var(--ink-2)}
+
+.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-6);margin-top:var(--s-7)}
+.proof div{border-top:2px solid var(--green-ink);padding-top:var(--s-4)}
+.proof dt{font-size:var(--t-6);font-weight:900;letter-spacing:-.03em;color:var(--ink);line-height:1}
+.proof dd{margin:var(--s-2) 0 0;font-size:var(--t-2);color:var(--ink-3);line-height:1.5}
+
+.gap{background:#fffdf8;border-left:3px solid var(--amber);border-radius:0 4px 4px 0;
+  padding:var(--s-5);margin-top:var(--s-7)}
+.gap p{margin:0;font-size:var(--t-2);line-height:1.6;color:var(--ink-2)}
+.gap b{color:var(--amber-ink)}
+
+.faq{margin-top:var(--s-7);border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:var(--s-4) 0;font-weight:700;font-size:var(--t-3);
+  color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:var(--s-4)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--teal-ink);font-weight:400}
+.faq details[open] summary::after{content:"\2212"}
+.faq p{margin:0 0 var(--s-4);font-size:var(--t-2);line-height:1.6;color:var(--ink-2);max-width:68ch}
+
+.endcta{background:linear-gradient(150deg,var(--hero-a),var(--hero-c));color:#fff;
+  background-image:var(--dots),linear-gradient(150deg,var(--hero-a),var(--hero-c));
+  background-size:16px 16px,auto}
+.endcta .wrap{padding-block:var(--s-9);text-align:left}
+.endcta h2{font-size:var(--t-6);margin:0 0 var(--s-4);max-width:18ch;line-height:var(--lh-snug)}
+.endcta p{color:var(--pale);margin:0 0 var(--s-6);max-width:54ch}
+.endcta .btns{display:flex;gap:var(--s-4);flex-wrap:wrap}
+.endcta a{display:inline-block;border-radius:4px;padding:15px 26px;text-decoration:none;
+  font-weight:900;font-size:var(--t-3)}
+.endcta .primary{background:linear-gradient(100deg,var(--cta-a),var(--cta-b));color:var(--cta-ink)}
+.endcta .ghost{border:1px solid rgba(199,235,247,.45);color:#fff}
+.endcta .ghost:hover{background:rgba(199,235,247,.12)}
+
+@media (max-width:860px){
+  .grid6,.proof{grid-template-columns:1fr}
+  .split2{grid-template-columns:1fr;gap:var(--s-6)}
+}
+</style>
+<body>
 
 <div class="conceptbar">
   <div class="wrap">
-    <p class="cb-what">Concept build by Jacob Gilliam &middot; 6 of 6 &middot; after the model</p>
+    <p class="cb-what">Concept build by Jacob Gilliam &middot; the page their newest article has no destination for</p>
     <nav class="cb-nav" aria-label="Concept build pages">
-        <a href="revenue.html">&larr; The revenue model</a>
-        <a href="index.html">All six pages</a>
+        <a href="index.html">All the pages</a>
+        <a href="revenue.html">The revenue model &rarr;</a>
     </nav>
   </div>
 </div>
@@ -356,73 +402,141 @@ a.node-email:hover .node-open{text-decoration:underline}
 <header class="site-head">
   <div class="wrap">
     <a class="logo" href="demo.html" aria-label="Payload home"><span class="brace">{</span>payload<span class="brace">}</span></a>
-    <a class="head-link" href="revenue.html">Back to the model</a>
+    <a class="head-link" href="demo.html">Talk to an engineer</a>
   </div>
 </header>
 
 <main>
 <section class="hero">
   <div class="wrap">
-    <h1>Somebody downloaded a spreadsheet. <em>That is not a lead yet.</em></h1>
-    <p class="lead">The page promised no newsletter and said you could take the sheet and never hear from us again. So exactly one email here sends without a signal, and it is about whether the thing arrived. Everything else waits for the reader to move first, and the one path that earns a demo offer hands to a person rather than sending a third email.</p>
+    <h1>Your platform already runs the job. <em>The money should not leave to get paid.</em></h1>
+    <p class="lead">Construction management platforms track bids, contracts, budgets, draws and subcontractors, and then hand the payment itself to a bank portal. Payload keeps it inside your product, on both sides, with your approval rules deciding when it moves.</p>
     <dl class="hero-rail">
-      <div><dt>2</dt><dd>Emails, to any one person</dd></div><div><dt>1</dt><dd>Sends unprompted</dd></div>
-      <div><dt>0</dt><dd>Time based drips</dd></div>
-      <div><dt>4</dt><dd>Paths, all of them end</dd></div>
+      <div><dt>Both</dt><dd>Directions, one integration</dd></div>
+      <div><dt>10</dt><dd>Rails, including RTP and FedNow</dd></div>
+      <div><dt>Yours</dt><dd>Approval logic, not ours</dd></div>
+      <div><dt>$500M</dt><dd>Moved every month</dd></div>
     </dl>
   </div>
 </section>
 
-<section class="sec sec-light" id="flow">
+<section class="sec sec-light">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Behaviour decides this, not a calendar. <span>A drip assumes everyone who downloads something wants a relationship. Most of them wanted a spreadsheet. Pick a path and read it top to bottom. Every path here is also subject to the <a href="index.html#stops">rules that cancel a send</a>, which are shared with the demo flow.</span></h2>
+      <h2>Where the payment currently goes. <span>Everything below happens outside the platform that already holds the context for it.</span></h2>
     </div>
-    <div class="flow-tabs" role="tablist" aria-label="Choose a path">
-      <button type="button" role="tab" id="mtab0" aria-controls="mpanel0" aria-selected="true"><span class="pt-key">Path M1</span><span class="pt-cond">Never opened the sheet</span></button><button type="button" role="tab" id="mtab1" aria-controls="mpanel1" aria-selected="false" tabindex="-1"><span class="pt-key">Path M2</span><span class="pt-cond">Opened it, went quiet</span></button><button type="button" role="tab" id="mtab2" aria-controls="mpanel2" aria-selected="false" tabindex="-1"><span class="pt-key">Path M3</span><span class="pt-cond">Opened it, then read</span></button><button type="button" role="tab" id="mtab3" aria-controls="mpanel3" aria-selected="false" tabindex="-1"><span class="pt-key">Path M4</span><span class="pt-cond">Replied</span></button>
+    <div class="grid6">
+      <div class="gi"><span class="gk">01</span><h3>The invoice gets exported</h3><p>Out of the system that generated it, into a separate bank portal that knows nothing about the job it belongs to.</p></div>
+      <div class="gi"><span class="gk">02</span><h3>Approvals move to email</h3><p>A draw waits on a person who is not in your product, and nobody can see where it stopped.</p></div>
+      <div class="gi"><span class="gk">03</span><h3>Reconciliation happens after</h3><p>Which is where the exceptions come from, because the match is being made against a record that already closed.</p></div>
+      <div class="gi"><span class="gk">04</span><h3>Subs get told elsewhere</h3><p>Suppliers and subcontractors find out about their own money somewhere other than the platform running the project.</p></div>
+      <div class="gi"><span class="gk">05</span><h3>Retainage is tracked by hand</h3><p>Held back, released on conditions, and reconciled in a spreadsheet nobody else can see.</p></div>
+      <div class="gi"><span class="gk">06</span><h3>Status becomes a phone call</h3><p>Every enquiry is a question your product could have answered if it had been holding the payment.</p></div>
     </div>
-    <div class="flow-panel" id="mpanel0" role="tabpanel" aria-labelledby="mtab0"><div class="fp-flow"><div class="node node-trigger"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg></span><span class="node-type">Trigger</span></div><p class="node-name"><code>model_requested</code> fires on the revenue page</p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><a class="node node-email" href="emails/08-revenue-model.html" target="_blank" rel="noopener"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 08</span><span class="node-day">Minute 0</span></div><p class="node-name">The sheet</p><img src="emails/img/thumb-08.png" alt="Preview of email 08, The sheet" loading="lazy"><p class="node-sub">Your payments revenue model</p><span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span></a><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-wait"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div><p class="node-name">4 days, and no <code>model_opened</code></p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><a class="node node-email" href="emails/09-sheet-never-opened.html" target="_blank" rel="noopener"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 09</span><span class="node-day">Day 4</span></div><p class="node-name">The delivery check</p><img src="emails/img/thumb-09.png" alt="Preview of email 09, The delivery check" loading="lazy"><p class="node-sub">Your model did not open. Probably our fault.</p><span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span></a><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-wait"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div><p class="node-name">6 more days, still watching for <code>model_opened</code></p><p class="node-sub">Nothing sends in this window. It exists because a late open moves them to path M2, and a record closed on day four cannot be reopened.</p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-exit"><div class="node-head"><span class="node-type">Exit</span></div><p class="node-name"><code>model_undelivered</code></p><p class="node-sub">Not a lost lead, an address two messages could not reach. It leaves the marketing flow entirely and joins a deliverability report grouped by recipient domain, because one unreachable person is noise and eleven at the same company is a blocklist. Nobody calls them, nothing re enters, and the address stays mailable if they ever ask for something again.</p></div></div><div class="fp-side"><p class="fp-blurb">The path that is really a deliverability problem. Two emails, ten days, and no third attempt.</p><dl class="fp-notes"><dt>Who lands here</dt><dd>Anyone who asked for the sheet and never opened the link. It is a bigger group than most teams expect and almost none of it is disinterest.</dd><dt>Why the email is about delivery</dt><dd>A payments domain sending a spreadsheet link to a corporate gateway is a message that gets held. Treating that as a lost lead rather than a blocked message is how a list quietly rots.</dd><dt>Why no third try</dt><dd>Two unopened sends to one address is a signal about deliverability, not intent. A third damages the sending reputation every other path depends on.</dd></dl></div></div><div class="flow-panel" id="mpanel1" role="tabpanel" aria-labelledby="mtab1" hidden><div class="fp-flow"><div class="node node-trigger"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg></span><span class="node-type">Trigger</span></div><p class="node-name"><code>model_requested</code> fires on the revenue page</p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><a class="node node-email" href="emails/08-revenue-model.html" target="_blank" rel="noopener"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 08</span><span class="node-day">Minute 0</span></div><p class="node-name">The sheet</p><img src="emails/img/thumb-08.png" alt="Preview of email 08, The sheet" loading="lazy"><p class="node-sub">Your payments revenue model</p><span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span></a><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-wait"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div><p class="node-name">Until <code>model_opened</code>, then 3 days</p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><a class="node node-email" href="emails/10-what-the-model-skips.html" target="_blank" rel="noopener"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 10</span><span class="node-day">On signal</span></div><p class="node-name">The second objection</p><img src="emails/img/thumb-10.png" alt="Preview of email 10, The second objection" loading="lazy"><p class="node-sub">The number is the easy part</p><span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span></a><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-wait"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="node-type">Time delay</span></div><p class="node-name">14 days</p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-exit"><div class="node-head"><span class="node-type">Exit</span></div><p class="node-name"><code>model_reviewed</code></p><p class="node-sub">They have the number and the cost of getting it. The record goes to a human list reviewed quarterly.</p></div></div><div class="fp-side"><p class="fp-blurb">Opened, read, and then nothing. The largest path, and the one most sequences ruin.</p><dl class="fp-notes"><dt>Who lands here</dt><dd>They took the number and went back to work. Nothing has gone wrong.</dd><dt>Why one email and not five</dt><dd>They asked for a spreadsheet and got a spreadsheet. That is the relationship they agreed to. Email 10 is justified only because opening the sheet says the topic is still live.</dd><dt>What fourteen days does</dt><dd>It closes the record. Without an explicit end, every download sits in a CRM forever and somebody eventually builds a win back campaign on top of it.</dd></dl></div></div><div class="flow-panel" id="mpanel2" role="tabpanel" aria-labelledby="mtab2" hidden><div class="fp-flow"><div class="node node-trigger"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg></span><span class="node-type">Trigger</span></div><p class="node-name"><code>model_opened</code> fires, same as path M2</p><p class="node-sub">M2 and M3 are one path until email 10 lands. What separates them is whether the reading inside it gets clicked.</p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><a class="node node-email" href="emails/10-what-the-model-skips.html" target="_blank" rel="noopener"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="m3.6 6.8 8.4 6 8.4-6"/></svg></span><span class="node-type">Email 10</span><span class="node-day">On signal</span></div><p class="node-name">The second objection</p><img src="emails/img/thumb-10.png" alt="Preview of email 10, The second objection" loading="lazy"><p class="node-sub">The number is the easy part</p><span class="node-open">Open the real email <span aria-hidden="true">&rarr;</span></span></a><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-wait"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M12 3v7M12 10 6.5 15v6M12 10l5.5 5v6"/></svg></span><span class="node-type">Branch</span></div><p class="node-name">A click on the reading inside email 10</p><p class="node-sub">This is the branch, not a wait. No click and the record follows M2 to its ending. A click is the second signal, and two is enough.</p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-route"><div class="node-head"><span class="node-type">Route</span><span class="node-day">Not a send</span></div><p class="node-name">A task for a person, inside 2 business days</p><p class="node-sub"><b>No third automated email fires here.</b> The record goes to whoever owns platform accounts, carrying both signals, the vertical, and the figures they modelled. They write one real email, in their own words, with the demo link in it. An automated "ready for a demo?" to somebody who read two articles is exactly the move this whole flow refuses, and it is the move that makes a good sequence feel like a machine.</p><p class="node-sub">If nobody acts inside two business days the record falls back to the M2 ending rather than escalating. A sequence that cannot be staffed should close, not keep sending.</p><a class="node-open" href="demo.html">The page they would be sent <span aria-hidden="true">&rarr;</span></a></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-exit"><div class="node-head"><span class="node-type">Exit</span></div><p class="node-name"><code>handed_to_acquisition</code></p><p class="node-sub">The model flow ends here whether or not the person writes. If they do and it lands, the demo lifecycle picks up at the booking page with the vertical already on the record.</p></div></div><div class="fp-side"><p class="fp-blurb">Two signals they created, which is the only thing that earns an offer here.</p><dl class="fp-notes"><dt>Who lands here</dt><dd>Opened the model, got email 10, and clicked the reading inside it. Two signals on two different days, both of them theirs.</dd><dt>Why a person and not an email</dt><dd>One click is curiosity. A second, on a different day, is research, and research is when a demo is useful rather than premature. It is also the point where a templated send would undo everything the first two emails bought, so the flow stops and hands over.</dd><dt>The seam</dt><dd>They arrive at the form already carrying a vertical, so screen one is answered before they see it. Two builds, one record.</dd></dl></div></div><div class="flow-panel" id="mpanel3" role="tabpanel" aria-labelledby="mtab3" hidden><div class="fp-flow"><div class="node node-trigger"><div class="node-head"><span class="node-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z"/></svg></span><span class="node-type">Trigger</span></div><p class="node-name">A human reply, to email 08 or 10</p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-route"><div class="node-head"><span class="node-type">Route</span></div><p class="node-name">Automation stops</p><p class="node-sub">Every queued send is cancelled on the first reply.</p></div><div class="conn" aria-hidden="true"><span class="conn-line"></span><span class="conn-plus">+</span><span class="conn-line"></span></div><div class="node node-exit"><div class="node-head"><span class="node-type">Exit</span></div><p class="node-name"><code>in_conversation</code></p><p class="node-sub">No nurture, no re-entry, no win back. A person is talking to a person.</p></div></div><div class="fp-side"><p class="fp-blurb">A person replied. Everything automated stops in the same second.</p><dl class="fp-notes"><dt>Who lands here</dt><dd>Any reply to email 08 or 10, including a one word one.</dd><dt>Why every queued send cancels</dt><dd>The fastest way to undo a good sequence is to email somebody who already answered. It reads as nobody being home. A reply is only one of six things that stop a send, and the <a href="index.html#stops">other five</a> matter more, because most of them are triggered by a colleague rather than by the prospect.</dd><dt>No re-entry</dt><dd>They do not go back in the flow later and there is no win back. If it ends, it ends with a human, which is the only honest way to end one.</dd></dl></div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Both directions, one integration. <span>Collections and disbursements are the same problem in a construction workflow, and they are usually two vendors.</span></h2>
+    </div>
+    <div class="split2">
+      <div>
+        <h3>Money coming in</h3>
+        <p>Progress payments, draws, and owner or lender funding, requested from inside your product with the job and the invoice already attached.</p>
+        <p>Change orders alter the amount without altering the plumbing, because the amount is a field rather than a new integration.</p>
+      </div>
+      <div>
+        <h3>Money going out</h3>
+        <p>Subcontractor and supplier payouts, released on the conditions you already enforce: inspection passed, lien waiver received, retainage schedule met.</p>
+        <p>Your platform decides when. Payload moves it and writes the result back against the project, the job and the invoice.</p>
+      </div>
+    </div>
+
+    <div class="railbox" style="margin-top:var(--s-7)">
+      <p class="lbl">Rails available through one processing account</p>
+      <ul class="rails">
+        <li>ACH</li><li>Same Day ACH</li><li>Cards</li><li>RTP</li><li>FedNow</li>
+        <li>EFT</li><li>Digital wallets</li><li>Check21</li><li>Check conversion</li><li>Digital wire</li>
+      </ul>
+      <p style="margin:var(--s-4) 0 0;font-size:var(--t-2);color:var(--ink-3);line-height:1.55">A supplier who wants same day and a lender who settles by wire are the same integration. Adding a rail later is a setting, not a project.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-light">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What it earns you. <span>Embedded payments are a revenue line, not only a convenience. How much depends on your book, your mix, and who carries the fee.</span></h2>
+    </div>
+    <div class="split2">
+      <div>
+        <h3>You set the pricing, and who pays it</h3>
+        <p>Flat, percentage, tiered or hybrid, per method or per account. Absorb the fee, pass it to the payer, or split it. On a construction platform the answer is usually different for a card draw than for an ACH payout, and it can be.</p>
+        <p>Model it against your own merchant count and volume rather than a number somebody else picked.</p>
+      </div>
+      <div>
+        <div class="railbox">
+          <p class="lbl">Work out the number</p>
+          <p style="margin:0 0 var(--s-4);font-size:var(--t-3);line-height:1.55;color:var(--ink-2)">Nine inputs, no supplied figures. It runs on your merchants, your volume, your rates, and it shows the cost side rather than hiding it.</p>
+          <a class="node-open" href="revenue.html" style="font-weight:700;color:var(--teal-ink);font-size:var(--t-3)">Open the revenue model &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head"><h2>Proof, as far as it goes.</h2></div>
+    <dl class="proof">
+      <div><dt>$500M</dt><dd>Moved every month, trending toward $6B a year</dd></div>
+      <div><dt>3M+</dt><dd>Fraud free transactions</dd></div>
+      <div><dt>15+</dt><dd>Software platforms embedding Payload today</dd></div>
+    </dl>
+    <div class="gap">
+      <p><b>Concept note, and the point of this page.</b> Those three figures are Payload's own published numbers. What is missing from this section is a named construction platform saying it worked, because there is not one yet. That is the honest state of this vertical: the article exists, the capability exists, the customer proof does not. The first construction platform to sign is worth more as a story than as volume.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-light">
+  <div class="wrap">
+    <div class="sec-head"><h2>Questions a platform team asks first.</h2></div>
+    <div class="faq">
+      <details open><summary>Who holds the funds?</summary>
+        <p>This is the question that decides your licensing, your liability and your audit surface, and it is expensive to change later. It is the first thing to settle, before any timeline estimate means anything.</p></details>
+      <details><summary>Do we have to become a payment facilitator?</summary>
+        <p>No. Processing accounts are created and underwritten through Payload, with automated KYC and identity verification, so your platform onboards merchants without taking on facilitator status itself.</p></details>
+      <details><summary>How long does an integration actually take?</summary>
+        <p>The honest answer depends on how much of the flow you want to own. Onboarding, the money movement, reconciliation and the support view are four separate pieces, and built alone they are quarters rather than sprints. That is what the conversation is for.</p></details>
+      <details><summary>Can we keep our own approval rules?</summary>
+        <p>Yes, and you should. Your platform already knows whether the inspection passed and whether the lien waiver is on file. Payload moves money when you say so rather than asking you to rebuild those rules somewhere else.</p></details>
+      <details><summary>What happens to reconciliation?</summary>
+        <p>Results are written back against the project, the job and the invoice they belong to, which is the thing a separate bank portal cannot do because it never had the context.</p></details>
+    </div>
   </div>
 </section>
 </main>
 
+<section class="endcta">
+  <div class="wrap">
+    <h2>Thirty minutes with a solutions engineer.</h2>
+    <p>Bring your real flows, inbound and outbound, and we will map them to the API and tell you what it takes to go live. Sandbox credentials the same day whether or not you move forward.</p>
+    <div class="btns">
+      <a class="primary" href="demo.html">Start with your flows</a>
+      <a class="ghost" href="revenue.html">Work out the revenue first</a>
+    </div>
+  </div>
+</section>
+
 <footer class="site-foot">
   <div class="wrap">
-    <p>Prototype built by Jacob Gilliam, 19 September 2026. Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Reading links in email 10 point at articles Payload has already published, routed by the vertical captured on the model page. Nothing new has to be written to run this.</p>
-    <a href="revenue.html">Back to the model</a>
+    <p>Prototype built by Jacob Gilliam, 20 September 2026. Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Every problem described here is taken from Payload's own article on construction management platforms, published 16 September 2026, and the rails and figures are their own published numbers. Payload does not currently have a page for this vertical, which is why this one exists.</p>
+    <a href="index.html">All the pages</a>
   </div>
 </footer>
 
-<script>
-(function(){
-  "use strict";
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.flow-tabs [role="tab"]'));
-  function select(tab){
-    tabs.forEach(function(t){
-      var on = t === tab;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
-    });
-  }
-  tabs.forEach(function(t, i){
-    t.addEventListener('click', function(){ select(t); });
-    t.addEventListener('keydown', function(e){
-      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if(!d) return;
-      e.preventDefault();
-      var next = tabs[(i + d + tabs.length) % tabs.length];
-      next.focus(); select(next);
-    });
-  });
-  function warm(){
-    Array.prototype.forEach.call(document.querySelectorAll('.flow-panel[hidden] img'), function(img){
-      var pre = new Image(); pre.src = img.getAttribute('src');
-    });
-  }
-  if('requestIdleCallback' in window) requestIdleCallback(warm, {timeout:3000});
-  else setTimeout(warm, 1200);
-})();
-</script>
 </body>
 </html>
