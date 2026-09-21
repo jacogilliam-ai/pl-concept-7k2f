@@ -254,6 +254,14 @@ footer a{color:var(--mint)}
 .row.tallimg{align-items:center}
 .row.tallimg .txt{padding-top:0}
 .phoneshot img{display:block;width:100%;height:auto}
+
+/* rails split the way Payload publishes them, money in and money out */
+.railset{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6);margin-top:var(--s-7);
+  max-width:880px;margin-inline:auto}
+.railk{display:block;font:var(--t-1)/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mint);text-align:center;margin-bottom:var(--s-4)}
+.railset .rails{margin-top:0}
+@media (max-width:700px){.railset{grid-template-columns:1fr;gap:var(--s-5)}}
 </style>
 </head>
 <body>
@@ -330,9 +338,14 @@ footer a{color:var(--mint)}
       <div class="call c3"><b>Fees attributed at the line</b><span>who paid what</span></div>
     </div>
   </div>
-  <ul class="rails">
-    <li>ACH</li><li>RTP</li><li>Wire</li><li>Card</li><li>Check</li><li>Virtual card</li>
-  </ul>
+  <div class="railset">
+    <div><span class="railk">money in</span><ul class="rails">
+      <li>Card</li><li>Pay by bank</li><li>Check</li><li>Synthetic account</li><li>Apple Pay</li><li>Google Pay</li>
+    </ul></div>
+    <div><span class="railk">money out</span><ul class="rails">
+      <li>Direct deposit</li><li>Synthetic account</li><li>Virtual card</li><li>Instant</li><li>Wire</li><li>Push to debit</li>
+    </ul></div>
+  </div>
 </div></section>
 
 <section><div class="w">
@@ -343,7 +356,7 @@ footer a{color:var(--mint)}
       <ul class="arrows">
         <li>Same day where it matters, on the rail that suits each payee</li>
         <li>Gross, retainage and net shown against the scope</li>
-        <li>Ten rails through one processing account, including RTP and FedNow</li>
+        <li>Every rail they publish, inbound and outbound, through one processing account</li>
         <li>Adding a rail later is a setting, not a project</li>
       </ul>
     </div>
