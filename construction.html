@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Payments for construction management platforms | Payload</title>
-<meta name="description" content="Embedded payments for construction management platforms. Draws, retainage, change orders and subcontractor payouts, settled without leaving your product.">
+<meta name="description" content="Embedded payments for construction management platforms. Draws, retainage, lien waivers and subcontractor payouts, settled without leaving your product.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1d4f66">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -333,24 +333,40 @@ a.node-email:hover .node-open{text-decoration:underline}
 }
 </style>
 <style>
-/* ---- vertical landing page ---- */
-.shot{border:1px solid var(--line);border-radius:8px;overflow:hidden;
-  box-shadow:0 18px 44px rgba(27,97,129,.10);background:#fff}
-.shot img{display:block;width:100%;height:auto}
-figure{margin:0}
-figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:var(--s-4);max-width:70ch}
-/* both tracks need minmax(0,...). A bare 1fr is minmax(auto,1fr), so a 1664px
-   image sets the column minimum and blows the grid out to its natural size. */
-.withshot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:var(--s-8);align-items:center}
-@media (max-width:980px){.withshot{grid-template-columns:1fr;gap:var(--s-6)}}
-.stats{background:var(--deep);color:#fff;background-image:var(--dots),linear-gradient(160deg,var(--hero-a),var(--hero-c));
-  background-size:16px 16px,auto}
+/* ---- redesigned vertical page ---- */
+/* ---- sections carried from the previous build. All of this was dropped when the
+   page was rebuilt from the revenue.html shell, which is rule 25 again: verify the
+   result, not just the anchor. ---- */
+.fine{margin:var(--s-4) 0 0;font-size:var(--t-2);color:var(--ink-3);line-height:1.6;max-width:70ch}
+.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-5) var(--s-6);margin-top:var(--s-7)}
+.gi h3{font-size:var(--t-4);margin:0 0 var(--s-2);color:var(--ink);line-height:var(--lh-snug)}
+.gi p{margin:0;font-size:var(--t-2);color:var(--ink-3);line-height:1.55}
+.gi .gk{font-family:var(--mono);font-size:var(--t-1);color:var(--teal-ink);display:block;margin-bottom:6px}
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-8);align-items:start;margin-top:var(--s-7)}
+.split2 h3{font-size:var(--t-5);margin:0 0 var(--s-4);line-height:var(--lh-snug);letter-spacing:-.012em}
+.split2 p{margin:0 0 var(--s-4);color:var(--ink-2)}
+.split2 p:last-child{margin-bottom:0}
+.railbox{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:var(--s-6)}
+.railbox .lbl{color:var(--teal-ink);margin-bottom:var(--s-4)}
+.rails{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.rails li{font-family:var(--mono);font-size:var(--t-2);background:#fff;border:1px solid #cfdfe5;
+  border-radius:3px;padding:5px 10px;color:var(--ink-2)}
+.gap{background:#fffdf8;border-left:3px solid var(--amber);border-radius:0 4px 4px 0;padding:var(--s-5)}
+.gap p{margin:0;font-size:var(--t-2);line-height:1.6;color:var(--ink-2)}
+.faq{margin-top:var(--s-7);border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:var(--s-4) 0;font-weight:700;font-size:var(--t-3);
+  color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:var(--s-4)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--teal-ink);font-weight:400}
+.faq details[open] summary::after{content:"\2212"}
+.faq p{margin:0 0 var(--s-4);font-size:var(--t-2);line-height:1.6;color:var(--ink-2);max-width:68ch}
+.stats{background-image:var(--dots),linear-gradient(160deg,var(--hero-a),var(--hero-c));
+  background-size:16px 16px,auto;color:#fff}
 .stats .wrap{padding-block:var(--s-9)}
-.stats .row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-7)}
+.stats .row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-7);margin:0}
 .stats dt{font-size:var(--t-8);font-weight:900;letter-spacing:-.04em;line-height:1;color:#fff}
 .stats dd{margin:var(--s-3) 0 0;font-size:var(--t-2);color:var(--pale);line-height:1.5;max-width:26ch}
-.stats .note{margin:var(--s-7) 0 0;font-size:var(--t-1);color:var(--pale);opacity:.8;font-family:var(--mono)}
 .cmp{width:100%;border-collapse:collapse;font-size:var(--t-2);margin-top:var(--s-6)}
 .cmp th{text-align:left;padding:0 var(--s-4) var(--s-3) 0;border-bottom:2px solid var(--line);
   font-size:var(--t-3);font-weight:900;color:var(--ink);letter-spacing:-.01em;vertical-align:bottom}
@@ -360,7 +376,21 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
 .cmp td:first-child{font-weight:700;color:var(--ink);width:22%}
 .cmp td.us{background:#f4fafc;padding-left:var(--s-4);color:var(--ink)}
 .cmp tr:last-child td{border-bottom:none}
+.endcta{background-image:var(--dots),linear-gradient(150deg,var(--hero-a),var(--hero-c));
+  background-size:16px 16px,auto;color:#fff}
+.endcta .wrap{padding-block:var(--s-9)}
+.endcta h2{font-size:var(--t-6);margin:0 0 var(--s-4);max-width:18ch;line-height:var(--lh-snug);
+  letter-spacing:-.018em;color:#fff}
+.endcta p{color:var(--pale);margin:0 0 var(--s-6);max-width:54ch}
+.endcta .btns{display:flex;gap:var(--s-4);flex-wrap:wrap}
+.endcta a{display:inline-block;border-radius:5px;padding:15px 26px;text-decoration:none;
+  font-weight:900;font-size:var(--t-3)}
+.endcta .primary{background:linear-gradient(100deg,var(--cta-a),var(--cta-b));color:var(--cta-ink)}
+.endcta .ghost{border:1px solid rgba(199,235,247,.45);color:#fff}
+.endcta .ghost:hover{background:rgba(199,235,247,.12)}
 @media (max-width:860px){
+  .grid6{grid-template-columns:1fr}
+  .split2{grid-template-columns:1fr;gap:var(--s-6)}
   .stats .row{grid-template-columns:1fr;gap:var(--s-6)}
   .cmp,.cmp tbody,.cmp tr,.cmp td{display:block;width:100%}
   .cmp thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -372,58 +402,64 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
   .cmp td.diy::before{content:"Built yourself: ";font-weight:700;color:var(--ink-3)}
   .cmp td.bank::before{content:"Bank portal: ";font-weight:700;color:var(--ink-3)}
 }
-.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-5) var(--s-6);margin-top:var(--s-7)}
-.gi h3{font-size:var(--t-4);margin:0 0 var(--s-2);color:var(--ink);line-height:var(--lh-snug)}
-.gi p{margin:0;font-size:var(--t-2);color:var(--ink-3);line-height:1.55}
-.gi .gk{font-family:var(--mono);font-size:var(--t-1);color:var(--teal-ink);display:block;margin-bottom:6px}
 
-.split2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-8);align-items:start;margin-top:var(--s-7)}
-.split2 h3{font-size:var(--t-5);margin:0 0 var(--s-4);line-height:var(--lh-snug);letter-spacing:-.012em}
-.split2 p{margin:0 0 var(--s-4);color:var(--ink-2)}
-.split2 p:last-child{margin-bottom:0}
+.hero-b{background:linear-gradient(155deg,var(--hero-a) 0%,var(--hero-c) 55%,#17455a 100%);
+  background-image:var(--dots),linear-gradient(155deg,var(--hero-a) 0%,var(--hero-c) 55%,#17455a 100%);
+  background-size:18px 18px,auto;color:#fff;overflow:hidden;position:relative}
+.hero-b .wrap{padding-block:var(--s-9) 0}
+.hb-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:var(--s-8);align-items:center}
+.hb-grid h1{font-size:var(--t-8);font-weight:900;line-height:1.05;letter-spacing:-.035em;margin:0 0 var(--s-5);max-width:15ch}
+.hb-grid h1 em{font-style:normal;color:var(--green)}
+.hb-grid .lead{font-size:var(--t-4);line-height:1.5;color:var(--pale);margin:0 0 var(--s-6);max-width:46ch}
+.hb-cta{display:flex;gap:var(--s-3);flex-wrap:wrap;margin-bottom:var(--s-7)}
+.hb-cta a{border-radius:5px;padding:14px 24px;text-decoration:none;font-weight:900;font-size:var(--t-3);display:inline-block}
+.hb-cta .p{background:linear-gradient(100deg,var(--cta-a),var(--cta-b));color:var(--cta-ink)}
+.hb-cta .g{border:1px solid rgba(199,235,247,.45);color:#fff}
+.hb-cta .g:hover{background:rgba(199,235,247,.12)}
+.hb-rail{display:flex;gap:var(--s-6);flex-wrap:wrap;padding-bottom:var(--s-8);margin:0}
+.hb-rail div{border-left:2px solid var(--green);padding-left:var(--s-3)}
+.hb-rail dt{font-family:var(--mono);font-size:var(--t-1);color:var(--pale);letter-spacing:.04em}
+.hb-rail dd{margin:4px 0 0;font-size:var(--t-3);font-weight:700;color:#fff}
+.hb-shot{position:relative;margin-bottom:-90px}
+.hb-shot img{display:block;width:100%;height:auto;border-radius:9px;
+  box-shadow:0 34px 80px rgba(9,32,44,.45);border:1px solid rgba(199,235,247,.2)}
+.hb-chip{position:absolute;left:-26px;bottom:118px;background:#fff;border-radius:9px;
+  padding:12px 16px;box-shadow:0 16px 40px rgba(9,32,44,.3);max-width:230px}
+.hb-chip b{display:block;font-size:var(--t-2);color:var(--ink);font-weight:900}
+.hb-chip span{display:block;font-family:var(--mono);font-size:var(--t-1);color:var(--teal-ink);margin-top:3px}
 
-.railbox{background:var(--paper-2);border:1px solid var(--line);border-radius:var(--radius);padding:var(--s-6)}
-.railbox .lbl{color:var(--teal-ink);margin-bottom:var(--s-4)}
-.rails{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
-.rails li{font-family:var(--mono);font-size:var(--t-2);background:#fff;border:1px solid #cfdfe5;
-  border-radius:3px;padding:5px 10px;color:var(--ink-2)}
-
-.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-6);margin-top:var(--s-7)}
-.proof div{border-top:2px solid var(--green-ink);padding-top:var(--s-4)}
-.proof dt{font-size:var(--t-6);font-weight:900;letter-spacing:-.03em;color:var(--ink);line-height:1}
-.proof dd{margin:var(--s-2) 0 0;font-size:var(--t-2);color:var(--ink-3);line-height:1.5}
-
-.gap{background:#fffdf8;border-left:3px solid var(--amber);border-radius:0 4px 4px 0;
-  padding:var(--s-5);margin-top:var(--s-7)}
-.gap p{margin:0;font-size:var(--t-2);line-height:1.6;color:var(--ink-2)}
-.gap b{color:var(--amber-ink)}
-
-.faq{margin-top:var(--s-7);border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;padding:var(--s-4) 0;font-weight:700;font-size:var(--t-3);
-  color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:var(--s-4)}
-.faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";font-family:var(--mono);color:var(--teal-ink);font-weight:400}
-.faq details[open] summary::after{content:"\2212"}
-.faq p{margin:0 0 var(--s-4);font-size:var(--t-2);line-height:1.6;color:var(--ink-2);max-width:68ch}
-
-.endcta{background:linear-gradient(150deg,var(--hero-a),var(--hero-c));color:#fff;
-  background-image:var(--dots),linear-gradient(150deg,var(--hero-a),var(--hero-c));
-  background-size:16px 16px,auto}
-.endcta .wrap{padding-block:var(--s-9);text-align:left}
-.endcta h2{font-size:var(--t-6);margin:0 0 var(--s-4);max-width:18ch;line-height:var(--lh-snug)}
-.endcta p{color:var(--pale);margin:0 0 var(--s-6);max-width:54ch}
-.endcta .btns{display:flex;gap:var(--s-4);flex-wrap:wrap}
-.endcta a{display:inline-block;border-radius:4px;padding:15px 26px;text-decoration:none;
-  font-weight:900;font-size:var(--t-3)}
-.endcta .primary{background:linear-gradient(100deg,var(--cta-a),var(--cta-b));color:var(--cta-ink)}
-.endcta .ghost{border:1px solid rgba(199,235,247,.45);color:#fff}
-.endcta .ghost:hover{background:rgba(199,235,247,.12)}
-
-@media (max-width:860px){
-  .grid6,.proof{grid-template-columns:1fr}
-  .split2{grid-template-columns:1fr;gap:var(--s-6)}
+/* the stepping section */
+.walk{padding-top:calc(var(--s-9) + 70px)}
+.walk-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:var(--s-8);align-items:start}
+.walk-sticky{position:sticky;top:var(--s-6)}
+.walk-frame{position:relative;background:#eaf4f8;border:1px solid var(--line);border-radius:10px;
+  padding:var(--s-5);display:grid;place-items:center;min-height:430px}
+.walk-frame img{display:block;max-width:100%;max-height:430px;width:auto;height:auto;border-radius:6px;
+  box-shadow:0 14px 34px rgba(27,97,129,.16);grid-area:1/1;opacity:0;transition:opacity .35s ease}
+.walk-frame img.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.walk-frame img{transition:none}}
+.walk-steps{display:grid;gap:var(--s-4);margin:0;padding:0;list-style:none}
+.walk-steps li{border-left:2px solid var(--line);padding:var(--s-4) 0 var(--s-4) var(--s-5);cursor:pointer}
+.walk-steps li[aria-current="true"]{border-left-color:var(--teal-ink)}
+.walk-steps .k{font-family:var(--mono);font-size:var(--t-1);color:var(--ink-3);letter-spacing:.06em}
+.walk-steps li[aria-current="true"] .k{color:var(--teal-ink)}
+.walk-steps h3{font-size:var(--t-5);margin:var(--s-2) 0 var(--s-3);line-height:var(--lh-snug);
+  letter-spacing:-.014em;color:var(--ink-3)}
+.walk-steps li[aria-current="true"] h3{color:var(--ink)}
+.walk-steps p{margin:0;font-size:var(--t-3);line-height:1.6;color:var(--ink-2);max-width:48ch}
+.walk-steps .shot-m{display:none}
+@media (max-width:1000px){
+  .walk{padding-top:calc(var(--s-8) + 70px)}
+  .walk-grid{grid-template-columns:1fr}
+  .walk-sticky{display:none}
+  .walk-steps .shot-m{display:block;margin-top:var(--s-4);border:1px solid var(--line);
+    border-radius:8px;overflow:hidden;background:#eaf4f8;padding:var(--s-3)}
+  .walk-steps .shot-m img{display:block;width:100%;height:auto;border-radius:4px}
+  .walk-steps li{border-left-color:var(--teal-ink)}
+  .walk-steps h3,.walk-steps li h3{color:var(--ink)}
 }
+@media (max-width:760px){ .hb-grid{grid-template-columns:1fr;gap:var(--s-6)} .hb-chip{display:none}
+  .hb-shot{margin-bottom:-60px} .hero-b .wrap{padding-block:var(--s-8) 0} }
 </style>
 <body>
 
@@ -445,104 +481,55 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
 </header>
 
 <main>
-<section class="hero">
+<section class="hero-b">
   <div class="wrap">
-    <h1>Your platform already runs the job. <em>The money should not leave to get paid.</em></h1>
-    <p class="lead">Construction management platforms track bids, contracts, budgets, draws and subcontractors, and then hand the payment itself to a bank portal. Payload keeps it inside your product, on both sides, with your approval rules deciding when it moves.</p>
-    <dl class="hero-rail">
-      <div><dt>6</dt><dd>Payment types, one account</dd></div>
-      <div><dt>10</dt><dd>Rails, including RTP and FedNow</dd></div>
-      <div><dt>Yours</dt><dd>Approval logic, not ours</dd></div>
-      <div><dt>$500M</dt><dd>Moved every month</dd></div>
-    </dl>
-  </div>
-</section>
-
-<section class="sec">
-  <div class="wrap">
-    <div class="withshot">
+    <div class="hb-grid">
       <div>
-        <p class="lbl" style="color:var(--teal-ink);margin-bottom:var(--s-3)">What embedded actually means</p>
-        <h2 style="font-size:var(--t-6);line-height:var(--lh-snug);margin:0 0 var(--s-4);letter-spacing:-.018em">The payment screen lives at your address, not ours.</h2>
-        <p style="color:var(--ink-2);margin:0 0 var(--s-4)">A draw release, inside the platform that already holds the project, the schedule of values and the lien waivers. Retainage comes off automatically. The rail is chosen per payee. Your conditions decide whether the button is live.</p>
-        <p style="color:var(--ink-3);font-size:var(--t-2);margin:0">Nobody exports anything. Nobody opens a bank portal. The result writes back against project 4471, draw 07.</p>
+        <h1>Your platform runs the job. <em>The money should not leave to get paid.</em></h1>
+        <p class="lead">Construction platforms track bids, budgets, draws and subcontractors, then hand the payment itself to a bank portal that knows none of it. Payload keeps it inside your product, both directions, with your rules deciding when it moves.</p>
+        <div class="hb-cta">
+          <a class="p" href="demo.html">Map your flows with an engineer</a>
+          <a class="g" href="revenue.html">See what it earns first</a>
+        </div>
+        <dl class="hb-rail">
+          <div><dt>rails</dt><dd>10, one account</dd></div>
+          <div><dt>direction</dt><dd>In and out</dd></div>
+          <div><dt>approval</dt><dd>Yours, not ours</dd></div>
+        </dl>
       </div>
-      <figure>
-        <div class="shot"><img src="img/mock-draw.png" alt="A draw release screen inside a construction platform, showing four subcontractor payees, retainage held back, and the conditions the platform enforced" width=1664 height=1674 loading="lazy"></div>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec-light">
-  <div class="wrap">
-    <div class="withshot">
-      <figure>
-        <div class="shot"><img src="img/mock-ledger.png" alt="A project ledger showing every money movement matched to its draw, change order and schedule of values line, with zero unmatched" width="1632" height="1198" loading="lazy"></div>
-      </figure>
-      <div>
-        <p class="lbl" style="color:var(--teal-ink);margin-bottom:var(--s-3)">The part that costs the most time</p>
-        <h2 style="font-size:var(--t-6);line-height:var(--lh-snug);margin:0 0 var(--s-4);letter-spacing:-.018em">Reconciliation stops being a monthly event.</h2>
-        <p style="color:var(--ink-2);margin:0 0 var(--s-4)">Every movement carries the project, the job and the invoice it belongs to, because the platform that recorded the work is the one that moved the money. Retainage held, change orders applied, lender funding matched to the draw that requested it.</p>
-        <p style="color:var(--ink-2);margin:0 0 var(--s-4)">A bank portal cannot do this and never could. It never had the context in the first place.</p>
-        <p style="color:var(--ink-3);font-size:var(--t-2);margin:0">Exceptions are what reconciliation produces when the match happens after the fact. Doing it at the moment of payment is how the number stays at zero.</p>
+      <div class="hb-shot">
+        <img src="img/mock-draw.png" alt="A draw release screen inside a construction platform, four subcontractor payees with retainage deducted" width="1664" height="1674" class=""  loading="lazy">
+        <div class="hb-chip"><b>Released in 11 seconds</b><span>RTP &middot; 4 payees &middot; draw 07</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec sec-light">
+<section class="sec walk" id="walk">
   <div class="wrap">
     <div class="sec-head">
-      <h2>What it replaces. <span>Six things that currently happen outside the platform already holding the context for all of them.</span></h2>
+      <h2>One draw, end to end. <span>The same money, moving through four moments that currently happen in four different places.</span></h2>
     </div>
-    <div class="split2">
-      <div>
-        <p><b>The invoice gets exported</b> out of the system that generated it, into a bank portal that knows nothing about the job it belongs to. <b>Approvals move to email</b>, so a draw waits on somebody who is not in your product and nobody can see where it stopped.</p>
-        <p><b>Reconciliation happens afterwards</b>, which is where the exceptions come from, because the match is being made against a record that already closed.</p>
-      </div>
-      <div>
-        <p><b>Subs and suppliers find out elsewhere</b>, told about their own money somewhere other than the platform running the project. <b>Retainage is tracked by hand</b>, held back and released on conditions in a spreadsheet nobody else can see.</p>
-        <p><b>And status becomes a phone call.</b> Every one of those is a question your product could have answered if it had been holding the payment.</p>
-      </div>
+    <div class="walk-grid">
+      <div class="walk-sticky"><div class="walk-frame"><img src="img/mock-draw.png" alt="A draw release screen inside a construction platform, four subcontractor payees with retainage deducted" width="1664" height="1674" class="on" data-w="0" loading="lazy"><img src="img/mock-conditions.png" alt="A conditions panel showing lien waivers, inspection and lender funding cleared before release" width="1592" height="1118" class="" data-w="1" loading="lazy"><img src="img/mock-paid.png" alt="A phone showing a subcontractor notified of a $73,800 payout that arrived in eleven seconds" width="732" height="1356" class="" data-w="2" loading="lazy"><img src="img/mock-ledger.png" alt="A project ledger with every movement matched to its draw, change order and invoice, zero unmatched" width="1632" height="1198" class="" data-w="3" loading="lazy"></div></div>
+      <ol class="walk-steps" id="walkSteps"><li data-i="0" aria-current="true" tabindex="0"><span class="k">01</span><h3>The request</h3><p>A draw is assembled from the schedule of values your platform already holds. Four payees, the gross against each scope, retainage deducted automatically. Nobody exports anything and nobody opens a bank portal.</p><div class="shot-m"><img src="img/mock-draw.png" alt="A draw release screen inside a construction platform, four subcontractor payees with retainage deducted" width="1664" height="1674" class=""  loading="lazy"></div></li><li data-i="1" aria-current="false" tabindex="0"><span class="k">02</span><h3>The conditions</h3><p>Your platform decides when money is allowed to move. Lien waivers on file, inspection passed, lender funding cleared. Payload does not invent those rules or ask you to rebuild them somewhere else. It waits for your answer.</p><div class="shot-m"><img src="img/mock-conditions.png" alt="A conditions panel showing lien waivers, inspection and lender funding cleared before release" width="1592" height="1118" class=""  loading="lazy"></div></li><li data-i="2" aria-current="false" tabindex="0"><span class="k">03</span><h3>The release</h3><p>Subcontractors and suppliers are paid on the rail that suits each one, and they hear it from the platform running their project rather than from a bank they have never dealt with. Retainage stays held and visible.</p><div class="shot-m"><img src="img/mock-paid.png" alt="A phone showing a subcontractor notified of a $73,800 payout that arrived in eleven seconds" width="732" height="1356" class=""  loading="lazy"></div></li><li data-i="3" aria-current="false" tabindex="0"><span class="k">04</span><h3>The reconciliation</h3><p>Every movement carries the project, the job and the invoice it belongs to, because the system that recorded the work is the one that moved the money. Exceptions are what happens when that match is made afterwards.</p><div class="shot-m"><img src="img/mock-ledger.png" alt="A project ledger with every movement matched to its draw, change order and invoice, zero unmatched" width="1632" height="1198" class=""  loading="lazy"></div></li></ol>
     </div>
   </div>
 </section>
 
-<section class="sec">
+<section class="sec sec-light">
   <div class="wrap">
     <div class="sec-head">
       <h2>What it covers once it is inside. <span>Six payment types a construction platform already tracks and currently sends somewhere else to settle.</span></h2>
     </div>
     <div class="grid6">
-      <div class="gi"><span class="gk">inbound</span><h3>Progress payments and draws</h3><p>Requested against the schedule of values your platform already holds, with the job attached.</p></div>
+      <div class="gi"><span class="gk">inbound</span><h3>Progress payments and draws</h3><p>Requested against the line items your platform already tracks, with the job attached.</p></div>
       <div class="gi"><span class="gk">inbound</span><h3>Owner and lender funding</h3><p>Released on inspection or milestone, by wire, RTP or ACH depending on who is sending it.</p></div>
       <div class="gi"><span class="gk">outbound</span><h3>Subcontractor payouts</h3><p>Same day where it matters, conditional on the lien waiver being on file.</p></div>
       <div class="gi"><span class="gk">outbound</span><h3>Supplier and vendor payments</h3><p>Any person or business, against the PO and the delivery your product already recorded.</p></div>
       <div class="gi"><span class="gk">held</span><h3>Retainage</h3><p>Withheld on a schedule, released on conditions, visible in the same ledger as everything else.</p></div>
       <div class="gi"><span class="gk">both</span><h3>Change orders</h3><p>A different amount against the same contract. Changing what is owed should not mean changing how it moves.</p></div>
     </div>
-  </div>
-</section>
-
-<section class="sec">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Both directions, one integration. <span>Collections and disbursements are the same problem in a construction workflow, and they are usually two vendors.</span></h2>
-    </div>
-    <div class="split2">
-      <div>
-        <h3>Money coming in</h3>
-        <p>Progress payments, draws, and owner or lender funding, requested from inside your product with the job and the invoice already attached.</p>
-        <p>Change orders alter the amount without altering the plumbing, because the amount is a field rather than a new integration.</p>
-      </div>
-      <div>
-        <h3>Money going out</h3>
-        <p>Subcontractor and supplier payouts, released on the conditions you already enforce: inspection passed, lien waiver received, retainage schedule met.</p>
-        <p>Your platform decides when. Payload moves it and writes the result back against the job it belongs to.</p>
-      </div>
-    </div>
-
     <div class="railbox" style="margin-top:var(--s-7)">
       <p class="lbl">Rails available through one processing account</p>
       <ul class="rails">
@@ -553,8 +540,9 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
     </div>
   </div>
 </section>
+</main>
 
-<section class="sec sec-light">
+<section class="sec">
   <div class="wrap">
     <div class="sec-head">
       <h2>What it earns you. <span>Embedded payments are a revenue line, not only a convenience. How much depends on your book, your mix, and who carries the fee.</span></h2>
@@ -569,9 +557,23 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
         <div class="railbox">
           <p class="lbl">Work out the number</p>
           <p style="margin:0 0 var(--s-4);font-size:var(--t-3);line-height:1.55;color:var(--ink-2)">Nine inputs, no supplied figures. It runs on your merchants, your volume, your rates, and it shows the cost side rather than hiding it.</p>
-          <a class="node-open" href="revenue.html" style="font-weight:700;color:var(--teal-ink);font-size:var(--t-3)">Open the revenue model &rarr;</a>
+          <a href="revenue.html" style="font-weight:700;color:var(--teal-ink);font-size:var(--t-3);text-decoration:none">Open the revenue model &rarr;</a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <dl class="row">
+      <div><dt>$500M</dt><dd>Moved every month, trending toward $6B a year</dd></div>
+      <div><dt>3M+</dt><dd>Transactions processed without a fraud incident</dd></div>
+      <div><dt>15+</dt><dd>Software platforms embedding Payload today</dd></div>
+    </dl>
+    <div class="gap" style="background:#123a4d;border-left-color:var(--amber);margin-top:var(--s-7)">
+      <p style="color:var(--pale)"><b style="color:#f3d9a7">The two things this page cannot show.</b> Those figures are Payload's own and they are company wide, not construction specific. Their real estate page carries a <b style="color:#fff">logo wall</b> of brokerages using it and an <b style="color:#fff">integration wall</b> naming five real estate platforms it connects to. Construction has neither, because there is no construction customer to name and no construction platform partner to list.</p>
+      <p style="color:var(--pale);margin-top:var(--s-3)">Using real estate logos here would imply customers that do not exist, so the gap stays visible. It is also the argument for building this page early rather than a reason not to.</p>
     </div>
   </div>
 </section>
@@ -634,23 +636,7 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
   </div>
 </section>
 
-<section class="stats">
-  <div class="wrap">
-    <dl class="row">
-      <div><dt>$500M</dt><dd>Moved every month, trending toward $6B a year</dd></div>
-      <div><dt>3M+</dt><dd>Transactions processed without a fraud incident</dd></div>
-      <div><dt>15+</dt><dd>Software platforms embedding Payload today</dd></div>
-    </dl>
-    <div class="gap" style="background:rgba(224,171,85,.14);border-left-color:var(--amber);margin-top:var(--s-7)">
-      <p style="color:var(--pale)"><b style="color:#f3d9a7">The two numbers this page cannot show.</b> Those figures are Payload's own and they are company wide, not construction specific. Their real estate page carries two things this one cannot: a <b style="color:#fff">logo wall</b> of brokerages using it, and an <b style="color:#fff">integration wall</b> naming five real estate platforms it connects to. Construction has neither, because there is no construction customer to name and no construction platform partner to list.</p>
-      <p style="color:var(--pale);margin-top:var(--s-3)">Using real estate logos here would imply customers that do not exist, so the gap stays visible. It is also the argument for building this page early rather than a reason not to.</p>
-    </div>
-  </div>
-</section>
-
-
-
-<section class="sec sec-light">
+<section class="sec">
   <div class="wrap">
     <div class="sec-head"><h2>Questions a platform team asks first.</h2></div>
     <div class="faq">
@@ -667,7 +653,6 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
     </div>
   </div>
 </section>
-</main>
 
 <section class="endcta">
   <div class="wrap">
@@ -682,10 +667,47 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
 
 <footer class="site-foot">
   <div class="wrap">
-    <p>Prototype built by Jacob Gilliam, 20 September 2026. Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Every problem described here is taken from Payload's own article on construction management platforms, published 16 September 2026, and the rails and figures are their own published numbers. Payload does not currently have a page for this vertical, which is why this one exists.</p>
+    <p>Prototype built by Jacob Gilliam, 21 September 2026. Concept work. Not commissioned by Payload and not affiliated with Payload, LLC. Every problem described here is taken from Payload's own article on construction management platforms, published 16 September 2026, and the rails, certifications and figures are their own published numbers. The screens are concept mockups, not Payload's product. Payload does not currently have a page for this vertical, which is why this one exists.</p>
     <a href="index.html">All the pages</a>
   </div>
 </footer>
 
+<script>
+(function(){
+  "use strict";
+  var list = document.getElementById('walkSteps');
+  if(!list) return;
+  var steps = [].slice.call(list.children);
+  var shots = [].slice.call(document.querySelectorAll('.walk-frame img'));
+  function show(i){
+    steps.forEach(function(s,n){ s.setAttribute('aria-current', String(n===i)); });
+    shots.forEach(function(img,n){ img.classList.toggle('on', n===i); });
+  }
+  /* a click has to move the page too, or the observer re-fires on whatever step is
+     still sitting in the trigger band and silently undoes it. */
+  function pick(i){
+    show(i);
+    steps[i].scrollIntoView({ block:'center',
+      behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth' });
+  }
+  steps.forEach(function(s,i){
+    s.addEventListener('click', function(){ pick(i); });
+    s.addEventListener('keydown', function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pick(i); }
+    });
+  });
+  /* scroll drives it too, but only where the sticky frame is actually rendered.
+     Below 1000px each step carries its own image inline and the observer would
+     fight the user. */
+  if(window.matchMedia('(min-width:1001px)').matches && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting) show(steps.indexOf(e.target));
+      });
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+    steps.forEach(function(s){ io.observe(s); });
+  }
+})();
+</script>
 </body>
 </html>
