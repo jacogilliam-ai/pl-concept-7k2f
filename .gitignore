@@ -5,3 +5,4 @@ v_*.png
 _bg*.png
 _pl_bg.png
 .DS_Store
+_mock/

@@ -334,6 +334,16 @@ a.node-email:hover .node-open{text-decoration:underline}
 </style>
 <style>
 /* ---- vertical landing page ---- */
+.shot{border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  box-shadow:0 18px 44px rgba(27,97,129,.10);background:#fff}
+.shot img{display:block;width:100%;height:auto}
+figure{margin:0}
+figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:var(--s-4);max-width:70ch}
+/* both tracks need minmax(0,...). A bare 1fr is minmax(auto,1fr), so a 1664px
+   image sets the column minimum and blows the grid out to its natural size. */
+.withshot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:var(--s-8);align-items:center}
+@media (max-width:980px){.withshot{grid-template-columns:1fr;gap:var(--s-6)}}
 .grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-5) var(--s-6);margin-top:var(--s-7)}
 .gi h3{font-size:var(--t-4);margin:0 0 var(--s-2);color:var(--ink);line-height:var(--lh-snug)}
 .gi p{margin:0;font-size:var(--t-2);color:var(--ink-3);line-height:1.55}
@@ -420,18 +430,36 @@ a.node-email:hover .node-open{text-decoration:underline}
   </div>
 </section>
 
+<section class="sec">
+  <div class="wrap">
+    <div class="withshot">
+      <div>
+        <p class="lbl" style="color:var(--teal-ink);margin-bottom:var(--s-3)">What embedded actually means</p>
+        <h2 style="font-size:var(--t-6);line-height:var(--lh-snug);margin:0 0 var(--s-4);letter-spacing:-.018em">The payment screen lives at your address, not ours.</h2>
+        <p style="color:var(--ink-2);margin:0 0 var(--s-4)">A draw release, inside the platform that already holds the project, the schedule of values and the lien waivers. Retainage comes off automatically. The rail is chosen per payee. Your conditions decide whether the button is live.</p>
+        <p style="color:var(--ink-3);font-size:var(--t-2);margin:0">Nobody exports anything. Nobody opens a bank portal. The result writes back against project 4471, draw 07.</p>
+      </div>
+      <figure>
+        <div class="shot"><img src="img/mock-draw.png" alt="A draw release screen inside a construction platform, showing four subcontractor payees, retainage held back, and the conditions the platform enforced" width=1664 height=1674 loading="lazy"></div>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <section class="sec sec-light">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Where the payment currently goes. <span>Everything below happens outside the platform that already holds the context for it.</span></h2>
+      <h2>What it replaces. <span>Six things that currently happen outside the platform already holding the context for all of them.</span></h2>
     </div>
-    <div class="grid6">
-      <div class="gi"><span class="gk">01</span><h3>The invoice gets exported</h3><p>Out of the system that generated it, into a separate bank portal that knows nothing about the job it belongs to.</p></div>
-      <div class="gi"><span class="gk">02</span><h3>Approvals move to email</h3><p>A draw waits on a person who is not in your product, and nobody can see where it stopped.</p></div>
-      <div class="gi"><span class="gk">03</span><h3>Reconciliation happens after</h3><p>Which is where the exceptions come from, because the match is being made against a record that already closed.</p></div>
-      <div class="gi"><span class="gk">04</span><h3>Subs get told elsewhere</h3><p>Suppliers and subcontractors find out about their own money somewhere other than the platform running the project.</p></div>
-      <div class="gi"><span class="gk">05</span><h3>Retainage is tracked by hand</h3><p>Held back, released on conditions, and reconciled in a spreadsheet nobody else can see.</p></div>
-      <div class="gi"><span class="gk">06</span><h3>Status becomes a phone call</h3><p>Every enquiry is a question your product could have answered if it had been holding the payment.</p></div>
+    <div class="split2">
+      <div>
+        <p><b>The invoice gets exported</b> out of the system that generated it, into a bank portal that knows nothing about the job it belongs to. <b>Approvals move to email</b>, so a draw waits on somebody who is not in your product and nobody can see where it stopped.</p>
+        <p><b>Reconciliation happens afterwards</b>, which is where the exceptions come from, because the match is being made against a record that already closed.</p>
+      </div>
+      <div>
+        <p><b>Subs and suppliers find out elsewhere</b>, told about their own money somewhere other than the platform running the project. <b>Retainage is tracked by hand</b>, held back and released on conditions in a spreadsheet nobody else can see.</p>
+        <p><b>And status becomes a phone call.</b> Every one of those is a question your product could have answered if it had been holding the payment.</p>
+      </div>
     </div>
   </div>
 </section>
