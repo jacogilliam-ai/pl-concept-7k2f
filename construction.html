@@ -51,10 +51,58 @@ figure{margin:0}
 .pill.solid:hover{filter:brightness(1.04)}
 .pill.lg{padding:14px 28px;font-size:var(--t-3);font-weight:900}
 
+
+/* ---- rhythm: Payload alternates dark and light nine times. All-white has no energy. ---- */
+.dark{background:#16212b;color:#fff}
+.dark h2,.dark h3{color:#fff}
+.dark .sub,.dark p{color:#b3c2cb}
+.dark .eyebrow{color:var(--mint)}
+.dark .arrows li{color:#c6d3da;border-color:rgba(255,255,255,.12)}
+.dark .arrows{border-top-color:rgba(255,255,255,.14)}
+.dark .arrows li::before{color:var(--mint)}
+.dark .shotwrap{background:#212c35}
+em{font-style:normal;color:var(--teal)}
+.dark em{color:var(--mint)}
+
+.crumb{border-bottom:1px solid var(--line);background:var(--tint)}
+.crumb .w{padding-block:11px;font-size:var(--t-2);color:var(--ink-3)}
+.crumb a{color:var(--teal);text-decoration:none}
+.crumb span{color:var(--ink-3);margin-inline:6px}
+
+/* six use cases, their hexagon grid rebuilt as cards */
+.uses{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-5);margin-top:var(--s-7)}
+.u{border:1px solid var(--line);border-radius:14px;padding:var(--s-5);background:var(--paper)}
+.u .k{font:var(--t-1)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal);display:block;margin-bottom:var(--s-3)}
+.u h3{font-size:var(--t-4);font-weight:900;margin:0 0 var(--s-2);letter-spacing:-.015em;line-height:1.25}
+.u p{margin:0;font-size:var(--t-2);color:var(--ink-3);line-height:1.55}
+
+/* rails */
+.rails{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s-6) 0 0;padding:0;list-style:none;justify-content:center}
+.rails li{font:var(--t-2) var(--mono);background:var(--paper);border:1px solid var(--line);
+  border-radius:100px;padding:7px 15px;color:var(--ink-2)}
+.dark .rails li{background:#23303a;border-color:#38474f;color:#cfdce3}
+
+/* full width product shot with floating callouts, their signature presentation */
+.showcase{position:relative;max-width:1000px;margin:var(--s-8) auto 0}
+.showcase .shotwrap{padding:var(--s-6)}
+.call{position:absolute;background:var(--paper);border-radius:12px;padding:14px 18px;
+  box-shadow:0 14px 36px rgba(22,33,43,.18);max-width:250px;z-index:2}
+.call b{display:block;font-size:var(--t-2);font-weight:900;color:var(--ink);line-height:1.3}
+.call span{display:block;font:var(--t-1) var(--mono);color:var(--teal);margin-top:4px}
+.c1{top:6%;left:-34px} .c2{top:38%;right:-34px} .c3{bottom:12%;left:-24px}
+@media (max-width:1180px){ .c1,.c2,.c3{position:static;max-width:none;box-shadow:none;
+  border:1px solid var(--line);margin-top:var(--s-3)} 
+  .showcase .calls{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-3)} }
+@media (max-width:760px){ .showcase .calls{grid-template-columns:1fr} }
+
+/* give product shots real width. 0.23 scale was illegible. */
+@media (max-width:900px){ .row{grid-template-columns:1fr} }
+@media (max-width:900px){ .uses{grid-template-columns:1fr} }
 /* rhythm */
 section{padding-block:var(--s-9)}
-.center{text-align:center;max-width:22ch;margin:0 auto var(--s-7)}
-.center.wide{max-width:36ch}
+.center{text-align:center;max-width:620px;margin:0 auto var(--s-7)}
+.center.wide{max-width:780px}
 h1{font-size:clamp(38px,5.2vw,var(--t-8));font-weight:900;line-height:1.08;
   letter-spacing:-.035em;margin:0 0 var(--s-5)}
 h2{font-size:clamp(26px,3.4vw,var(--t-6));font-weight:900;line-height:1.18;
@@ -83,7 +131,7 @@ h2{font-size:clamp(26px,3.4vw,var(--t-6));font-weight:900;line-height:1.18;
 .arrows li::before{content:"\2192";position:absolute;left:0;top:var(--s-3);color:var(--teal);font-weight:700}
 
 /* stats */
-.stats{background:var(--tint-2)}
+.stats:not(.dark){background:var(--tint-2)}
 .stats .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-8);text-align:center;margin:0}
 .stats dt{font-size:clamp(34px,4.6vw,var(--t-8));font-weight:900;letter-spacing:-.04em;line-height:1}
 .stats dd{margin:var(--s-3) 0 0;font-size:var(--t-2);color:var(--ink-3);line-height:1.5}
@@ -142,6 +190,70 @@ footer a{font-size:var(--t-2);color:var(--teal);text-decoration:none;font-weight
   .cmp td.diy::before{content:"Build it: ";font-weight:700;color:var(--ink-3)}
   .cmp td.bank::before{content:"Bank portal: ";font-weight:700;color:var(--ink-3)}
 }
+
+/* product shots were rendering at 0.23 scale. give the image column real width. */
+.row{grid-template-columns:minmax(0,0.76fr) minmax(0,1.24fr);gap:var(--s-7)}
+.row .shotwrap{padding:var(--s-5) var(--s-5) 0}
+.row .shotwrap.pad{padding:var(--s-5)}
+@media (max-width:900px){.row{grid-template-columns:1fr}}
+
+.dark .u{background:#212c35;border-color:#34424b}
+.dark .u p{color:#b3c2cb}
+.dark .u .k{color:var(--mint)}
+.dark .row3 dt,.dark .row3 dd{color:#fff}
+.dark .row3 dd{color:#b3c2cb}
+.foot-note{max-width:62ch;margin:var(--s-6) auto 0;text-align:center;
+  font-size:var(--t-1);color:var(--ink-3);line-height:1.6}
+.dark .foot-note{color:#93a6b1}
+
+/* the toast sits at the card's bottom edge. zero bottom padding was clipping it. */
+.shotwrap{padding-bottom:var(--s-6)}
+.row .shotwrap,.row .shotwrap.pad{padding:var(--s-5)}
+.showcase .shotwrap{padding:var(--s-6)}
+/* c3 was sitting on top of a ledger row */
+/* callouts were landing on the mockup's own column headers.
+   widen only this section's container so they get real clearance. */
+.ledgersec .w{max-width:1320px}
+.showcase{max-width:880px}
+.call{max-width:236px;padding:13px 16px}
+.c1{top:14%;left:-196px}
+.c2{top:47%;right:-196px}
+.c3{bottom:10%;left:-176px}
+@media (max-width:1320px){
+  .ledgersec .w{max-width:1120px}
+  .call{position:static;max-width:none;box-shadow:none;border:1px solid #34424b;background:#212c35}
+  .call b{color:#fff} .showcase .calls{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-3);margin-top:var(--s-5)}
+}
+@media (max-width:760px){.showcase .calls{grid-template-columns:1fr}}
+/* short text column next to a tall image should sit at the top, not float mid */
+.row{align-items:start}
+.row .txt{padding-top:var(--s-4)}
+
+/* Payload opens dark. A white hero reads lighter than the rest of the site. */
+.hero.dark{background:#16212b;padding-bottom:var(--s-9)}
+.hero.dark p.lead{color:#b3c2cb}
+.hero.dark .shotwrap{background:#212c35;box-shadow:0 30px 70px rgba(0,0,0,.38)}
+.nav{background:#16212b;border-bottom-color:#2a3a45}
+.nav .logo{color:#fff}
+.nav .pill{background:#23303a;border:1px solid #3a4a55;color:#cfdce3}
+.crumb{background:#16212b;border-bottom-color:#2a3a45}
+.crumb .w{color:#93a6b1}
+.crumb a{color:var(--mint)}
+/* the outline CTA needs to survive on navy */
+.hero.dark .pill.lg:not(.solid){background:transparent;border:1px solid #46565f;color:#dbe6ec}
+.nav .logo b{color:var(--mint)}
+.crumb span{color:#8598a3}
+
+/* Payload closes dark. A pale footer lets the page trail off. */
+footer{background:#16212b;border-top-color:#2a3a45}
+footer p{color:#93a6b1}
+footer a{color:var(--mint)}
+/* the phone was a small object inside a large empty frame */
+.phoneshot{max-width:520px;margin-inline:auto;padding:var(--s-4)}
+/* a short text column beside a tall phone left a hole underneath it */
+.row.tallimg{align-items:center}
+.row.tallimg .txt{padding-top:0}
+.phoneshot img{display:block;width:100%;height:auto}
 </style>
 </head>
 <body>
@@ -156,25 +268,36 @@ footer a{font-size:var(--t-2);color:var(--teal);text-decoration:none;font-weight
   <a class="pill" href="demo.html">Talk to an engineer</a>
 </div></div>
 
+<div class="crumb"><div class="w"><a href="index.html">Solutions</a><span>&raquo;</span>Construction</div></div>
+
 <main>
 
-<section class="hero"><div class="w">
+<section class="hero dark"><div class="w">
   <p class="eyebrow">For construction management platforms</p>
-  <h1>Your platform already runs the job.<br>The money should not leave to get paid.</h1>
+  <h1>Your platform already runs the job.<br><em>The money should not leave to get paid.</em></h1>
   <p class="lead">Draws, retainage, lien waivers and subcontractor payouts, settled inside the product that already holds the project. Your approval rules decide when it moves.</p>
   <div class="btns">
     <a class="pill solid lg" href="demo.html">Map your flows with an engineer</a>
     <a class="pill lg" href="revenue.html">See what it earns first</a>
   </div>
   <div class="shotwrap">
-    <figure class="shot"><img src="img/m-draw.png" alt="A draw release inside a construction platform: four subcontractor payees, retainage deducted, released in eleven seconds" width="1560" height="1160" loading="lazy"></figure>
+    <figure class="shot"><img src="img/m-draw.png" alt="A draw release inside a construction platform: four subcontractor payees, retainage deducted, released in eleven seconds" width="1588" height="1120" loading="lazy"></figure>
   </div>
 </div></section>
 
 <section><div class="w">
   <div class="center wide">
-    <h2>Everything the payment needs, your platform already knows</h2>
-    <p class="sub">And it currently sends all of it somewhere that knows none of it.</p>
+    <h2>Everything the payment needs, <em>your platform already knows</em></h2>
+    <p class="sub">And it currently sends all of it somewhere that knows none&nbsp;of&nbsp;it.</p>
+  </div>
+
+  <div class="uses">
+    <div class="u"><span class="k">inbound</span><h3>Progress payments and draws</h3><p>Requested against the line items your platform already tracks, with the job attached.</p></div>
+    <div class="u"><span class="k">inbound</span><h3>Owner and lender funding</h3><p>Released on inspection or milestone, by wire, RTP or ACH depending on who is sending it.</p></div>
+    <div class="u"><span class="k">outbound</span><h3>Subcontractor payouts</h3><p>Same day where it matters, conditional on the lien waiver being on file.</p></div>
+    <div class="u"><span class="k">outbound</span><h3>Supplier and vendor payments</h3><p>Any person or business, against the PO and the delivery your product already recorded.</p></div>
+    <div class="u"><span class="k">held</span><h3>Retainage</h3><p>Withheld on a schedule, released on conditions, in the same ledger as everything else.</p></div>
+    <div class="u"><span class="k">both</span><h3>Change orders</h3><p>A different amount against the same contract. Changing what is owed should not change how it moves.</p></div>
   </div>
 
   <div class="row">
@@ -188,24 +311,32 @@ footer a{font-size:var(--t-2);color:var(--teal);text-decoration:none;font-weight
         <li>A partial scope holds its balance to the next draw without holding the rest</li>
       </ul>
     </div>
-    <figure class="shotwrap pad"><img src="img/m-conditions.png" alt="A conditions panel showing lien waivers, inspection and lender funding cleared, with one partial scope held back" width="1560" height="996" loading="lazy"></figure>
+    <figure class="shotwrap pad"><img src="img/m-conditions.png" alt="A conditions panel showing lien waivers, inspection and lender funding cleared, with one partial scope held back" width="1588" height="956" loading="lazy"></figure>
   </div>
 
-  <div class="row flip">
-    <div class="txt">
-      <h3>Reconciliation stops being a monthly event</h3>
-      <p>Every movement carries the project, the job and the invoice it belongs to, because the system that recorded the work is the one that moved the money.</p>
-      <ul class="arrows">
-        <li>Draws matched to their schedule of values lines</li>
-        <li>Lender funding matched to the request that triggered it</li>
-        <li>Change orders applied against the same contract</li>
-        <li>Exceptions are what happens when the match is made afterwards</li>
-      </ul>
+</div></section>
+
+<section class="dark ledgersec"><div class="w">
+  <div class="center wide">
+    <span class="eyebrow">one ledger</span>
+    <h2>Every dollar on the job, <em>in one place</em></h2>
+    <p class="sub">Draws in, retainage held, payouts out, fees attributed. Not three exports reconciled at month end.</p>
+  </div>
+  <div class="showcase">
+    <figure class="shotwrap"><img src="img/m-ledger.png" alt="A job ledger showing draws received, retainage held, subcontractor payouts and fees, reconciled to a single job" width="1588" height="1100" loading="lazy"></figure>
+    <div class="calls">
+      <div class="call c1"><b>Every movement carries the job</b><span>job_id on the transaction</span></div>
+      <div class="call c2"><b>Retainage is a balance, not a spreadsheet</b><span>held / released</span></div>
+      <div class="call c3"><b>Fees attributed at the line</b><span>who paid what</span></div>
     </div>
-    <figure class="shotwrap pad"><img src="img/m-ledger.png" alt="A project ledger with funded to date, retainage held and zero exceptions, every movement matched" width="1560" height="1140" loading="lazy"></figure>
   </div>
+  <ul class="rails">
+    <li>ACH</li><li>RTP</li><li>Wire</li><li>Card</li><li>Check</li><li>Virtual card</li>
+  </ul>
+</div></section>
 
-  <div class="row">
+<section><div class="w">
+  <div class="row tallimg">
     <div class="txt">
       <h3>Subcontractors hear it from you</h3>
       <p>Not from a bank they have never dealt with. The platform running their project is the one that tells them the money arrived.</p>
@@ -216,11 +347,11 @@ footer a{font-size:var(--t-2);color:var(--teal);text-decoration:none;font-weight
         <li>Adding a rail later is a setting, not a project</li>
       </ul>
     </div>
-    <figure class="shotwrap pad" style="max-width:420px;margin-inline:auto"><img src="img/m-paid.png" alt="A phone showing a subcontractor notified of a $73,800 payout that arrived in eleven seconds" width="760" height="1240" loading="lazy"></figure>
+    <figure class="shotwrap pad phoneshot"><img src="img/m-paid.png" alt="A phone showing a subcontractor notified of a $73,800 payout that arrived in eleven seconds" width="760" height="1240" loading="lazy"></figure>
   </div>
 </div></section>
 
-<section class="stats"><div class="w">
+<section class="stats dark"><div class="w">
   <div class="center wide"><h2>What Payload runs on today</h2></div>
   <dl class="row3">
     <div><dt>$500M</dt><dd>Moved every month, trending toward $6B a year</dd></div>
@@ -235,7 +366,7 @@ footer a{font-size:var(--t-2);color:var(--teal);text-decoration:none;font-weight
 
 <section><div class="w">
   <div class="center wide">
-    <h2>Three ways to solve this</h2>
+    <h2><em>Three ways</em> to solve this</h2>
     <p class="sub">Only one of them is a decision you make once.</p>
   </div>
   <table class="cmp">
@@ -268,7 +399,7 @@ footer a{font-size:var(--t-2);color:var(--teal);text-decoration:none;font-weight
 
 <section style="background:var(--tint);"><div class="w">
   <div class="center wide">
-    <h2>Questions a platform team asks first</h2>
+    <h2>Questions a platform team <em>asks first</em></h2>
   </div>
   <div class="faq">
     <details open><summary>Who holds the funds?</summary>
@@ -282,6 +413,20 @@ footer a{font-size:var(--t-2);color:var(--teal);text-decoration:none;font-weight
     <details><summary>Can we set our own pricing?</summary>
       <p>Flat, percentage, tiered or hybrid, per method or per account. Absorb the fee, pass it to the payer, or split it. On a construction platform the answer is usually different for a card draw than for an ACH payout, and it can be.</p></details>
   </div>
+</div></section>
+
+<section class="dark"><div class="w">
+  <div class="center wide">
+    <span class="eyebrow">what you inherit</span>
+    <h2>The part you would otherwise <em>build and then maintain</em></h2>
+    <p class="sub">Money transmission is not a feature you ship once. It is a compliance surface you own forever.</p>
+  </div>
+  <div class="uses">
+    <div class="u"><span class="k">licensing</span><h3>Money transmission</h3><p>Payload is the licensed party. Your platform moves money without becoming a transmitter.</p></div>
+    <div class="u"><span class="k">onboarding</span><h3>KYC and KYB</h3><p>Subcontractors and suppliers are verified through the flow, not through a separate portal you support.</p></div>
+    <div class="u"><span class="k">certifications</span><h3>PCI DSS Level 1, SOC 2 Type 2</h3><p>Both published by Payload. Your auditors ask for the attestation, not for your controls.</p></div>
+  </div>
+  <p class="foot-note">Certifications as published by Payload. Confirm current scope with their team before relying on it.</p>
 </div></section>
 
 <section class="end"><div class="w">
