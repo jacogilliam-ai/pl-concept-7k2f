@@ -344,6 +344,34 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
 .withshot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
   gap:var(--s-8);align-items:center}
 @media (max-width:980px){.withshot{grid-template-columns:1fr;gap:var(--s-6)}}
+.stats{background:var(--deep);color:#fff;background-image:var(--dots),linear-gradient(160deg,var(--hero-a),var(--hero-c));
+  background-size:16px 16px,auto}
+.stats .wrap{padding-block:var(--s-9)}
+.stats .row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-7)}
+.stats dt{font-size:var(--t-8);font-weight:900;letter-spacing:-.04em;line-height:1;color:#fff}
+.stats dd{margin:var(--s-3) 0 0;font-size:var(--t-2);color:var(--pale);line-height:1.5;max-width:26ch}
+.stats .note{margin:var(--s-7) 0 0;font-size:var(--t-1);color:var(--pale);opacity:.8;font-family:var(--mono)}
+.cmp{width:100%;border-collapse:collapse;font-size:var(--t-2);margin-top:var(--s-6)}
+.cmp th{text-align:left;padding:0 var(--s-4) var(--s-3) 0;border-bottom:2px solid var(--line);
+  font-size:var(--t-3);font-weight:900;color:var(--ink);letter-spacing:-.01em;vertical-align:bottom}
+.cmp th.us{color:var(--teal-ink)}
+.cmp td{padding:var(--s-4) var(--s-4) var(--s-4) 0;border-bottom:1px solid var(--line);
+  color:var(--ink-2);line-height:1.5;vertical-align:top}
+.cmp td:first-child{font-weight:700;color:var(--ink);width:22%}
+.cmp td.us{background:#f4fafc;padding-left:var(--s-4);color:var(--ink)}
+.cmp tr:last-child td{border-bottom:none}
+@media (max-width:860px){
+  .stats .row{grid-template-columns:1fr;gap:var(--s-6)}
+  .cmp,.cmp tbody,.cmp tr,.cmp td{display:block;width:100%}
+  .cmp thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .cmp tr{border-bottom:1px solid var(--line);padding:var(--s-4) 0}
+  .cmp td{border-bottom:none;padding:0 0 var(--s-2)}
+  .cmp td:first-child{width:auto;font-size:var(--t-3)}
+  .cmp td.us{background:none;padding-left:0}
+  .cmp td.us::before{content:"With Payload: ";font-weight:700;color:var(--teal-ink)}
+  .cmp td.diy::before{content:"Built yourself: ";font-weight:700;color:var(--ink-3)}
+  .cmp td.bank::before{content:"Bank portal: ";font-weight:700;color:var(--ink-3)}
+}
 .grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-5) var(--s-6);margin-top:var(--s-7)}
 .gi h3{font-size:var(--t-4);margin:0 0 var(--s-2);color:var(--ink);line-height:var(--lh-snug)}
 .gi p{margin:0;font-size:var(--t-2);color:var(--ink-3);line-height:1.55}
@@ -448,6 +476,23 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
 
 <section class="sec sec-light">
   <div class="wrap">
+    <div class="withshot">
+      <figure>
+        <div class="shot"><img src="img/mock-ledger.png" alt="A project ledger showing every money movement matched to its draw, change order and schedule of values line, with zero unmatched" width="1632" height="1198" loading="lazy"></div>
+      </figure>
+      <div>
+        <p class="lbl" style="color:var(--teal-ink);margin-bottom:var(--s-3)">The part that costs the most time</p>
+        <h2 style="font-size:var(--t-6);line-height:var(--lh-snug);margin:0 0 var(--s-4);letter-spacing:-.018em">Reconciliation stops being a monthly event.</h2>
+        <p style="color:var(--ink-2);margin:0 0 var(--s-4)">Every movement carries the project, the job and the invoice it belongs to, because the platform that recorded the work is the one that moved the money. Retainage held, change orders applied, lender funding matched to the draw that requested it.</p>
+        <p style="color:var(--ink-2);margin:0 0 var(--s-4)">A bank portal cannot do this and never could. It never had the context in the first place.</p>
+        <p style="color:var(--ink-3);font-size:var(--t-2);margin:0">Exceptions are what reconciliation produces when the match happens after the fact. Doing it at the moment of payment is how the number stays at zero.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec sec-light">
+  <div class="wrap">
     <div class="sec-head">
       <h2>What it replaces. <span>Six things that currently happen outside the platform already holding the context for all of them.</span></h2>
     </div>
@@ -494,7 +539,7 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
       <div>
         <h3>Money going out</h3>
         <p>Subcontractor and supplier payouts, released on the conditions you already enforce: inspection passed, lien waiver received, retainage schedule met.</p>
-        <p>Your platform decides when. Payload moves it and writes the result back against the project, the job and the invoice.</p>
+        <p>Your platform decides when. Payload moves it and writes the result back against the job it belongs to.</p>
       </div>
     </div>
 
@@ -531,6 +576,44 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
   </div>
 </section>
 
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Three ways to solve this. <span>Only one of them is a decision you make once.</span></h2>
+    </div>
+    <table class="cmp">
+      <thead><tr><th></th><th class="us">Embed Payload</th><th>Build it yourself</th><th>Keep the bank portal</th></tr></thead>
+      <tbody>
+        <tr><td>Time to live</td>
+            <td class="us">Weeks, and mostly your front end</td>
+            <td class="diy">Quarters. Onboarding, movement, reconciliation and a support view are four builds</td>
+            <td class="bank">Already live, and already the problem</td></tr>
+        <tr><td>Who holds the funds</td>
+            <td class="us">Settled before you write code, with underwriting handled</td>
+            <td class="diy">You do, which means licensing, liability and an audit surface</td>
+            <td class="bank">The bank, outside anything you control</td></tr>
+        <tr><td>Approval rules</td>
+            <td class="us">Yours. Lien waiver, inspection, retainage schedule, enforced in your product</td>
+            <td class="diy">Yours, and you maintain them forever</td>
+            <td class="bank">None. Approval happens in email</td></tr>
+        <tr><td>Reconciliation</td>
+            <td class="us">At the moment of payment, against project, job and invoice</td>
+            <td class="diy">Possible, and it is the piece teams underestimate most</td>
+            <td class="bank">Afterwards, by hand, which is where exceptions come from</td></tr>
+        <tr><td>Revenue to you</td>
+            <td class="us">Your rate, your fee structure, your call on who absorbs it</td>
+            <td class="diy">Highest margin, if you survive the build and the compliance</td>
+            <td class="bank">None. It is a cost line</td></tr>
+        <tr><td>Adding a rail later</td>
+            <td class="us">A setting</td>
+            <td class="diy">Another integration, and another certification</td>
+            <td class="bank">Whatever the bank offers</td></tr>
+      </tbody>
+    </table>
+    <p class="fine">Building it yourself is a real option and for some platforms it is the right one. It is only worth it if payments become a product you sell rather than a feature you ship.</p>
+  </div>
+</section>
+
 <section class="sec sec-light">
   <div class="wrap">
     <div class="sec-head">
@@ -540,7 +623,7 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
       <div>
         <h3>Certified, not asserted</h3>
         <p><b>PCI DSS Level 1</b> and <b>SOC 2 Type 2</b>. Those are the two a procurement team asks for by name, and they are the two Payload publishes.</p>
-        <p>Over three million transactions processed without a fraud incident, which is the number that matters to a platform about to put its own name on a payment screen.</p>
+        <p>Three million clean transactions behind it, which is the number that matters to a platform about to put its own name on a payment screen.</p>
       </div>
       <div>
         <h3>Onboarding that does not become your problem</h3>
@@ -551,21 +634,21 @@ figcaption{font-size:var(--t-2);color:var(--ink-3);line-height:1.55;margin-top:v
   </div>
 </section>
 
-<section class="sec">
+<section class="stats">
   <div class="wrap">
-    <div class="sec-head"><h2>Proof, as far as it goes.</h2></div>
-    <dl class="proof">
+    <dl class="row">
       <div><dt>$500M</dt><dd>Moved every month, trending toward $6B a year</dd></div>
-      <div><dt>3M+</dt><dd>Fraud free transactions</dd></div>
+      <div><dt>3M+</dt><dd>Transactions processed without a fraud incident</dd></div>
       <div><dt>15+</dt><dd>Software platforms embedding Payload today</dd></div>
     </dl>
-    <div class="gap">
-      <p><b>Concept note, and the point of this page.</b> Those three figures are Payload's own published numbers, and they are company wide rather than construction specific.</p>
-      <p style="margin-top:var(--s-3)">Their real estate page carries two things this one cannot. A <b>logo wall</b> of brokerages using it, and an <b>integration wall</b> naming five real estate platforms it already connects to. Construction has neither, because there is no construction customer to name and no construction platform partner to list.</p>
-      <p style="margin-top:var(--s-3)">Putting real estate logos here instead would imply customers that do not exist, so the gap stays visible. <b>It is also the whole argument for building this page early.</b> The first construction platform to sign is worth more as the name in those two empty slots than it is as volume, and nothing is currently in place to catch the reader who could become it.</p>
+    <div class="gap" style="background:rgba(224,171,85,.14);border-left-color:var(--amber);margin-top:var(--s-7)">
+      <p style="color:var(--pale)"><b style="color:#f3d9a7">The two numbers this page cannot show.</b> Those figures are Payload's own and they are company wide, not construction specific. Their real estate page carries two things this one cannot: a <b style="color:#fff">logo wall</b> of brokerages using it, and an <b style="color:#fff">integration wall</b> naming five real estate platforms it connects to. Construction has neither, because there is no construction customer to name and no construction platform partner to list.</p>
+      <p style="color:var(--pale);margin-top:var(--s-3)">Using real estate logos here would imply customers that do not exist, so the gap stays visible. It is also the argument for building this page early rather than a reason not to.</p>
     </div>
   </div>
 </section>
+
+
 
 <section class="sec sec-light">
   <div class="wrap">
